@@ -364,9 +364,9 @@ export default function AttendPage() {
                 { label: 'Figma',    href: 'https://www.figma.com/design/qZQAGA8V5BbekFfC2pzEwd/Student-Attendance?node-id=0-1&t=prcX6lFLIyqWSxCJ-1' },
                 { label: 'GitHub',   href: 'https://github.com/CoronaZoro' },
                 { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
-                { label: 'Resume',   href: '#' },
+                { label: 'Resume',   href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview' },
               ].map((link) => (
-                <a key={link.label} href={link.href} className="text-sm hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}>
                   {link.label}
                 </a>
               ))}

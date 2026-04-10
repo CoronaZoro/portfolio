@@ -170,11 +170,13 @@ function Footer() {
               { label: 'Figma', href: 'https://www.figma.com/@saiywetphoneaun' },
               { label: 'GitHub', href: 'https://github.com/CoronaZoro' },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
-              { label: 'Resume', href: '#' },
+              { label: 'Resume', href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview' },
             ].map((link) => (
               <a
                 key={link.label}
                 href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm text-white/50 hover:text-white transition-colors"
               >
                 {link.label}
