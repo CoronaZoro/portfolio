@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(kill 55196)",
+      "WebFetch(domain:reactbits.dev)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(kill 59500)",
+      "Bash(kill 60712)",
+      "Bash(kill 63639)",
+      "Bash(python3 -c ':*)",
+      "Bash(kill 66868)"
+    ]
+  }
+}

@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('/fonts/ClashGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('/fonts/ClashGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+body {
+  background-color: #0e0c0a;
+  color: #ffffff;
+  font-family: 'ClashGrotesk', sans-serif;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.anim-fade-down {
+  opacity: 0;
+  animation: fadeDown 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes cursorFadeOut {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: #e63323;
+  margin-left: 3px;
+  border-radius: 1px;
+  vertical-align: text-bottom;
+  animation: blink 0.6s step-end infinite;
+}
+
+.typing-cursor-done {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: #e63323;
+  margin-left: 3px;
+  border-radius: 1px;
+  vertical-align: text-bottom;
+  animation: blink 0.6s step-end 3, cursorFadeOut 1.8s ease forwards;
+}
+
+/* BorderGlow component styles */
+.border-glow-card {
+  --border-radius: 16px;
+  --cursor-angle: 45deg;
+  --glow-border-opacity: 0;
+
+  position: relative;
+  border-radius: var(--border-radius);
+  display: grid;
+  border: 1px solid rgb(255 255 255 / 12%);
+  background: var(--card-bg, #0e0c0a);
+  overflow: visible;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+
+.border-glow-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Flowing gradient border — conic-gradient rotates with cursor angle */
+.border-glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--border-radius) + 2px);
+  background: conic-gradient(
+    from var(--cursor-angle) at center,
+    #a855f7 0%,
+    #ec4899 20%,
+    #38bdf8 40%,
+    transparent 55%,
+    transparent 65%,
+    #38bdf8 80%,
+    #ec4899 90%,
+    #a855f7 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  opacity: var(--glow-border-opacity, 0);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Diffuse outer glow — blurred version of the same gradient */
+.border-glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: calc(var(--border-radius) + 6px);
+  background: conic-gradient(
+    from var(--cursor-angle) at center,
+    rgba(168, 85, 247, 0.6) 0%,
+    rgba(236, 72, 153, 0.5) 20%,
+    rgba(56, 189, 248, 0.4) 40%,
+    transparent 55%,
+    transparent 65%,
+    rgba(56, 189, 248, 0.4) 80%,
+    rgba(236, 72, 153, 0.5) 90%,
+    rgba(168, 85, 247, 0.6) 100%
+  );
+  filter: blur(12px);
+  opacity: var(--glow-border-opacity, 0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.border-glow-inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  z-index: 1;
+}
