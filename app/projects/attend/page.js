@@ -65,40 +65,41 @@ function Lightbox({ index, onClose, onPrev, onNext }) {
     >
       {/* Top bar */}
       <div
-        className="flex items-center justify-between px-10 py-5 flex-shrink-0"
+        className="relative flex flex-col md:flex-row md:items-center md:justify-between px-5 md:px-10 py-4 flex-shrink-0 gap-3"
         style={{ borderBottom: '0.5px solid rgba(255,255,255,0.08)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.35)', minWidth: 200 }}>
+        {/* Label */}
+        <span className="text-xs tracking-[0.2em] uppercase pr-10 md:pr-0" style={{ color: 'rgba(255,255,255,0.35)' }}>
           {screen.label}
         </span>
-        <div className="flex items-center gap-4">
+        {/* Slider */}
+        <div className="flex items-center gap-3">
           <button
             onClick={() => { const v = Math.max(1, parseFloat((scale - 0.1).toFixed(2))); setScale(v); if (v === 1) setOffset({ x: 0, y: 0 }) }}
-            className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', width: 24, textAlign: 'center' }}
+            className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', width: 20, textAlign: 'center' }}
           >−</button>
           <input type="range" min="1" max="2" step="0.02" value={scale} onChange={handleSlider}
-            style={{ width: 160, accentColor: 'rgba(255,255,255,0.5)', cursor: 'pointer' }} />
+            style={{ flex: 1, maxWidth: 160, accentColor: 'rgba(255,255,255,0.5)', cursor: 'pointer' }} />
           <button
             onClick={() => setScale((v) => Math.min(2, parseFloat((v + 0.1).toFixed(2))))}
-            className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', width: 24, textAlign: 'center' }}
+            className="text-xs" style={{ color: 'rgba(255,255,255,0.4)', width: 20, textAlign: 'center' }}
           >+</button>
-          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.3)', minWidth: 40 }}>
+          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.3)', minWidth: 36 }}>
             {Math.round(scale * 100)}%
           </span>
         </div>
-        <div className="flex items-center justify-end" style={{ minWidth: 200 }}>
-          <button
-            className="flex items-center justify-center"
-            style={{ width: 36, height: 36, border: '0.5px solid rgba(255,255,255,0.25)', borderRadius: '50%' }}
-            onClick={onClose} aria-label="Close"
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <line x1="1" y1="1" x2="11" y2="11" stroke="rgba(255,255,255,0.6)" strokeWidth="1"/>
-              <line x1="11" y1="1" x2="1" y2="11" stroke="rgba(255,255,255,0.6)" strokeWidth="1"/>
-            </svg>
-          </button>
-        </div>
+        {/* Close — absolute top-right always visible */}
+        <button
+          className="absolute top-3 right-4 flex items-center justify-center"
+          style={{ width: 32, height: 32, border: '0.5px solid rgba(255,255,255,0.25)', borderRadius: '50%' }}
+          onClick={onClose} aria-label="Close"
+        >
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <line x1="1" y1="1" x2="11" y2="11" stroke="rgba(255,255,255,0.6)" strokeWidth="1"/>
+            <line x1="11" y1="1" x2="1" y2="11" stroke="rgba(255,255,255,0.6)" strokeWidth="1"/>
+          </svg>
+        </button>
       </div>
 
       {/* Image area */}
@@ -244,19 +245,19 @@ export default function AttendPage() {
             </div>
 
             {/* Stats bar */}
-            <div className="grid grid-cols-4 mt-14 mb-8" style={{ borderTop: '0.5px solid rgb(255, 255, 255)' }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 mt-14 mb-8" style={{ borderTop: '0.5px solid rgba(255,255,255,0.12)', borderBottom: '0.5px solid rgba(255,255,255,0.12)' }}>
               {[
-                { label: 'My Role',  value: 'UI/UX Designer' },
-                { label: 'Type',     value: 'School Project' },
-                { label: 'Platform', value: 'Mobile' },
-                { label: 'Focus',    value: 'Functional UX' },
-              ].map(({ label, value }, i) => (
+                { label: 'My Role',  value: 'UI/UX Designer',  cls: 'border-r border-b md:border-b-0' },
+                { label: 'Type',     value: 'School Project',   cls: 'border-b md:border-r md:border-b-0' },
+                { label: 'Platform', value: 'Mobile',           cls: 'border-r' },
+                { label: 'Focus',    value: 'Functional UX',    cls: '' },
+              ].map(({ label, value, cls }, i) => (
                 <div
                   key={i}
-                  className="py-7 pr-6"
-                  style={{ borderRight: i < 3 ? '0.5px solid rgb(255, 255, 255)' : 'none', paddingLeft: i === 0 ? 0 : '1.5rem' }}
+                  className={`py-6 px-4 ${cls}`}
+                  style={{ borderColor: 'rgba(255,255,255,0.12)' }}
                 >
-                  <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255, 255, 255, 0.75)' }}>{label}</p>
+                  <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255, 255, 255, 0.32)' }}>{label}</p>
                   <p className="text-sm font-medium" style={{ color: BLUE }}>{value}</p>
                 </div>
               ))}
@@ -319,8 +320,8 @@ export default function AttendPage() {
               ].map(({ num, title, body }, i) => (
                 <div
                   key={i}
-                  className="p-8"
-                  style={{ borderLeft: '0.5px solid rgb(0, 0, 0)' }}
+                  className="py-8 pr-8 pl-6"
+                  style={{ borderLeft: '0.5px solid rgba(0,0,0,0.2)', marginLeft: i === 0 ? 0 : undefined }}
                 >
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: '2.5rem', fontWeight: 700, color: 'rgba(0,0,0,0.12)', marginBottom: '1rem', lineHeight: 1 }}>{num}</p>
                   <p className="text-sm font-medium mb-3" style={{ color: BLUE, letterSpacing: '0.01em' }}>{title}</p>
@@ -356,9 +357,9 @@ export default function AttendPage() {
 
         {/* ── FOOTER — dark ── */}
         <footer style={{ background: DARK, borderTop: '0.5px solid rgba(255,255,255,0.1)' }}>
-          <div className="px-6 md:px-10 py-10 max-w-7xl mx-auto flex items-center justify-between">
+          <div className="px-6 md:px-10 py-10 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <span className="text-sm font-bold tracking-[0.2em]" style={{ color: '#fff' }}>ATTEND</span>
-            <div className="flex items-center gap-8">
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
               {[
                 { label: 'Email',    href: 'mailto:phonerandy7@gmail.com' },
                 { label: 'Figma',    href: 'https://www.figma.com/design/qZQAGA8V5BbekFfC2pzEwd/Student-Attendance?node-id=0-1&t=prcX6lFLIyqWSxCJ-1' },
