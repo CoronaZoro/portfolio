@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Navbar from '../../components/Navbar'
 
 const screens = [
-  { src: '/HomePage.png',    label: 'Landing Page — Bouzeur' },
+  { src: '/HomePage-v2.png',    label: 'Landing Page — Bouzeur' },
   { src: '/Product.png',     label: 'Product Page — Bouzeur' },
   { src: '/ShoppingBag.png', label: 'Shopping Bag — Bouzeur' },
   { src: '/Tracker.png',     label: 'Order Tracker — Bouzeur' },
