@@ -14,6 +14,15 @@ const projects = [
   },
   {
     id: 2,
+    title: 'Huesta',
+    hackathon: false,
+    tags: ['AI Product', 'Design Tool', 'UX Design'],
+    description: 'A zero-login AI design tool that generates complete UI kits — colour palettes, typography, and layout — from a keyword, a conversation, or a reference image.',
+    slug: 'huesta',
+    rightBg: '#ffffff',
+  },
+  {
+    id: 3,
     title: 'Bouzer',
     hackathon: false,
     tags: ['Brand Design', 'UI/UX Design'],
@@ -22,7 +31,7 @@ const projects = [
     rightBg: '#f5f0e6',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Attend',
     hackathon: false,
     tags: ['UI/UX Design', 'Mobile'],
@@ -47,6 +56,30 @@ function GuardianLeft() {
   )
 }
 
+function HuestaLeft() {
+  return (
+    <div className="w-full h-full flex items-center justify-center flex-shrink-0" style={{ background: '#ffffff', minHeight: '220px' }}>
+      <div className="flex items-baseline gap-1">
+        <span style={{ fontFamily: 'var(--font-serif)', fontSize: '2.8rem', fontWeight: 400, color: '#111', letterSpacing: '-0.02em' }}>
+          Huesta
+        </span>
+        {/* Colourful dot — conic gradient sphere */}
+        <span
+          style={{
+            display: 'inline-block',
+            width: '18px',
+            height: '18px',
+            borderRadius: '50%',
+            background: 'conic-gradient(from 0deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff, #ff0000)',
+            marginBottom: '6px',
+            flexShrink: 0,
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
 function BouzerLeft() {
   return (
     <div className="w-full flex-shrink-0 overflow-hidden" style={{ minHeight: '220px' }}>
@@ -65,8 +98,9 @@ function AttendLeft() {
 
 const leftPanels = {
   guardian: GuardianLeft,
-  bouzer: BouzerLeft,
-  attend: AttendLeft,
+  huesta:   HuestaLeft,
+  bouzer:   BouzerLeft,
+  attend:   AttendLeft,
 }
 
 function Projects() {
