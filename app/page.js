@@ -14,15 +14,6 @@ const projects = [
   },
   {
     id: 2,
-    title: 'Huesta',
-    hackathon: false,
-    tags: ['AI Product', 'Design Tool', 'UX Design'],
-    description: 'A zero-login AI design tool that generates complete UI kits — colour palettes, typography, and layout — from a keyword, a conversation, or a reference image.',
-    slug: 'huesta',
-    rightBg: '#ffffff',
-  },
-  {
-    id: 3,
     title: 'Bouzer',
     hackathon: false,
     tags: ['Brand Design', 'UI/UX Design'],
@@ -31,7 +22,7 @@ const projects = [
     rightBg: '#f5f0e6',
   },
   {
-    id: 4,
+    id: 3,
     title: 'Attend',
     hackathon: false,
     tags: ['UI/UX Design', 'Mobile'],
@@ -56,14 +47,6 @@ function GuardianLeft() {
   )
 }
 
-function HuestaLeft() {
-  return (
-    <div className="w-full h-full flex-shrink-0 overflow-hidden" style={{ minHeight: '220px' }}>
-      <img src="/Huesta.png" alt="Huesta" className="w-full h-full object-cover" />
-    </div>
-  )
-}
-
 function BouzerLeft() {
   return (
     <div className="w-full flex-shrink-0 overflow-hidden" style={{ minHeight: '220px' }}>
@@ -82,9 +65,8 @@ function AttendLeft() {
 
 const leftPanels = {
   guardian: GuardianLeft,
-  huesta:   HuestaLeft,
-  bouzer:   BouzerLeft,
-  attend:   AttendLeft,
+  bouzer: BouzerLeft,
+  attend: AttendLeft,
 }
 
 function Projects() {
