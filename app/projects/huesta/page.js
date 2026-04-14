@@ -452,10 +452,8 @@ export default function HuestaPage() {
 
         {/* ── FOOTER ── */}
         <footer className="px-6 md:px-10 py-10 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6" style={{ borderTop: `0.5px solid ${BORDER}` }}>
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            © Randy Dawn Tai, 2025
-          </p>
-          <div className="flex gap-6">
+          <span className="text-sm font-bold tracking-[0.2em]" style={{ color: '#fff' }}>HUESTA</span>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
             {[
               ['Email',    'mailto:saiywetphoneaung@gmail.com'],
               ['Figma',    'https://www.figma.com/@saiywetphoneaun'],
@@ -468,8 +466,8 @@ export default function HuestaPage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs hover:text-white transition-colors"
-                style={{ color: 'rgba(255,255,255,0.3)' }}
+                className="text-sm hover:text-white transition-colors"
+                style={{ color: 'rgba(255,255,255,0.4)' }}
               >
                 {label}
               </a>
