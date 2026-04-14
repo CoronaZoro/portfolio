@@ -58,24 +58,8 @@ function GuardianLeft() {
 
 function HuestaLeft() {
   return (
-    <div className="w-full h-full flex items-center justify-center flex-shrink-0" style={{ background: '#ffffff', minHeight: '220px' }}>
-      <div className="flex items-baseline gap-1">
-        <span style={{ fontFamily: 'var(--font-serif)', fontSize: '2.8rem', fontWeight: 400, color: '#111', letterSpacing: '-0.02em' }}>
-          Huesta
-        </span>
-        {/* Colourful dot — conic gradient sphere */}
-        <span
-          style={{
-            display: 'inline-block',
-            width: '18px',
-            height: '18px',
-            borderRadius: '50%',
-            background: 'conic-gradient(from 0deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff, #ff0000)',
-            marginBottom: '6px',
-            flexShrink: 0,
-          }}
-        />
-      </div>
+    <div className="w-full h-full flex-shrink-0 overflow-hidden" style={{ minHeight: '220px' }}>
+      <img src="/Huesta.png" alt="Huesta" className="w-full h-full object-cover" />
     </div>
   )
 }
