@@ -17,7 +17,7 @@ const projects = [
     title: 'Huesta',
     hackathon: false,
     tags: ['AI Product', 'Design Tool', 'UX Design'],
-    description: 'A zero-login AI design tool that generates complete UI kits — colour palettes, typography, and layout — from a keyword, a conversation, or a reference image.',
+    description: 'A zero-login AI design tool that generates complete UI kits with colour palettes, typography, and layout using a keyword, a conversation, or a reference image.',
     slug: 'huesta',
     rightBg: '#ffffff',
   },
