@@ -12,7 +12,14 @@
       "Bash(kill 60712)",
       "Bash(kill 63639)",
       "Bash(python3 -c ':*)",
-      "Bash(kill 66868)"
+      "Bash(kill 66868)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git revert:*)",
+      "Bash(git merge:*)"
     ]
   }
 }

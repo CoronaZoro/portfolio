@@ -7,7 +7,7 @@ export default function Hero() {
         className="anim-fade-up text-xs tracking-[0.25em] uppercase text-white/40 mb-6"
         style={{ animationDelay: '0.4s' }}
       >
-        Product Designer · Bangkok
+        Product Designer · AI/ML Developer · Bangkok
       </p>
       <h1
         className="anim-fade-up text-4xl md:text-6xl font-light leading-snug tracking-tight max-w-3xl"
