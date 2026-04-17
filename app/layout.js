@@ -1,20 +1,6 @@
-import { DM_Sans, DM_Serif_Display } from 'next/font/google'
-import './globals.css'
-
+import { DM_Sans, DM_Serif_Display, Courgette } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  )
-}
-
-import { Courgette } from 'next/font/google'
+import './globals.css'
 
 const courgette = Courgette({
   subsets: ['latin'],
@@ -44,6 +30,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${dmSans.variable} ${dmSerif.variable} ${courgette.variable}`}>
         {children}
+        <Analytics />
       </body>
     </html>
   )
