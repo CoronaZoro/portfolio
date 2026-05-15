@@ -126,7 +126,7 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
           <p
             className="text-sm mb-3"
             style={{
-              color: 'rgba(255,255,255,0.55)',
+              color: 'rgba(255,255,255,0.6)',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',

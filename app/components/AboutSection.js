@@ -71,7 +71,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="text-xs tracking-[0.2em] uppercase text-white/40 mb-12 md:mb-16"
+          className="text-xs tracking-[0.2em] uppercase text-white/50 mb-12 md:mb-16"
         >
           About
         </motion.p>
@@ -99,7 +99,7 @@ export default function AboutSection() {
               >
                 <Counter value={stat.value} suffix={stat.suffix} delay={i * 0.15} />
               </p>
-              <p className="text-[10px] sm:text-xs tracking-[0.12em] sm:tracking-[0.18em] uppercase text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              <p className="text-[10px] sm:text-xs tracking-[0.12em] sm:tracking-[0.18em] uppercase text-center" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 {stat.label}
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function AboutSection() {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className="relative text-sm font-medium pb-3 pr-4 sm:pr-8 transition-colors duration-200"
-                    style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.35)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                    style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.5)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
                   >
                     {tab.label}
                     {isActive && (
@@ -152,7 +152,7 @@ export default function AboutSection() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="text-base leading-relaxed"
+                className="text-base leading-[1.7]"
                 style={{ color: 'rgba(255,255,255,0.62)' }}
               >
                 {TABS.find(t => t.id === activeTab)?.content}
@@ -174,7 +174,7 @@ export default function AboutSection() {
               boxShadow: '0 0 40px rgba(230,51,35,0.06), 0 0 0 0 transparent',
             }}
           >
-            <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.35)' }}>
+            <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Currently
             </p>
             <div className="flex flex-col gap-4">

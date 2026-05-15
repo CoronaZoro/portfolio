@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Subtitle — fades up first */}
       <motion.p
         {...fadeUp(0.1)}
-        className="text-xs tracking-[0.25em] uppercase text-white/40 mb-6"
+        className="text-xs tracking-[0.25em] uppercase text-white/60 mb-6"
       >
         Product Designer · AI/ML Developer · Bangkok
       </motion.p>

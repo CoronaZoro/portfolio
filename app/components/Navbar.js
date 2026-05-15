@@ -107,7 +107,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="text-white/40 text-sm hover:text-white transition-colors"
+              className="text-white/60 text-sm hover:text-white transition-colors"
             >
               {label}
             </a>

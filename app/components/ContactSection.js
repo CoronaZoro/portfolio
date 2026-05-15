@@ -172,7 +172,7 @@ export default function ContactSection() {
               transition={{ duration: 0.25, ease: 'easeOut' }}
               style={{
                 fontSize: 14,
-                color: 'rgba(255,255,255,0.4)',
+                color: 'rgba(255,255,255,0.6)',
                 fontStyle: 'italic',
                 marginBottom: 14,
                 letterSpacing: '0.01em',
@@ -248,7 +248,7 @@ export default function ContactSection() {
           </p>
           <p style={{
             fontSize: 12,
-            color: 'rgba(255,255,255,0.35)',
+            color: 'rgba(255,255,255,0.5)',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
@@ -334,8 +334,8 @@ export default function ContactSection() {
 
         {/* Name line */}
         <p style={{
-          fontSize: 12,
-          color: 'rgba(255,255,255,0.2)',
+          fontSize: 14,
+          color: 'rgba(255,255,255,0.55)',
           letterSpacing: '0.05em',
         }}>
           Randy Dawn Tai
