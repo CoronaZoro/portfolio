@@ -1,8 +1,11 @@
-import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
+import { sql, requireAdmin } from '../../../../../lib/db'
 
 export async function POST(request) {
+  const unauth = requireAdmin(request)
+  if (unauth) return unauth
+
   try {
     const { id, title, short_description, thumbnail_url } = await request.json()
     if (!id) return NextResponse.json({ ok: false, message: 'Missing id.' }, { status: 400 })
@@ -19,6 +22,7 @@ export async function POST(request) {
     revalidatePath('/admin/projects')
     return NextResponse.json({ ok: true, message: 'Saved.' })
   } catch (e) {
+    console.error('[api/admin/projects/save]', e)
     return NextResponse.json({ ok: false, message: e.message }, { status: 500 })
   }
 }

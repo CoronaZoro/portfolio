@@ -1,11 +1,16 @@
-import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
+import { sql, requireAdmin } from '../../../../../lib/db'
 
 export async function POST(request) {
+  const unauth = requireAdmin(request)
+  if (unauth) return unauth
+
   try {
     const { id, direction } = await request.json()
-    if (!id || !direction) return NextResponse.json({ ok: false, message: 'Missing id or direction.' }, { status: 400 })
+    if (!id || !direction) {
+      return NextResponse.json({ ok: false, message: 'Missing id or direction.' }, { status: 400 })
+    }
 
     const { rows } = await sql`SELECT id, display_order FROM projects ORDER BY display_order ASC`
     const idx     = rows.findIndex(r => r.id === id)
@@ -24,6 +29,7 @@ export async function POST(request) {
     revalidatePath('/admin/projects')
     return NextResponse.json({ ok: true })
   } catch (e) {
+    console.error('[api/admin/projects/reorder]', e)
     return NextResponse.json({ ok: false, message: e.message }, { status: 500 })
   }
 }

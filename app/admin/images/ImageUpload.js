@@ -14,10 +14,11 @@ function fileName(url) {
 }
 
 export default function ImageUpload({ blobs: initial }) {
-  const [blobs,    setBlobs]   = useState(initial)
-  const [status,   setStatus]  = useState(null)   // { ok, message, url? }
-  const [pending,  setPending] = useState(false)
-  const [deleting, setDeleting] = useState(null)  // url currently being deleted
+  const [blobs,        setBlobs]       = useState(initial)
+  const [status,       setStatus]      = useState(null)   // upload feedback { ok, message, url? }
+  const [deleteStatus, setDeleteStatus] = useState(null)  // delete feedback { ok, message }
+  const [pending,      setPending]     = useState(false)
+  const [deleting,     setDeleting]    = useState(null)   // url currently being deleted
   const formRef  = useRef(null)
   const router   = useRouter()
 
@@ -50,6 +51,7 @@ export default function ImageUpload({ blobs: initial }) {
   async function handleDelete(url) {
     if (!confirm('Remove this image from Vercel Blob? This cannot be undone.')) return
     setDeleting(url)
+    setDeleteStatus(null)
     try {
       const res  = await fetch('/api/admin/images/delete', {
         method: 'POST',
@@ -59,9 +61,11 @@ export default function ImageUpload({ blobs: initial }) {
       const data = await res.json()
       if (data.ok) {
         setBlobs(prev => prev.filter(b => b.url !== url))
+      } else {
+        setDeleteStatus({ ok: false, message: data.message || 'Delete failed.' })
       }
     } catch (err) {
-      console.error(err)
+      setDeleteStatus({ ok: false, message: err.message })
     } finally {
       setDeleting(null)
     }
@@ -141,6 +145,13 @@ export default function ImageUpload({ blobs: initial }) {
           )}
         </form>
       </div>
+
+      {/* Delete error */}
+      {deleteStatus && !deleteStatus.ok && (
+        <div style={{ marginBottom: 16, fontSize: 13, color: '#e63323' }}>
+          ⚠ {deleteStatus.message}
+        </div>
+      )}
 
       {/* Image grid */}
       {blobs.length === 0 ? (

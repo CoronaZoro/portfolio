@@ -1,8 +1,11 @@
-import { sql } from '@vercel/postgres'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
+import { sql, requireAdmin } from '../../../../lib/db'
 
 export async function POST(request) {
+  const unauth = requireAdmin(request)
+  if (unauth) return unauth
+
   try {
     const body = await request.json()
     const { tagline, about_text, email, linkedin_url, github_url, figma_url, resume_url, available_from } = body
@@ -30,6 +33,7 @@ export async function POST(request) {
 
     return NextResponse.json({ ok: true, message: 'Profile saved.' })
   } catch (e) {
+    console.error('[api/admin/profile]', e)
     return NextResponse.json({ ok: false, message: e.message }, { status: 500 })
   }
 }

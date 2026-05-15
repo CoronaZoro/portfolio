@@ -74,6 +74,7 @@ function ProjectRow({ project, isFirst, isLast, onReorder }) {
 
   async function handleToggle() {
     setToggling(true)
+    setStatus(null)
     try {
       const res  = await fetch('/api/admin/projects/visibility', {
         method: 'POST',
@@ -81,9 +82,13 @@ function ProjectRow({ project, isFirst, isLast, onReorder }) {
         body: JSON.stringify({ id: project.id, visible }),
       })
       const data = await res.json()
-      if (data.ok) setVisible(v => !v)
+      if (data.ok) {
+        setVisible(v => !v)
+      } else {
+        setStatus({ ok: false, message: data.message || 'Toggle failed.' })
+      }
     } catch (err) {
-      console.error(err)
+      setStatus({ ok: false, message: err.message })
     } finally {
       setToggling(false)
     }
@@ -91,15 +96,21 @@ function ProjectRow({ project, isFirst, isLast, onReorder }) {
 
   async function handleMove(direction) {
     setMoving(direction)
+    setStatus(null)
     try {
-      await fetch('/api/admin/projects/reorder', {
+      const res  = await fetch('/api/admin/projects/reorder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: project.id, direction }),
       })
-      onReorder()        // triggers a full page refresh to reflect new order
+      const data = await res.json()
+      if (data.ok) {
+        onReorder()      // triggers a full page refresh to reflect new order
+      } else {
+        setStatus({ ok: false, message: data.message || 'Reorder failed.' })
+      }
     } catch (err) {
-      console.error(err)
+      setStatus({ ok: false, message: err.message })
     } finally {
       setMoving(false)
     }
