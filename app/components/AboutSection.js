@@ -111,58 +111,86 @@ export default function AboutSection() {
           ))}
         </motion.div>
 
-        {/* ── Tabs ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-          style={{ maxWidth: 640 }}
-        >
-          {/* Tab bar */}
-          <div
-            className="flex gap-0 mb-8"
-            style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
-          >
-            {TABS.map((tab) => {
-              const isActive = activeTab === tab.id
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className="relative text-sm font-medium pb-3 pr-8 transition-colors duration-200"
-                  style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.35)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
-                >
-                  {tab.label}
-                  {/* Active underline */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="tab-underline"
-                      className="absolute bottom-0 left-0"
-                      style={{ height: 2, right: 32, background: '#e63323' }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                    />
-                  )}
-                </button>
-              )
-            })}
-          </div>
+        {/* ── Tabs + Currently: 2-column on desktop ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
-          {/* Tab content */}
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="text-base leading-relaxed"
-              style={{ color: 'rgba(255,255,255,0.62)' }}
+          {/* Left — Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+          >
+            {/* Tab bar */}
+            <div
+              className="flex gap-0 mb-8"
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
             >
-              {TABS.find(t => t.id === activeTab)?.content}
-            </motion.p>
-          </AnimatePresence>
-        </motion.div>
+              {TABS.map((tab) => {
+                const isActive = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className="relative text-sm font-medium pb-3 pr-8 transition-colors duration-200"
+                    style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.35)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                  >
+                    {tab.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="tab-underline"
+                        className="absolute bottom-0 left-0"
+                        style={{ height: 2, right: 32, background: '#e63323' }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                      />
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Tab content */}
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="text-base leading-relaxed"
+                style={{ color: 'rgba(255,255,255,0.62)' }}
+              >
+                {TABS.find(t => t.id === activeTab)?.content}
+              </motion.p>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Right — Currently */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.32 }}
+          >
+            <p className="text-xs tracking-[0.2em] uppercase mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              Currently
+            </p>
+            <div className="flex flex-col gap-3">
+              {[
+                'Based in Bangkok, Thailand',
+                'Graduating 2027',
+                'Open to internships from Aug 2026',
+                'Building Pinned',
+              ].map((line) => (
+                <div key={line} className="flex items-center gap-3">
+                  <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', flexShrink: 0, display: 'inline-block' }} />
+                  <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>{line}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
 
       </div>
     </section>
