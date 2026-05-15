@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion'
 
 // ── Per-project static config ─────────────────────────────────────────────
-// accent: brand colour for tags, CTA, top-edge line
-// fallbackBg: shown when thumbnail_url is null
 const CONFIG = {
   guardian: {
     accent: '#4ade80',
@@ -41,27 +39,20 @@ const CONFIG = {
   },
 }
 
-// Variants propagate from the card root down to child motion elements
-const hoverVariants = {
-  rest:  { transition: { duration: 0.3, ease: 'easeOut' } },
-  hover: { transition: { duration: 0.3, ease: 'easeOut' } },
-}
-const dimVariants = {
-  rest:  { opacity: 0 },
-  hover: { opacity: 0.22 },
-}
-const panelVariants = {
-  rest:  { opacity: 0, x: 24 },
-  hover: { opacity: 1,  x: 0  },
+// Bottom bar slides up from y:20 → y:0 on hover
+const barVariants = {
+  rest:  { opacity: 0, y: 20 },
+  hover: { opacity: 1, y: 0  },
 }
 
 // ── Single card ───────────────────────────────────────────────────────────
 function BentoCard({ project, delay = 0, minHeight = 400 }) {
   const cfg    = CONFIG[project.slug] ?? {}
   const accent = cfg.accent ?? '#ffffff'
+  const primaryTag = project.tags?.[0] ?? null
 
   return (
-    // Outer wrapper handles scroll-reveal only
+    // Outer: scroll reveal only
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -69,17 +60,16 @@ function BentoCard({ project, delay = 0, minHeight = 400 }) {
       transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94], delay }}
       className="rounded-2xl overflow-hidden"
     >
-      {/* Inner wrapper handles hover state propagation */}
+      {/* Inner: hover variant propagation */}
       <motion.div
         initial="rest"
         whileHover="hover"
         animate="rest"
-        variants={hoverVariants}
         className="relative overflow-hidden"
         style={{ minHeight, cursor: 'pointer' }}
       >
 
-        {/* ── Background: thumbnail or fallback, always full-bleed ── */}
+        {/* ── Full-bleed thumbnail / fallback ── */}
         <div className="absolute inset-0">
           {project.thumbnail_url
             ? <img src={project.thumbnail_url} alt={project.title}
@@ -87,132 +77,92 @@ function BentoCard({ project, delay = 0, minHeight = 400 }) {
             : cfg.fallbackBg}
         </div>
 
-        {/* Accent top-edge line (always visible) */}
-        <div
-          className="absolute top-0 left-0 right-0 z-10"
-          style={{
-            height: 2,
-            background: `linear-gradient(90deg, ${accent}90 0%, ${accent}30 60%, transparent 100%)`,
-          }}
-        />
-
-        {/* ── Desktop dim overlay — fades in on hover ── */}
+        {/* ── Frosted glass bar — slides up on hover (desktop) ── */}
         <motion.div
-          variants={dimVariants}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-black hidden md:block"
-          style={{ zIndex: 1 }}
-        />
-
-        {/* ── Desktop right panel — slides in on hover ── */}
-        <motion.div
-          variants={panelVariants}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="absolute top-0 right-0 bottom-0 hidden md:flex flex-col justify-center"
+          variants={barVariants}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="absolute bottom-0 left-0 right-0 hidden md:block"
           style={{
-            width: '45%',
-            padding: '36px 40px',
-            background: 'rgba(14,12,10,0.90)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            borderLeft: '1px solid rgba(255,255,255,0.08)',
-            zIndex: 2,
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            background: 'rgba(10,9,8,0.72)',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            padding: '18px 24px 20px',
           }}
         >
-          <PanelContent project={project} accent={accent} />
-        </motion.div>
+          {/* Row 1: title + primary tag */}
+          <div className="flex items-center justify-between gap-4 mb-2">
+            <h2
+              className="font-bold text-white tracking-tight leading-tight"
+              style={{ fontSize: 'clamp(16px, 1.6vw, 20px)' }}
+            >
+              {project.title}
+            </h2>
 
-        {/* ── Mobile bottom strip — always visible, gradient bg ── */}
-        <div
-          className="md:hidden absolute bottom-0 left-0 right-0 p-5"
-          style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 60%, transparent 100%)',
-            zIndex: 2,
-          }}
-        >
-          <h2 className="text-lg font-bold text-white mb-2 tracking-tight">
-            {project.title}
-          </h2>
+            {primaryTag && (
+              <span
+                className="text-xs px-3 py-1 rounded-full shrink-0 uppercase tracking-wide backdrop-blur-md"
+                style={{
+                  background: `${accent}18`,
+                  border: `1px solid ${accent}55`,
+                  color: accent,
+                  letterSpacing: '0.08em',
+                }}
+              >
+                {primaryTag}
+              </span>
+            )}
+          </div>
+
+          {/* Row 2: one-line description */}
+          <p
+            className="text-sm mb-3"
+            style={{
+              color: 'rgba(255,255,255,0.55)',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {project.short_description}
+          </p>
+
+          {/* Row 3: CTA */}
           <a
             href={`/projects/${project.slug}`}
-            className="text-sm font-medium"
-            style={{ color: accent }}
+            className="inline-flex items-center gap-1 text-xs font-semibold tracking-wide uppercase transition-opacity hover:opacity-75"
+            style={{ color: accent, letterSpacing: '0.1em' }}
           >
-            View Case Study ↗
+            View Case Study <span className="ml-0.5">↗</span>
           </a>
+        </motion.div>
+
+        {/* ── Mobile bottom strip — always visible, no animation ── */}
+        <div
+          className="md:hidden absolute bottom-0 left-0 right-0 px-5 py-4"
+          style={{
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            background: 'rgba(10,9,8,0.72)',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+          }}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-sm font-bold text-white tracking-tight truncate">
+              {project.title}
+            </h2>
+            <a
+              href={`/projects/${project.slug}`}
+              className="text-xs font-semibold shrink-0"
+              style={{ color: accent }}
+            >
+              View ↗
+            </a>
+          </div>
         </div>
 
       </motion.div>
     </motion.div>
-  )
-}
-
-// ── Shared text content for the right panel ───────────────────────────────
-function PanelContent({ project, accent }) {
-  return (
-    <div>
-      {/* Tags */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.hackathon_winner && (
-          <span
-            className="text-xs px-3 py-1 rounded-full backdrop-blur-md uppercase tracking-wide"
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              color: '#fff',
-              letterSpacing: '0.07em',
-            }}
-          >
-            🏆 Hackathon Winner
-          </span>
-        )}
-        {project.tags && project.tags.map(tag => (
-          <span
-            key={tag}
-            className="text-xs px-3 py-1 rounded-full backdrop-blur-md uppercase"
-            style={{
-              background: 'rgba(255,255,255,0.07)',
-              border: '1px solid rgba(255,255,255,0.14)',
-              color: 'rgba(255,255,255,0.7)',
-              letterSpacing: '0.08em',
-            }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {/* Title */}
-      <h2
-        className="font-bold text-white tracking-tight mb-3"
-        style={{ fontSize: 'clamp(20px, 2vw, 26px)', lineHeight: 1.15 }}
-      >
-        {project.title}
-      </h2>
-
-      {/* Description */}
-      <p
-        className="text-sm leading-relaxed mb-6"
-        style={{
-          color: 'rgba(255,255,255,0.55)',
-          display: '-webkit-box',
-          WebkitLineClamp: 4,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-        }}
-      >
-        {project.short_description}
-      </p>
-
-      {/* CTA */}
-      <a
-        href={`/projects/${project.slug}`}
-        className="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-75"
-        style={{ color: accent }}
-      >
-        View Case Study <span>↗</span>
-      </a>
-    </div>
   )
 }
 
