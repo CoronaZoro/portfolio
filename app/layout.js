@@ -1,6 +1,7 @@
 import { DM_Sans, DM_Serif_Display, Courgette } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import PageTransition from './components/PageTransition'
+import SmoothScroll from './components/SmoothScroll'
 import './globals.css'
 
 const courgette = Courgette({
@@ -30,8 +31,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${dmSerif.variable} ${courgette.variable}`}>
-        <PageTransition>{children}</PageTransition>
-        <Analytics />
+        <SmoothScroll>
+          <PageTransition>{children}</PageTransition>
+          <Analytics />
+        </SmoothScroll>
       </body>
     </html>
   )
