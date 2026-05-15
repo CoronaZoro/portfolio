@@ -55,7 +55,7 @@ function Counter({ value, suffix, delay = 0 }) {
 
 // ── Main component ────────────────────────────────────────────────────────
 
-export default function AboutSection() {
+export default function AboutSection({ availableFrom }) {
   const [activeTab, setActiveTab] = useState('designer')
 
   return (
@@ -181,7 +181,7 @@ export default function AboutSection() {
               {[
                 { text: 'Based in Bangkok, Thailand',       pulse: false },
                 { text: 'Graduating 2027',                  pulse: false },
-                { text: 'Open to internships from Aug 2026', pulse: true  },
+                { text: `Open to internships from ${availableFrom || 'Aug 2026'}`, pulse: true  },
                 { text: 'Building Pinned',                  pulse: false },
               ].map(({ text, pulse }) => (
                 <div key={text} className="flex items-center gap-3">

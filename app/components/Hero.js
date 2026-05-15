@@ -12,7 +12,7 @@ function fadeUp(delay = 0) {
   }
 }
 
-export default function Hero() {
+export default function Hero({ tagline }) {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen text-center px-6 md:px-16">
 
@@ -21,7 +21,7 @@ export default function Hero() {
         {...fadeUp(0.1)}
         className="text-xs tracking-[0.25em] uppercase text-white/60 mb-6"
       >
-        Product Designer · AI/ML Developer · Bangkok
+        {tagline || 'Product Designer · AI/ML Developer · Bangkok'}
       </motion.p>
 
       {/* Headline — two lines staggered */}

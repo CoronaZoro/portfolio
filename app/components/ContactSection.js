@@ -70,33 +70,40 @@ const BUTTON_COLORS = {
 
 const BUTTONS = MOODS.slice(1)
 
-const SOCIAL = [
-  {
-    icon: LinkedinIcon,
-    href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/',
-    label: 'LinkedIn',
-  },
-  {
-    icon: GithubIcon,
-    href: 'https://github.com/CoronaZoro',
-    label: 'GitHub',
-  },
-  {
-    icon: FigmaIcon,
-    href: 'https://www.figma.com/@saiywetphoneaun',
-    label: 'Figma',
-  },
-  {
-    icon: FileText,
-    href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview',
-    label: 'Resume',
-  },
-]
+// SOCIAL is built inside the component from the profile prop (see below)
 
-export default function ContactSection() {
+export default function ContactSection({ profile = {} }) {
   const [active, setActive]     = useState('default')
   const [showDino, setShowDino] = useState(false)
   const mood = MOODS.find(m => m.id === active)
+
+  // Build contact values from profile prop, falling back to defaults
+  const emailHref    = profile.email        ? `mailto:${profile.email}` : 'mailto:phonerandy7@gmail.com'
+  const emailDisplay = profile.email        ?? 'phonerandy7@gmail.com'
+  const availableFrom = profile.available_from ?? 'Aug 2026'
+
+  const SOCIAL = [
+    {
+      icon: LinkedinIcon,
+      href: profile.linkedin_url || 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/',
+      label: 'LinkedIn',
+    },
+    {
+      icon: GithubIcon,
+      href: profile.github_url || 'https://github.com/CoronaZoro',
+      label: 'GitHub',
+    },
+    {
+      icon: FigmaIcon,
+      href: profile.figma_url || 'https://www.figma.com/@saiywetphoneaun',
+      label: 'Figma',
+    },
+    {
+      icon: FileText,
+      href: profile.resume_url || 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview',
+      label: 'Resume',
+    },
+  ]
 
   function handleMoodClick(id) {
     if (id === 'browse') {
@@ -140,7 +147,7 @@ export default function ContactSection() {
         {/* ── Left: email ─────────────────────────────────── */}
         <div style={{ paddingRight: 40 }}>
           <motion.a
-            href="mailto:phonerandy7@gmail.com"
+            href={emailHref}
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             style={{
@@ -155,7 +162,7 @@ export default function ContactSection() {
               borderBottom: '2px solid rgba(255,255,255,0.5)',
             }}
           >
-            phonerandy7@gmail.com
+            {emailDisplay}
           </motion.a>
         </div>
 
@@ -252,7 +259,7 @@ export default function ContactSection() {
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
-            Bangkok, Thailand · Available Aug 2026
+            Bangkok, Thailand · Available {availableFrom}
           </p>
         </div>
       </div>
