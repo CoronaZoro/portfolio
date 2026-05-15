@@ -76,37 +76,32 @@ export default function AboutSection() {
           About
         </motion.p>
 
-        {/* ── Stats row ── */}
+        {/* ── Stats row — full width ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-          className="grid grid-cols-3 gap-6 md:gap-0 mb-16 md:mb-20"
-          style={{ maxWidth: 560 }}
+          className="grid grid-cols-3 mb-16 md:mb-24"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
         >
           {STATS.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col">
-              {/* Divider left of 2nd and 3rd stat (desktop only) */}
-              <div className="flex items-start gap-0">
-                {i > 0 && (
-                  <div
-                    className="hidden md:block self-stretch mr-8"
-                    style={{ width: 1, background: 'rgba(255,255,255,0.1)' }}
-                  />
-                )}
-                <div className={i > 0 ? 'md:pl-0' : ''}>
-                  <p
-                    className="font-bold text-white leading-none mb-2"
-                    style={{ fontSize: 'clamp(40px, 5vw, 64px)', letterSpacing: '-0.03em' }}
-                  >
-                    <Counter value={stat.value} suffix={stat.suffix} delay={i * 0.15} />
-                  </p>
-                  <p className="text-xs tracking-[0.12em] uppercase text-white/40">
-                    {stat.label}
-                  </p>
-                </div>
-              </div>
+            <div
+              key={stat.label}
+              className="flex flex-col items-center justify-center py-10 md:py-14"
+              style={{
+                borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+              }}
+            >
+              <p
+                className="font-bold text-white leading-none mb-3"
+                style={{ fontSize: 'clamp(56px, 8vw, 120px)', letterSpacing: '-0.04em' }}
+              >
+                <Counter value={stat.value} suffix={stat.suffix} delay={i * 0.15} />
+              </p>
+              <p className="text-xs tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                {stat.label}
+              </p>
             </div>
           ))}
         </motion.div>
@@ -165,26 +160,60 @@ export default function AboutSection() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Right — Currently */}
+          {/* Right — Currently card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.32 }}
+            style={{
+              border: '1px solid rgba(255,255,255,0.09)',
+              borderRadius: 14,
+              padding: '28px 32px',
+              background: 'rgba(255,255,255,0.02)',
+              boxShadow: '0 0 40px rgba(230,51,35,0.06), 0 0 0 0 transparent',
+            }}
           >
-            <p className="text-xs tracking-[0.2em] uppercase mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>
+            <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.35)' }}>
               Currently
             </p>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {[
-                'Based in Bangkok, Thailand',
-                'Graduating 2027',
-                'Open to internships from Aug 2026',
-                'Building Pinned',
-              ].map((line) => (
-                <div key={line} className="flex items-center gap-3">
-                  <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', flexShrink: 0, display: 'inline-block' }} />
-                  <span className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>{line}</span>
+                { text: 'Based in Bangkok, Thailand',       pulse: false },
+                { text: 'Graduating 2027',                  pulse: false },
+                { text: 'Open to internships from Aug 2026', pulse: true  },
+                { text: 'Building Pinned',                  pulse: false },
+              ].map(({ text, pulse }) => (
+                <div key={text} className="flex items-center gap-3">
+                  {pulse ? (
+                    /* Animated green availability dot */
+                    <span className="relative flex-shrink-0" style={{ width: 8, height: 8 }}>
+                      <motion.span
+                        animate={{ scale: [1, 1.9, 1], opacity: [0.7, 0, 0.7] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
+                        style={{
+                          position: 'absolute', inset: 0,
+                          borderRadius: '50%',
+                          background: '#4ade80',
+                          display: 'block',
+                        }}
+                      />
+                      <span style={{
+                        position: 'absolute', inset: 0,
+                        borderRadius: '50%',
+                        background: '#4ade80',
+                        display: 'block',
+                      }} />
+                    </span>
+                  ) : (
+                    <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', flexShrink: 0, display: 'block', margin: '0 2px' }} />
+                  )}
+                  <span
+                    className="text-sm leading-snug"
+                    style={{ color: pulse ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.65)' }}
+                  >
+                    {text}
+                  </span>
                 </div>
               ))}
             </div>
