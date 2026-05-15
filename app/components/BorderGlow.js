@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 
 function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 
@@ -57,17 +58,22 @@ const BorderGlow = ({
   }, []);
 
   return (
-    <div
-      ref={cardRef}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-      className={`border-glow-card ${className}`}
-      style={{ '--border-radius': `${borderRadius}px` }}
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
     >
-      <div className="border-glow-inner">
-        {children}
+      <div
+        ref={cardRef}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+        className={`border-glow-card ${className}`}
+        style={{ '--border-radius': `${borderRadius}px` }}
+      >
+        <div className="border-glow-inner">
+          {children}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

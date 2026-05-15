@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Navbar from '../../components/Navbar'
+import FooterIcons from '../../components/FooterIcons'
 
 const screens = [
   { src: '/Home%20Page.png',    label: 'Home Page — Attend' },
@@ -104,8 +105,9 @@ function Lightbox({ index, onClose, onPrev, onNext }) {
 
       {/* Image area */}
       <div
-        className="flex-1 overflow-auto flex items-start justify-center"
+        className="flex-1 min-h-0 overflow-auto flex items-start justify-center"
         style={{ padding: '40px 0', cursor: scale > 1 ? 'grab' : 'default' }}
+        data-lenis-prevent
         onClick={onClose}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -205,8 +207,17 @@ export default function AttendPage() {
   const nextScreen    = useCallback(() => setLightboxIndex((i) => (i + 1) % screens.length), [])
 
   useEffect(() => {
-    document.body.style.overflow = lightboxIndex !== null ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = 'hidden'
+      window.__lenis?.stop()
+    } else {
+      document.body.style.overflow = ''
+      window.__lenis?.start()
+    }
+    return () => {
+      document.body.style.overflow = ''
+      window.__lenis?.start()
+    }
   }, [lightboxIndex])
 
   const DARK  = '#000211'
@@ -229,13 +240,13 @@ export default function AttendPage() {
             {/* Title + thumbnail side by side */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
               <div>
-                <p className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                <p className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   UI/UX Design | Mobile App
                 </p>
                 <h1 className="mb-4" style={{ fontFamily: 'var(--font-sans)', fontSize: '4rem', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em' }}>
                   Attend<span style={{ color: BLUE }}>.</span>
                 </h1>
-                <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', maxWidth: 320 }}>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: 320 }}>
                   A mobile attendance tracking app designed to make taking and reviewing attendance fast, clear, and frustration-free for university professors.
                 </p>
               </div>
@@ -257,7 +268,7 @@ export default function AttendPage() {
                   className={`py-6 px-4 ${cls}`}
                   style={{ borderColor: 'rgba(255,255,255,0.12)' }}
                 >
-                  <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255, 255, 255, 0.32)' }}>{label}</p>
+                  <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</p>
                   <p className="text-sm font-medium" style={{ color: BLUE }}>{value}</p>
                 </div>
               ))}
@@ -273,7 +284,7 @@ export default function AttendPage() {
               <h2 className="mb-6" style={{ fontFamily: 'var(--font-sans)', fontSize: '2.5rem', fontWeight: 700, lineHeight: 1.1, color: '#111', letterSpacing: '-0.02em' }}>
                 Clarity over style.
               </h2>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(0,0,0,0.6)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(0,0,0,0.6)' }}>
                 Attend is a concept mobile app built for university lecturers managing multiple course sections. The brief was simple: make attendance feel effortless. Every screen decision prioritised function. No decorative elements that didn&apos;t carry information.
               </p>
             </div>
@@ -285,7 +296,7 @@ export default function AttendPage() {
               ].map(({ title, sub }, i) => (
                 <div key={i} className="py-6" style={{ borderTop: '0.5px solid rgb(0, 0, 0)' }}>
                   <p className="text-base font-medium mb-2" style={{ color: '#111' }}>{title}</p>
-                  <p className="text-sm" style={{ color: BLUE }}>{sub}</p>
+                  <p className="text-base" style={{ color: BLUE }}>{sub}</p>
                 </div>
               ))}
               <div style={{ borderTop: '0.5px solid rgb(0, 0, 0)' }} />
@@ -324,8 +335,8 @@ export default function AttendPage() {
                   style={{ borderLeft: '0.5px solid rgba(0,0,0,0.2)', marginLeft: i === 0 ? 0 : undefined }}
                 >
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: '2.5rem', fontWeight: 700, color: 'rgba(0,0,0,0.12)', marginBottom: '1rem', lineHeight: 1 }}>{num}</p>
-                  <p className="text-sm font-medium mb-3" style={{ color: BLUE, letterSpacing: '0.01em' }}>{title}</p>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(0,0,0,0.6)' }}>{body}</p>
+                  <p className="text-base font-medium mb-3" style={{ color: BLUE, letterSpacing: '0.01em' }}>{title}</p>
+                  <p className="text-base leading-[1.7]" style={{ color: 'rgba(0,0,0,0.6)' }}>{body}</p>
                 </div>
               ))}
             </div>
@@ -337,7 +348,7 @@ export default function AttendPage() {
           <div className="px-6 md:px-10 py-16 max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-end justify-between">
             <div style={{ maxWidth: 520 }}>
               <p className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: 'rgba(255, 255, 255, 0.75)' }}>What I Learned</p>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Attend was my second project, and a deliberate shift in thinking. After Bouzeur, where the goal was atmosphere and craft, I wanted to design something that prioritised usability over beauty. It pushed me to think from the user's perspective first and make visual decisions in service of function, not the other way around. More than any other project, Attend is where the full UI/UX process clicked for me.
               </p>
             </div>
@@ -359,19 +370,7 @@ export default function AttendPage() {
         <footer style={{ background: DARK, borderTop: '0.5px solid rgba(255,255,255,0.1)' }}>
           <div className="px-6 md:px-10 py-10 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <span className="text-sm font-bold tracking-[0.2em]" style={{ color: '#fff' }}>ATTEND</span>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              {[
-                { label: 'Email',    href: 'mailto:phonerandy7@gmail.com' },
-                { label: 'Figma',    href: 'https://www.figma.com/design/qZQAGA8V5BbekFfC2pzEwd/Student-Attendance?node-id=0-1&t=prcX6lFLIyqWSxCJ-1' },
-                { label: 'GitHub',   href: 'https://github.com/CoronaZoro' },
-                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
-                { label: 'Resume',   href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview' },
-              ].map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
+            <FooterIcons figmaHref="https://www.figma.com/design/qZQAGA8V5BbekFfC2pzEwd/Student-Attendance?node-id=0-1&t=prcX6lFLIyqWSxCJ-1" />
           </div>
         </footer>
 

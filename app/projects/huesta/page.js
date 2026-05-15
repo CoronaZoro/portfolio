@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Navbar from '../../components/Navbar'
+import FooterIcons from '../../components/FooterIcons'
+import KitCard from './KitCard'
 
 const DARK    = '#0A0A0A'
 const CARD    = '#111111'
@@ -13,12 +15,28 @@ const RAINBOW = 'conic-gradient(from 0deg, #ff0000, #ff8800, #ffff00, #00cc00, #
 function RevealCard({ label, inputContent, outputContent }) {
   const [open, setOpen]             = useState(false)
   const [interacted, setInteracted] = useState(false)
+  // Mobile only: 'input' | 'output'
+  const [mobileView, setMobileView] = useState('input')
+
+  function handleDesktopClick() {
+    setOpen(o => !o)
+    if (!interacted) setInteracted(true)
+  }
+
+  function handleMobileReveal(e) {
+    e.stopPropagation()
+    setMobileView('output')
+  }
+
+  function handleMobileBack(e) {
+    e.stopPropagation()
+    setMobileView('input')
+  }
 
   return (
     <div
-      className="relative rounded-2xl overflow-hidden cursor-pointer select-none"
+      className="relative rounded-2xl overflow-hidden select-none"
       style={{ background: CARD, border: `0.5px solid ${BORDER}` }}
-      onClick={() => { setOpen(o => !o); if (!interacted) setInteracted(true) }}
     >
       {/* Card label */}
       <span
@@ -28,7 +46,43 @@ function RevealCard({ label, inputContent, outputContent }) {
         {label}
       </span>
 
-      <div className="flex" style={{ minHeight: '220px' }}>
+      {/* ── Mobile layout (below md) ─────────────────────────── */}
+      <div className="md:hidden" style={{ minHeight: '220px' }}>
+
+        {/* Input view */}
+        <div
+          className={`flex flex-col justify-center p-6 pt-14 cursor-pointer ${mobileView === 'output' ? 'hidden' : 'block'}`}
+          onClick={handleMobileReveal}
+        >
+          {inputContent}
+          <p className="text-xs tracking-widest mt-5" style={{ color: MUTED }}>
+            tap to reveal →
+          </p>
+        </div>
+
+        {/* Output view */}
+        <div className={mobileView === 'output' ? 'block' : 'hidden'}>
+          {/* Back button */}
+          <button
+            onClick={handleMobileBack}
+            className="absolute top-4 right-5 z-20 text-xs tracking-[0.15em] uppercase"
+            style={{ color: MUTED, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+          >
+            ← Back
+          </button>
+          <div className="p-6 pt-14">
+            {outputContent}
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── Desktop layout (md+) — unchanged book-open animation ─ */}
+      <div
+        className="hidden md:flex cursor-pointer"
+        style={{ minHeight: '220px' }}
+        onClick={handleDesktopClick}
+      >
         {/* Input panel — shrinks when open */}
         <div
           className="flex flex-col justify-center p-8 pt-14 overflow-hidden flex-shrink-0"
@@ -66,9 +120,9 @@ function RevealCard({ label, inputContent, outputContent }) {
         </div>
       </div>
 
-      {/* Click hint — fades away after first interaction */}
+      {/* Click hint — desktop only, fades after first interaction */}
       <span
-        className="absolute bottom-4 right-5 text-xs tracking-widest pointer-events-none transition-opacity duration-500"
+        className="hidden md:block absolute bottom-4 right-5 text-xs tracking-widest pointer-events-none transition-opacity duration-500"
         style={{ color: MUTED, opacity: interacted ? 0 : 1 }}
       >
         click to reveal →
@@ -91,6 +145,187 @@ function Placeholder({ label, aspect = 'aspect-video' }) {
         {label}
       </span>
     </div>
+  )
+}
+
+/* ── Try Huesta interactive section ─────────────────────────────── */
+function TryHuesta() {
+  const [prompt,  setPrompt]  = useState('')
+  const [kit,     setKit]     = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error,   setError]   = useState(null)
+  const inputRef = useRef(null)
+  const resultRef = useRef(null)
+
+  async function handleGenerate(e) {
+    e?.preventDefault()
+    const val = prompt.trim()
+    if (!val || loading) return
+
+    setLoading(true)
+    setError(null)
+    setKit(null)
+
+    try {
+      const res  = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: val, mode: 'search' }),
+      })
+      const data = await res.json()
+      if (!res.ok || data.error) throw new Error(data.error || 'Generation failed.')
+      setKit(data.kit)
+      // Scroll to result after a tick
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+      {/* Heading */}
+      <div className="mb-12">
+        <p className="text-xs tracking-[0.25em] uppercase mb-4" style={{ color: MUTED }}>
+          Try it live
+        </p>
+        <h2
+          className="flex items-baseline gap-1.5 mb-3"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: 400,
+            lineHeight: 1,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Try Huesta
+          <span style={{
+            display: 'inline-block',
+            width: 10,
+            height: 10,
+            borderRadius: '50%',
+            background: RAINBOW,
+            marginBottom: 6,
+            flexShrink: 0,
+          }} />
+        </h2>
+        <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', maxWidth: 420 }}>
+          Type a vibe, a mood, an aesthetic. Claude picks the colours, fonts, and images.
+        </p>
+      </div>
+
+      {/* Input row */}
+      <form onSubmit={handleGenerate} style={{ display: 'flex', gap: 10, maxWidth: 600, marginBottom: 12 }}>
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          background: CARD,
+          border: `0.5px solid ${BORDER}`,
+          borderRadius: 12,
+          padding: '14px 18px',
+        }}>
+          {/* Search icon */}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
+            <circle cx="6" cy="6" r="4.5" stroke={MUTED} strokeWidth="1.2"/>
+            <path d="M9.5 9.5L12 12" stroke={MUTED} strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+          <input
+            ref={inputRef}
+            type="text"
+            value={prompt}
+            onChange={e => setPrompt(e.target.value)}
+            placeholder="sunset at the shore, dark academia, neon tokyo…"
+            disabled={loading}
+            style={{
+              flex: 1,
+              background: 'none',
+              border: 'none',
+              outline: 'none',
+              color: '#fff',
+              fontSize: 14,
+              fontFamily: 'inherit',
+              opacity: loading ? 0.5 : 1,
+            }}
+          />
+          {/* Blinking cursor when empty */}
+          {!prompt && !loading && (
+            <span className="animate-pulse" style={{ width: 1.5, height: 16, background: 'rgba(255,255,255,0.3)', borderRadius: 1, flexShrink: 0 }} />
+          )}
+        </div>
+
+        <button
+          type="submit"
+          disabled={!prompt.trim() || loading}
+          style={{
+            background: loading ? CARD : '#fff',
+            color: loading ? MUTED : DARK,
+            border: `0.5px solid ${loading ? BORDER : 'transparent'}`,
+            borderRadius: 12,
+            fontSize: 13,
+            fontWeight: 600,
+            padding: '0 24px',
+            cursor: !prompt.trim() || loading ? 'not-allowed' : 'pointer',
+            opacity: !prompt.trim() ? 0.45 : 1,
+            fontFamily: 'inherit',
+            whiteSpace: 'nowrap',
+            transition: 'background 0.15s, color 0.15s',
+            minWidth: 110,
+          }}
+        >
+          {loading ? 'Generating…' : 'Generate Kit'}
+        </button>
+      </form>
+
+      {/* Loading shimmer */}
+      {loading && (
+        <div style={{ maxWidth: 600, marginBottom: 32 }}>
+          <div style={{ fontSize: 12, color: MUTED, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span className="animate-pulse" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: MUTED }} />
+            Claude is crafting your kit — colours, fonts, images…
+          </div>
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <p style={{ fontSize: 13, color: '#e63323', marginBottom: 24, maxWidth: 600 }}>
+          ⚠ {error}
+        </p>
+      )}
+
+      {/* Kit result */}
+      {kit && (
+        <div ref={resultRef}>
+          {/* Kit meta row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+            <p style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>
+              Generated kit · Layout {kit.layout}
+            </p>
+            <button
+              onClick={() => { setKit(null); setPrompt(''); inputRef.current?.focus() }}
+              style={{
+                background: 'none',
+                border: `0.5px solid ${BORDER}`,
+                borderRadius: 6,
+                color: MUTED,
+                fontSize: 11,
+                padding: '3px 10px',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+            >
+              Clear
+            </button>
+          </div>
+          <KitCard kit={kit} />
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -133,7 +368,7 @@ export default function HuestaPage() {
                   }}
                 />
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', maxWidth: 340 }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: 340 }}>
                 A zero-login design tool that generates complete UI kits — colour palettes, typography, and layout — from a keyword, a conversation, or a reference image.
               </p>
             </div>
@@ -148,18 +383,18 @@ export default function HuestaPage() {
               ].map(([k, v]) => (
                 <div key={k} className="border-t pt-5" style={{ borderColor: BORDER }}>
                   <p className="text-xs tracking-[0.2em] uppercase mb-1" style={{ color: MUTED }}>{k}</p>
-                  <p className="text-sm font-medium" style={{ color: '#fff' }}>{v}</p>
+                  <p className="text-base font-medium" style={{ color: '#fff' }}>{v}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Hero thumbnail */}
-          <div className="mt-14 rounded-2xl overflow-hidden" style={{ border: `0.5px solid ${BORDER}` }}>
-              <img 
-              src="/Huesta_banner.png" 
-              alt="Huesta Banner" 
-              className="w-full h-auto object-cover" 
+          <div className="mt-14 rounded-2xl overflow-hidden" style={{ border: `0.5px solid ${BORDER}`, background: DARK }}>
+              <img
+              src="/Huesta_banner.png"
+              alt="Huesta Banner"
+              className="w-full h-auto block"
               />
           </div>
         </section>
@@ -172,7 +407,7 @@ export default function HuestaPage() {
               <h2 className="text-3xl md:text-4xl font-medium mb-6 leading-tight">
                 The login wall that kills creative momentum.
               </h2>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Every designer knows the feeling: you&apos;re starting a project and you need references, a colour direction, a vibe. So you open Pinterest, Behance, Coolors, Google Fonts. You find one, like it, and the first thing you see is a login wall. You close the tab. That moment of friction kills creative momentum.
               </p>
             </div>
@@ -195,7 +430,7 @@ export default function HuestaPage() {
                   }}
                 />
               </h2>
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Existing tools are either too complex or too generic. There was nothing in the middle. Something fast, visual, and shareable that respected your time and let you just start. No account needed to create. No setup. Just input a vibe and get something back in seconds.
               </p>
             </div>
@@ -208,7 +443,7 @@ export default function HuestaPage() {
         {/* ── DESIGN PROCESS ── */}
         <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
           <p className="text-xs tracking-[0.25em] uppercase mb-14" style={{ color: MUTED }}>Design Process</p>
-          <p className="text-base mb-14 max-w-2xl" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p className="text-base leading-[1.7] mb-14 max-w-2xl" style={{ color: 'rgba(255,255,255,0.6)' }}>
             Before writing a single line, two distinct card layouts were sketched out in Figma as wireframes. 
           </p>
 
@@ -221,8 +456,8 @@ export default function HuestaPage() {
                   style={{ background: CARD }}
                   />
               <div className="mt-6">
-                <p className="text-sm font-medium mb-2" style={{ color: 'rgba(255,255,255,0.8)' }}>Layout 1</p>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                <p className="text-base font-medium mb-2" style={{ color: 'rgba(255,255,255,0.8)' }}>Layout 1</p>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                   Dark &amp; Minimal — tiles that are structured, dark background, typography forward. For the user who wants just wants inspiration without noise.
                 </p>
               </div>
@@ -235,8 +470,8 @@ export default function HuestaPage() {
                 style={{ background: CARD }}
               />
               <div className="mt-6">
-                <p className="text-sm font-medium mb-2" style={{ color: 'rgba(255,255,255,0.8)' }}>Layout 2</p>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                <p className="text-base font-medium mb-2" style={{ color: 'rgba(255,255,255,0.8)' }}>Layout 2</p>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                   Expressive &amp; Colorful — playful returns, aquatic and vibrant vibes. Mood images, dynamic compositions, organic color swatches. Something worth keeping closer to an art piece than a utility card.
                 </p>
               </div>
@@ -250,7 +485,7 @@ export default function HuestaPage() {
         {/* ── HOW IT WORKS ── */}
         <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
           <p className="text-xs tracking-[0.25em] uppercase mb-4" style={{ color: MUTED }}>How it works</p>
-          <p className="text-base mb-14" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <p className="text-base leading-[1.7] mb-14" style={{ color: 'rgba(255,255,255,0.6)' }}>
             A single API endpoint returns three external APIs working in concert.
           </p>
 
@@ -267,8 +502,8 @@ export default function HuestaPage() {
                 style={{ borderRight: i < 3 ? '0.5px solid rgba(255,255,255,0.2)' : 'none' }}
               >
                 <p className="text-xs tracking-[0.2em] mb-4" style={{ color: MUTED }}>{n}</p>
-                <p className="text-sm font-semibold mb-3 uppercase tracking-wide" style={{ color: '#fff' }}>{title}</p>
-                <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{body}</p>
+                <p className="text-base font-semibold mb-3 uppercase tracking-wide" style={{ color: '#fff' }}>{title}</p>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>{body}</p>
               </div>
             ))}
           </div>
@@ -403,6 +638,9 @@ export default function HuestaPage() {
           </div>
         </section>
 
+        {/* ── TRY HUESTA ── */}
+        <TryHuesta />
+
         {/* ── DIVIDER ── */}
         <div className="max-w-7xl mx-auto" style={{ borderTop: `0.5px solid ${BORDER}` }} />
 
@@ -449,7 +687,7 @@ export default function HuestaPage() {
                   <p className="text-base font-medium mb-4 leading-snug" style={{ color: 'rgba(255,255,255,0.85)' }}>
                     {title}
                   </p>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                     {body}
                   </p>
                 </div>
@@ -493,8 +731,8 @@ export default function HuestaPage() {
                   paddingRight: i % 2 === 0 ? '3rem' : 0,
                 }}
               >
-                <p className="text-sm font-semibold mb-3 uppercase tracking-wide" style={{ color: '#fff' }}>{title}</p>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{body}</p>
+                <p className="text-base font-semibold mb-3 uppercase tracking-wide" style={{ color: '#fff' }}>{title}</p>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>{body}</p>
               </div>
             ))}
           </div>
@@ -510,7 +748,7 @@ export default function HuestaPage() {
               <p className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: MUTED }}>What I Learned</p>
             </div>
             <div className="md:col-span-2">
-              <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Huesta taught me a lot about AI product design. The hardest part wasn&apos;t the code it was actually prompt engineering. Getting Claude to consistently return accurate JSON with coherent font choices, color keywords, and the right layout direction required dozens of iterations. Small changes in phrasing produce wildly different outputs.
               </p>
             </div>
@@ -523,26 +761,7 @@ export default function HuestaPage() {
           style={{ borderTop: `0.5px solid ${BORDER}` }}
         >
           <span className="text-sm font-bold tracking-[0.2em]" style={{ color: '#fff' }}>HUESTA</span>
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {[
-              ['Email',    'mailto:saiywetphoneaung@gmail.com'],
-              ['Figma',    'https://www.figma.com/@saiywetphoneaun'],
-              ['GitHub',   'https://github.com/CoronaZoro'],
-              ['LinkedIn', 'https://www.linkedin.com/in/randy-dawn-tai'],
-              ['Resume',   'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview'],
-            ].map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm hover:text-white transition-colors"
-                style={{ color: 'rgba(255,255,255,0.4)' }}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
+          <FooterIcons figmaHref="https://www.figma.com/@saiywetphoneaun" />
         </footer>
 
       </main>
