@@ -45,7 +45,7 @@ function About() {
 
 export default async function Home() {
   const { rows } = await sql`
-    SELECT id, title, short_description, tags, hackathon_winner, visible, display_order
+    SELECT id, title, short_description, tags, hackathon_winner, thumbnail_url, visible, display_order
     FROM projects
     WHERE visible = true
     ORDER BY display_order ASC
