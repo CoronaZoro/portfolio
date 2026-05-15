@@ -213,13 +213,11 @@ function Layout2Card({ kit }) {
       <div style={{ padding: '28px 32px 20px', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <p style={{ fontSize: 12, color: textColor, opacity: 0.55, margin: 0 }}>Design Style</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-            <h3 style={{ fontFamily: displayFont, fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 300, lineHeight: 1, margin: 0, color: textColor }}>
-              {vibeName}
-            </h3>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              {(tags ?? []).map(tag => <MoodTag key={tag} tag={tag} textColor={textColor} />)}
-            </div>
+          <h3 style={{ fontFamily: displayFont, fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 300, lineHeight: 1, margin: 0, color: textColor }}>
+            {vibeName}
+          </h3>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {(tags ?? []).map(tag => <MoodTag key={tag} tag={tag} textColor={textColor} />)}
           </div>
         </div>
         <p style={{ fontSize: 12, color: textColor, opacity: 0.55, marginTop: 4 }}>Huesta</p>
