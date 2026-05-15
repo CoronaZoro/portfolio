@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import BorderGlow from './components/BorderGlow'
 import ScrollReveal from './components/ScrollReveal'
+import ContactSection from './components/ContactSection'
 
 // Static visual config — things that never change via the admin panel
 const visualConfig = {
@@ -153,38 +154,6 @@ function About() {
   )
 }
 
-function Footer() {
-  return (
-    <footer id="contact" className="px-6 md:px-10 py-12 md:py-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto">
-        <p className="text-sm tracking-[0.15em] uppercase text-white/60 mb-8">Get in touch</p>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <span className="text-sm text-white/60">Randy Dawn Tai</span>
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {[
-              { label: 'Email',    href: 'mailto:phonerandy7@gmail.com' },
-              { label: 'Figma',    href: 'https://www.figma.com/@saiywetphoneaun' },
-              { label: 'GitHub',   href: 'https://github.com/CoronaZoro' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
-              { label: 'Resume',   href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview' },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-white/50 hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
 export default async function Home() {
   const { rows } = await sql`
     SELECT id, title, short_description, tags, hackathon_winner, visible, display_order
@@ -207,7 +176,7 @@ export default async function Home() {
         <Projects projects={projects} />
         <About />
       </main>
-      <Footer />
+      <ContactSection />
     </>
   )
 }
