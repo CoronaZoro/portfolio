@@ -61,6 +61,12 @@ const MOODS = [
   },
 ]
 
+const BUTTON_COLORS = {
+  hire:   '#e63323',
+  collab: '#3b82f6',
+  browse: '#8b5cf6',
+}
+
 const BUTTONS = MOODS.slice(1)
 
 const SOCIAL = [
@@ -120,8 +126,10 @@ export default function ContactSection() {
 
         {/* ── Left: email ─────────────────────────────────── */}
         <div style={{ paddingRight: 40 }}>
-          <a
+          <motion.a
             href="mailto:phonerandy7@gmail.com"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
             style={{
               display: 'inline-block',
               fontSize: 'clamp(18px, 2.2vw, 28px)',
@@ -130,15 +138,12 @@ export default function ContactSection() {
               textDecoration: 'none',
               letterSpacing: '-0.01em',
               lineHeight: 1.2,
-              paddingBottom: 12,
-              borderBottom: '1px solid rgba(255,255,255,0.25)',
-              transition: 'color 0.2s',
+              paddingBottom: 10,
+              borderBottom: '2px solid rgba(255,255,255,0.5)',
             }}
-            onMouseEnter={e => e.currentTarget.style.color = '#e63323'}
-            onMouseLeave={e => e.currentTarget.style.color = '#fff'}
           >
             phonerandy7@gmail.com
-          </a>
+          </motion.a>
         </div>
 
         {/* ── Center: mood selector ───────────────────────── */}
@@ -190,15 +195,16 @@ export default function ContactSection() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
             {BUTTONS.map(btn => {
               const isActive = active === btn.id
+              const color = BUTTON_COLORS[btn.id]
               return (
                 <button
                   key={btn.id}
                   onClick={() => setActive(isActive ? 'default' : btn.id)}
                   style={{
-                    background: isActive ? 'rgba(230,51,35,0.08)' : 'rgba(255,255,255,0.04)',
-                    border: `1px solid ${isActive ? '#e63323' : 'rgba(255,255,255,0.12)'}`,
+                    background: isActive ? `${color}14` : 'rgba(255,255,255,0.04)',
+                    border: `1px solid ${isActive ? color : 'rgba(255,255,255,0.12)'}`,
                     borderRadius: 100,
-                    color: isActive ? '#e63323' : 'rgba(255,255,255,0.65)',
+                    color: isActive ? color : 'rgba(255,255,255,0.65)',
                     fontSize: 13,
                     fontWeight: isActive ? 600 : 400,
                     padding: '9px 18px',
@@ -215,25 +221,25 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* ── Right: location + phone ──────────────────────── */}
+        {/* ── Right: phone + location ──────────────────────── */}
         <div style={{ paddingLeft: 40, textAlign: 'right' }}>
-          <p style={{
-            fontSize: 12,
-            color: 'rgba(255,255,255,0.35)',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: 10,
-          }}>
-            Bangkok, Thailand · Available Aug 2026
-          </p>
           <p style={{
             fontSize: 'clamp(18px, 2.2vw, 28px)',
             fontWeight: 600,
             color: '#fff',
             letterSpacing: '-0.01em',
             lineHeight: 1.2,
+            marginBottom: 10,
           }}>
             +66 84 169 6490
+          </p>
+          <p style={{
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.35)',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}>
+            Bangkok, Thailand · Available Aug 2026
           </p>
         </div>
       </div>
