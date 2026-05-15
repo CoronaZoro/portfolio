@@ -2,6 +2,7 @@ import { sql } from '@vercel/postgres'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import BorderGlow from './components/BorderGlow'
+import ScrollReveal from './components/ScrollReveal'
 
 // Static visual config — things that never change via the admin panel
 const visualConfig = {
@@ -62,10 +63,11 @@ function Projects({ projects }) {
     <section id="work" className="px-6 md:px-10 py-16 md:py-24">
       <p className="text-sm tracking-[0.2em] uppercase text-white/60 text-center mb-10 md:mb-16">Selected Works</p>
       <div className="flex flex-col gap-6 md:gap-8 max-w-7xl mx-auto">
-        {projects.map((project) => {
+        {projects.map((project, i) => {
           const LeftPanel = leftPanels[project.slug]
           return (
-            <BorderGlow key={project.id}>
+            <ScrollReveal key={project.id} delay={i * 0.1}>
+            <BorderGlow>
               <div className="flex flex-col md:flex-row w-full" style={{ minHeight: '482px' }}>
                 {/* Image panel — full width on mobile, half on desktop */}
                 <div className="w-full md:w-1/2 md:flex-shrink-0 self-stretch">
@@ -108,6 +110,7 @@ function Projects({ projects }) {
                 </div>
               </div>
             </BorderGlow>
+            </ScrollReveal>
           )
         })}
       </div>
@@ -119,6 +122,7 @@ function About() {
   return (
     <section id="about" className="px-6 md:px-10 py-16 md:py-20 border-t border-white/10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <ScrollReveal>
         <div>
           <p className="text-sm tracking-[0.15em] uppercase text-white/60 mb-6">About Me</p>
           <p className="text-base text-white/70 leading-relaxed mb-4">
@@ -128,6 +132,8 @@ function About() {
             My background spans pure UX design and AI-integrated products, which means I&apos;m comfortable working across the full product surface from research and wireframes through to implementation. Currently seeking an internship for summer 2025.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
         <div>
           <p className="text-sm tracking-[0.15em] uppercase text-white/60 mb-6">Tools &amp; Skills</p>
           <div className="flex flex-col gap-3">
@@ -141,6 +147,7 @@ function About() {
             ))}
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   )

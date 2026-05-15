@@ -1,9 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+
+  // Scroll-reactive background — transparent at top, fills in after 80px
+  const { scrollY } = useScroll()
+  const bgAlpha      = useTransform(scrollY, [0, 80], [0, 0.85])
+  const borderAlpha  = useTransform(scrollY, [0, 80], [0, 0.1])
+  const blurPx       = useTransform(scrollY, [0, 80], [0, 12])
+  const bgColor      = useMotionTemplate`rgba(14,12,10,${bgAlpha})`
+  const borderColor  = useMotionTemplate`rgba(255,255,255,${borderAlpha})`
+  const backdropBlur = useMotionTemplate`blur(${blurPx}px)`
 
   const links = [
     { label: 'Home',    href: '/' },
@@ -14,9 +24,12 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className="anim-fade-down fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 h-16 border-b border-white/10"
-        style={{ background: 'rgba(14,12,10,0.85)', backdropFilter: 'blur(12px)', animationDelay: '0.1s' }}
+      <motion.nav
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 h-16 border-b"
+        style={{ backgroundColor: bgColor, backdropFilter: backdropBlur, borderBottomColor: borderColor }}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
       >
         <a href="/" className="text-white text-sm font-medium tracking-wide hover:opacity-70 transition-opacity">
           Randy Dawn Tai
@@ -44,7 +57,7 @@ export default function Navbar() {
           <span className="block w-5 h-px bg-white transition-all duration-300"
             style={{ transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }} />
         </button>
-      </nav>
+      </motion.nav>
 
       {/* Slide-in drawer — mobile only */}
       {/* Backdrop */}
