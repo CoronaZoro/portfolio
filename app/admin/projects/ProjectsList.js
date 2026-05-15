@@ -32,13 +32,21 @@ function btn(variant = 'default') {
 }
 
 function ProjectRow({ project, isFirst, isLast, onReorder }) {
-  const [title, setTitle]       = useState(project.title ?? '')
-  const [desc,  setDesc]        = useState(project.short_description ?? '')
-  const [visible, setVisible]   = useState(project.visible)
-  const [saving,  setSaving]    = useState(false)
-  const [toggling, setToggling] = useState(false)
-  const [moving,  setMoving]    = useState(false)
-  const [status,  setStatus]    = useState(null) // { ok, message }
+  const [title,     setTitle]     = useState(project.title ?? '')
+  const [desc,      setDesc]      = useState(project.short_description ?? '')
+  const [thumbUrl,  setThumbUrl]  = useState(project.thumbnail_url ?? '')
+  const [visible,   setVisible]   = useState(project.visible)
+  const [saving,    setSaving]    = useState(false)
+  const [toggling,  setToggling]  = useState(false)
+  const [moving,    setMoving]    = useState(false)
+  const [status,    setStatus]    = useState(null) // { ok, message }
+  const [imgError,  setImgError]  = useState(false)
+
+  // Reset image error when URL changes
+  function handleThumbChange(val) {
+    setThumbUrl(val)
+    setImgError(false)
+  }
 
   async function handleSave(e) {
     e.preventDefault()
@@ -48,7 +56,12 @@ function ProjectRow({ project, isFirst, isLast, onReorder }) {
       const res  = await fetch('/api/admin/projects/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: project.id, title, short_description: desc }),
+        body: JSON.stringify({
+          id: project.id,
+          title,
+          short_description: desc,
+          thumbnail_url: thumbUrl.trim() || null,
+        }),
       })
       const data = await res.json()
       setStatus(data)
@@ -179,6 +192,42 @@ function ProjectRow({ project, isFirst, isLast, onReorder }) {
             rows={2}
             style={{ ...inputStyle, resize: 'vertical' }}
           />
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: 6 }}>
+            Thumbnail URL
+          </label>
+          <input
+            type="url"
+            value={thumbUrl}
+            onChange={e => handleThumbChange(e.target.value)}
+            placeholder="https://…"
+            style={inputStyle}
+          />
+          {/* Preview — only shown when a URL is set and hasn't 404'd */}
+          {thumbUrl && !imgError && (
+            <div style={{ marginTop: 10 }}>
+              <img
+                src={thumbUrl}
+                alt="Thumbnail preview"
+                onError={() => setImgError(true)}
+                style={{
+                  width: '100%',
+                  maxHeight: 160,
+                  objectFit: 'cover',
+                  borderRadius: 6,
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  display: 'block',
+                }}
+              />
+            </div>
+          )}
+          {thumbUrl && imgError && (
+            <p style={{ marginTop: 6, fontSize: 11, color: '#e63323' }}>
+              ⚠ Could not load image — check the URL.
+            </p>
+          )}
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

@@ -26,7 +26,7 @@ export default function Hero() {
 
       {/* Headline — two lines staggered */}
       <h1
-        className="text-4xl md:text-6xl font-light leading-snug tracking-tight max-w-3xl"
+        className="text-[1.75rem] sm:text-4xl md:text-6xl font-light leading-snug tracking-tight max-w-3xl"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         <motion.span {...fadeUp(0.28)} style={{ display: 'block' }}>

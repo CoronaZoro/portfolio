@@ -14,9 +14,14 @@ export default function SmoothScroll({ children }) {
       smoothWheel: true,
     })
 
+    // Expose instance globally so any page can pause/resume via
+    // window.__lenis?.stop() / window.__lenis?.start()
+    window.__lenis = lenisRef.current
+
     return () => {
       lenisRef.current?.destroy()
       lenisRef.current = null
+      window.__lenis = null
     }
   }, [])
 

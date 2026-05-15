@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
       <DashboardCards cards={cards} />
 
       {profile?.updated_at && (
-        <p style={{ marginTop: 40, fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>
+        <p suppressHydrationWarning style={{ marginTop: 40, fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>
           Last profile update: {new Date(profile.updated_at).toLocaleString()}
         </p>
       )}

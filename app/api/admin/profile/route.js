@@ -23,6 +23,10 @@ export async function POST(request) {
 
     revalidatePath('/')
     revalidatePath('/admin/profile')
+    revalidatePath('/projects/guardian')
+    revalidatePath('/projects/bouzer')
+    revalidatePath('/projects/attend')
+    revalidatePath('/projects/huesta')
 
     return NextResponse.json({ ok: true, message: 'Profile saved.' })
   } catch (e) {

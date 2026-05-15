@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FileText } from 'lucide-react'
+import DinoGame from './DinoGame'
 
 function LinkedinIcon({ size = 16 }) {
   return (
@@ -93,8 +94,20 @@ const SOCIAL = [
 ]
 
 export default function ContactSection() {
-  const [active, setActive] = useState('default')
+  const [active, setActive]     = useState('default')
+  const [showDino, setShowDino] = useState(false)
   const mood = MOODS.find(m => m.id === active)
+
+  function handleMoodClick(id) {
+    if (id === 'browse') {
+      // Toggle dino; keep mood active state as usual
+      setShowDino(prev => !prev)
+      setActive(prev => prev === 'browse' ? 'default' : 'browse')
+    } else {
+      setShowDino(false)
+      setActive(prev => prev === id ? 'default' : id)
+    }
+  }
 
   return (
     <section
@@ -128,8 +141,8 @@ export default function ContactSection() {
         <div style={{ paddingRight: 40 }}>
           <motion.a
             href="mailto:phonerandy7@gmail.com"
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             style={{
               display: 'inline-block',
               fontSize: 'clamp(18px, 2.2vw, 28px)',
@@ -199,7 +212,7 @@ export default function ContactSection() {
               return (
                 <button
                   key={btn.id}
-                  onClick={() => setActive(isActive ? 'default' : btn.id)}
+                  onClick={() => handleMoodClick(btn.id)}
                   style={{
                     background: isActive ? `${color}14` : 'rgba(255,255,255,0.04)',
                     border: `1px solid ${isActive ? color : 'rgba(255,255,255,0.12)'}`,
@@ -243,6 +256,32 @@ export default function ContactSection() {
           </p>
         </div>
       </div>
+
+      {/* ── Dino game (slides up between divider and social bar) ── */}
+      <AnimatePresence>
+        {showDino && (
+          <motion.div
+            key="dino"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            style={{
+              maxWidth: 1200,
+              width: '100%',
+              margin: '0 auto',
+              padding: '0 60px 24px',
+              boxSizing: 'border-box',
+            }}
+            className="dino-wrap"
+          >
+            <DinoGame onClose={() => {
+              setShowDino(false)
+              setActive('default')
+            }} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Bottom bar ──────────────────────────────────────── */}
       <div style={{
@@ -299,7 +338,7 @@ export default function ContactSection() {
           color: 'rgba(255,255,255,0.2)',
           letterSpacing: '0.05em',
         }}>
-          Randy Dawn Tai · Bangkok, Thailand
+          Randy Dawn Tai
         </p>
       </div>
 
@@ -315,6 +354,10 @@ export default function ContactSection() {
           .contact-grid > div {
             padding: 0 !important;
             text-align: center !important;
+          }
+          .dino-wrap {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
           }
         }
       `}</style>

@@ -88,18 +88,18 @@ export default function AboutSection() {
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-10 md:py-14"
+              className="flex flex-col items-center justify-center py-6 md:py-14"
               style={{
                 borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
               }}
             >
               <p
-                className="font-bold text-white leading-none mb-3"
-                style={{ fontSize: 'clamp(56px, 8vw, 120px)', letterSpacing: '-0.04em' }}
+                className="font-bold text-white leading-none mb-2 md:mb-3 text-[2.25rem] sm:text-[3.5rem] md:text-[clamp(56px,8vw,120px)]"
+                style={{ letterSpacing: '-0.04em' }}
               >
                 <Counter value={stat.value} suffix={stat.suffix} delay={i * 0.15} />
               </p>
-              <p className="text-xs tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              <p className="text-[10px] sm:text-xs tracking-[0.12em] sm:tracking-[0.18em] uppercase text-center" style={{ color: 'rgba(255,255,255,0.35)' }}>
                 {stat.label}
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function AboutSection() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className="relative text-sm font-medium pb-3 pr-8 transition-colors duration-200"
+                    className="relative text-sm font-medium pb-3 pr-4 sm:pr-8 transition-colors duration-200"
                     style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.35)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
                   >
                     {tab.label}
@@ -135,7 +135,7 @@ export default function AboutSection() {
                       <motion.div
                         layoutId="tab-underline"
                         className="absolute bottom-0 left-0"
-                        style={{ height: 2, right: 32, background: '#e63323' }}
+                        style={{ height: 2, right: 0, background: '#e63323' }}
                         transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                       />
                     )}
@@ -166,10 +166,10 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.32 }}
+            className="p-5 sm:p-8"
             style={{
               border: '1px solid rgba(255,255,255,0.09)',
               borderRadius: 14,
-              padding: '28px 32px',
               background: 'rgba(255,255,255,0.02)',
               boxShadow: '0 0 40px rgba(230,51,35,0.06), 0 0 0 0 transparent',
             }}

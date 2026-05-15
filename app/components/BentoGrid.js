@@ -46,7 +46,7 @@ const barVariants = {
 }
 
 // ── Single card ───────────────────────────────────────────────────────────
-function BentoCard({ project, delay = 0, minHeight = 400 }) {
+function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[420px]' }) {
   const cfg    = CONFIG[project.slug] ?? {}
   const accent = cfg.accent ?? '#ffffff'
   const primaryTag = project.tags?.[0] ?? null
@@ -58,16 +58,24 @@ function BentoCard({ project, delay = 0, minHeight = 400 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94], delay }}
-      className="rounded-2xl overflow-hidden"
     >
-      {/* Inner: hover variant propagation */}
+      {/* Middle: scale pop + accent glow on hover */}
       <motion.div
-        initial="rest"
-        whileHover="hover"
-        animate="rest"
-        className="relative overflow-hidden"
-        style={{ minHeight, cursor: 'pointer' }}
+        whileHover={{
+          scale: 1.022,
+          boxShadow: `0 0 0 1.5px ${accent}65, 0 8px 40px 0px ${accent}28`,
+        }}
+        transition={{ duration: 0.28, ease: 'easeOut' }}
+        className="rounded-2xl overflow-hidden"
+        style={{ cursor: 'pointer', boxShadow: `0 0 0 0px ${accent}00` }}
       >
+        {/* Inner: hover variant propagation for bar */}
+        <motion.div
+          initial="rest"
+          whileHover="hover"
+          animate="rest"
+          className={`relative overflow-hidden ${heightClass}`}
+        >
 
         {/* ── Full-bleed thumbnail / fallback ── */}
         <div className="absolute inset-0">
@@ -161,6 +169,7 @@ function BentoCard({ project, delay = 0, minHeight = 400 }) {
           </div>
         </div>
 
+        </motion.div>
       </motion.div>
     </motion.div>
   )
@@ -177,7 +186,7 @@ export default function BentoGrid({ projects }) {
   const huesta   = projects.find(p => p.slug === 'huesta')
 
   return (
-    <section id="work" className="px-6 md:px-10 py-16 md:py-24">
+    <section id="work" className="px-6 md:px-10 py-16 md:py-24" style={{ background: '#0e0c0a' }}>
       <p className="text-sm tracking-[0.2em] uppercase text-white/60 text-center mb-10 md:mb-16">
         Selected Works
       </p>
@@ -185,16 +194,16 @@ export default function BentoGrid({ projects }) {
       <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-5">
 
         {/* Row 1 — Guardian, full width */}
-        {guardian && <BentoCard project={guardian} delay={0}   minHeight={500} />}
+        {guardian && <BentoCard project={guardian} delay={0}   heightClass="min-h-[260px] md:min-h-[500px]" />}
 
         {/* Row 2 — Bouzer + Attend, 2-column */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-          {bouzer && <BentoCard project={bouzer} delay={0.1} minHeight={420} />}
-          {attend && <BentoCard project={attend} delay={0.2} minHeight={420} />}
+          {bouzer && <BentoCard project={bouzer} delay={0.1} heightClass="min-h-[220px] md:min-h-[420px]" />}
+          {attend && <BentoCard project={attend} delay={0.2} heightClass="min-h-[220px] md:min-h-[420px]" />}
         </div>
 
         {/* Row 3 — Huesta, full width */}
-        {huesta && <BentoCard project={huesta} delay={0.1} minHeight={480} />}
+        {huesta && <BentoCard project={huesta} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />}
 
       </div>
     </section>

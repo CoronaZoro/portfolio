@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Navbar from '../../components/Navbar'
+import FooterIcons from '../../components/FooterIcons'
 
 const screens = [
   { src: '/HomePage-v2.png',    label: 'Landing Page — Bouzeur' },
@@ -75,7 +76,7 @@ function Lightbox({ index, onClose, onPrev, onNext }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Label */}
-        <span className="text-xs tracking-[0.2em] uppercase pr-10 md:pr-0" style={{ color: 'rgba(255,255,255,0.35)' }}>
+        <span className="text-xs tracking-[0.2em] uppercase pr-10 md:pr-0" style={{ color: 'rgba(255,255,255,0.5)' }}>
           {screen.label}
         </span>
 
@@ -116,8 +117,9 @@ function Lightbox({ index, onClose, onPrev, onNext }) {
 
       {/* ── Image area (scrollable) ── */}
       <div
-        className="flex-1 overflow-auto flex items-start justify-center"
+        className="flex-1 min-h-0 overflow-auto flex items-start justify-center"
         style={{ padding: '40px 0', cursor: scale > 1 ? (isDragging.current ? 'grabbing' : 'grab') : 'default' }}
+        data-lenis-prevent
         onClick={onClose}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -223,8 +225,17 @@ export default function BouzerPage() {
   const nextScreen    = useCallback(() => setLightboxIndex((i) => (i + 1) % screens.length), [])
 
   useEffect(() => {
-    document.body.style.overflow = lightboxIndex !== null ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = 'hidden'
+      window.__lenis?.stop()
+    } else {
+      document.body.style.overflow = ''
+      window.__lenis?.start()
+    }
+    return () => {
+      document.body.style.overflow = ''
+      window.__lenis?.start()
+    }
   }, [lightboxIndex])
 
   const CREAM = '#e8e2d5'
@@ -243,7 +254,7 @@ export default function BouzerPage() {
         {/* ── HERO — dark ── */}
         <section style={{ background: DARK, color: '#fff' }}>
           <div className="px-6 md:px-10 pt-20 pb-16 max-w-7xl mx-auto">
-            <p className="text-xs tracking-[0.25em] uppercase mb-10" style={{ color: 'rgba(255,255,255,0.35)' }}>
+            <p className="text-xs tracking-[0.25em] uppercase mb-10" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Brand Design | UI/UX Design
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
@@ -252,10 +263,10 @@ export default function BouzerPage() {
                 <h1 className="mb-3" style={{ fontFamily: 'var(--font-serif)', fontSize: '4rem', lineHeight: 1, fontWeight: 400, letterSpacing: '0.02em' }}>
                   BOUZEUR
                 </h1>
-                <p className="mb-6" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', lineHeight: 1.1, fontStyle: 'italic', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.04em' }}>
+                <p className="mb-6" style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', lineHeight: 1.1, fontStyle: 'italic', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.04em' }}>
                   Luxury Redefined
                 </p>
-                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)', maxWidth: 280 }}>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)', maxWidth: 280 }}>
                   A concept luxury perfume brand designed to translate the tactile richness of high-end fragrance into a deliberate digital experience.
                 </p>
               </div>
@@ -275,8 +286,8 @@ export default function BouzerPage() {
                       borderBottom: i < 2        ? '0.5px solid rgba(255,255,255,0.12)' : 'none',
                     }}
                   >
-                    <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</p>
-                    <p className="text-sm" style={{ color: GOLD }}>{value}</p>
+                    <p className="text-xs tracking-[0.2em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</p>
+                    <p className="text-base" style={{ color: GOLD }}>{value}</p>
                   </div>
                 ))}
               </div>
@@ -293,7 +304,7 @@ export default function BouzerPage() {
               <h2 className="mb-6" style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', lineHeight: 1.1, color: '#111', fontWeight: 400 }}>
                 A Brand Built,<br />Not a Problem<br />Solved.
               </h2>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(0,0,0,0.6)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(0,0,0,0.6)' }}>
                 Bouzeur is a concept luxury perfume brand designed to capture the feeling of exclusivity and craftsmanship. Every screen had to feel like it belonged in the same universe from the hero down to the checkout button.
               </p>
             </div>
@@ -306,7 +317,7 @@ export default function BouzerPage() {
               ].map(({ title, sub }, i) => (
                 <div key={i} className="py-6" style={{ borderTop: '0.5px solid rgba(0,0,0,0.15)' }}>
                   <p className="text-base font-medium mb-2" style={{ color: '#111' }}>{title}</p>
-                  <p className="text-sm tracking-wide" style={{ color: 'rgba(0,0,0,0.5)' }}>{sub}</p>
+                  <p className="text-base tracking-wide" style={{ color: 'rgba(0,0,0,0.6)' }}>{sub}</p>
                 </div>
               ))}
               <div style={{ borderTop: '0.5px solid rgba(0,0,0,0.15)' }} />
@@ -325,7 +336,7 @@ export default function BouzerPage() {
         {/* ── DESIGN DECISIONS — cream ── */}
         <section style={{ background: CREAM }}>
           <div className="px-6 md:px-10 py-16 max-w-7xl mx-auto">
-            <p className="text-xs tracking-[0.25em] uppercase mb-12" style={{ color: 'rgba(0,0,0,0.4)' }}>Design Decisions</p>
+            <p className="text-xs tracking-[0.25em] uppercase mb-12" style={{ color: 'rgba(0,0,0,0.5)' }}>Design Decisions</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
               {[
                 {
@@ -350,8 +361,8 @@ export default function BouzerPage() {
                   style={{ borderLeft: '0.5px solid rgba(0,0,0,0.15)' }}
                 >
                   <p style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', color: 'rgba(0,0,0,0.15)', marginBottom: '1rem', lineHeight: 1 }}>{num}</p>
-                  <p className="text-sm font-medium mb-3" style={{ color: GOLD, letterSpacing: '0.02em' }}>{title}</p>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(0,0,0,0.6)' }}>{body}</p>
+                  <p className="text-base font-medium mb-3" style={{ color: GOLD, letterSpacing: '0.02em' }}>{title}</p>
+                  <p className="text-base leading-[1.7]" style={{ color: 'rgba(0,0,0,0.6)' }}>{body}</p>
                 </div>
               ))}
             </div>
@@ -363,7 +374,7 @@ export default function BouzerPage() {
           <div className="px-6 md:px-10 py-16 max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-end justify-between">
             <div style={{ maxWidth: 520 }}>
               <p className="text-xs tracking-[0.25em] uppercase mb-6" style={{ color: 'rgba(255, 255, 255, 0.75)' }}>What I Learned</p>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Bouzeur was my first UI/UX project and it taught me that luxury design is mostly about what you leave out. Getting the spacing right, the type hierarchy consistent, and the visual mood coherent across every screen pushed me to think about design as a system rather than just individual pages.
               </p>
             </div>
@@ -385,19 +396,7 @@ export default function BouzerPage() {
         <footer style={{ background: DARK, borderTop: '0.5px solid rgba(255,255,255,0.1)' }}>
           <div className="px-6 md:px-10 py-10 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <span className="text-sm font-bold tracking-[0.2em]" style={{ color: '#fff' }}>BOUZER</span>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              {[
-                { label: 'Email',    href: 'mailto:phonerandy7@gmail.com' },
-                { label: 'Figma',    href: 'https://www.figma.com/design/5RK0oaIpFc1qAGMkXAO8uh/BOUZER-MOCKUP?node-id=0-1&t=BScyvY8dfhxcw8r3-1' },
-                { label: 'GitHub',   href: 'https://github.com/CoronaZoro' },
-                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
-                { label: 'Resume',   href: 'https://drive.google.com/file/d/1OWxUnSVfwJn90_0oTy-BFM9wTw_Dr0zV/preview' },
-              ].map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
+            <FooterIcons figmaHref="https://www.figma.com/design/5RK0oaIpFc1qAGMkXAO8uh/BOUZER-MOCKUP?node-id=0-1&t=BScyvY8dfhxcw8r3-1" />
           </div>
         </footer>
 

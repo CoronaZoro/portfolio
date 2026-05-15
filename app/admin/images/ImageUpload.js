@@ -1,7 +1,7 @@
 'use client'
 
-import { useActionState, useRef, useEffect } from 'react'
-import { uploadImage } from '../actions'
+import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 function formatBytes(bytes) {
   if (bytes < 1024) return `${bytes} B`
@@ -13,16 +13,59 @@ function fileName(url) {
   return decodeURIComponent(url.split('/').pop().split('?')[0])
 }
 
-export default function ImageUpload({ blobs }) {
-  const [state, action, pending] = useActionState(uploadImage, null)
-  const formRef = useRef(null)
+export default function ImageUpload({ blobs: initial }) {
+  const [blobs,    setBlobs]   = useState(initial)
+  const [status,   setStatus]  = useState(null)   // { ok, message, url? }
+  const [pending,  setPending] = useState(false)
+  const [deleting, setDeleting] = useState(null)  // url currently being deleted
+  const formRef  = useRef(null)
+  const router   = useRouter()
 
-  // Reset the file input after a successful upload
-  useEffect(() => {
-    if (state?.ok) {
-      formRef.current?.reset()
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const file = formRef.current?.querySelector('input[type="file"]')?.files?.[0]
+    if (!file) { setStatus({ ok: false, message: 'No file selected.' }); return }
+
+    setPending(true)
+    setStatus(null)
+
+    const body = new FormData()
+    body.append('file', file)
+
+    try {
+      const res  = await fetch('/api/admin/images/upload', { method: 'POST', body })
+      const data = await res.json()
+      setStatus(data)
+      if (data.ok) {
+        formRef.current?.reset()
+        router.refresh()   // re-fetch blob list from server
+      }
+    } catch (err) {
+      setStatus({ ok: false, message: err.message })
+    } finally {
+      setPending(false)
     }
-  }, [state])
+  }
+
+  async function handleDelete(url) {
+    if (!confirm('Remove this image from Vercel Blob? This cannot be undone.')) return
+    setDeleting(url)
+    try {
+      const res  = await fetch('/api/admin/images/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setBlobs(prev => prev.filter(b => b.url !== url))
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setDeleting(null)
+    }
+  }
 
   return (
     <div>
@@ -38,7 +81,7 @@ export default function ImageUpload({ blobs }) {
         <div style={{ fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 16 }}>
           Upload new image
         </div>
-        <form ref={formRef} action={action}>
+        <form ref={formRef} onSubmit={handleSubmit}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', flexWrap: 'wrap' }}>
             <input
               type="file"
@@ -71,17 +114,27 @@ export default function ImageUpload({ blobs }) {
                 cursor: pending ? 'not-allowed' : 'pointer',
                 opacity: pending ? 0.6 : 1,
                 flexShrink: 0,
+                fontFamily: 'inherit',
               }}
             >
               {pending ? 'Uploading…' : 'Upload'}
             </button>
           </div>
-          {state && (
-            <div style={{ marginTop: 10, fontSize: 13, color: state.ok ? 'rgba(100,220,130,0.9)' : '#e63323' }}>
-              {state.message}
-              {state.ok && state.url && (
+
+          {status && (
+            <div style={{ marginTop: 10, fontSize: 13, color: status.ok ? 'rgba(100,220,130,0.9)' : '#e63323' }}>
+              {status.message}
+              {status.ok && status.url && (
                 <span style={{ color: 'rgba(255,255,255,0.4)', marginLeft: 8 }}>
-                  → <a href={state.url} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>{state.url}</a>
+                  →{' '}
+                  <a
+                    href={status.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}
+                  >
+                    {status.url}
+                  </a>
                 </span>
               )}
             </div>
@@ -129,23 +182,43 @@ export default function ImageUpload({ blobs }) {
                 <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 8 }}>
                   {formatBytes(blob.size)}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => navigator.clipboard.writeText(blob.url)}
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: 4,
-                    color: 'rgba(255,255,255,0.5)',
-                    fontSize: 11,
-                    padding: '4px 10px',
-                    cursor: 'pointer',
-                    fontFamily: 'inherit',
-                    width: '100%',
-                  }}
-                >
-                  Copy URL
-                </button>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <button
+                    type="button"
+                    onClick={() => navigator.clipboard.writeText(blob.url)}
+                    style={{
+                      flex: 1,
+                      background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      borderRadius: 4,
+                      color: 'rgba(255,255,255,0.5)',
+                      fontSize: 11,
+                      padding: '4px 0',
+                      cursor: 'pointer',
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    Copy URL
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(blob.url)}
+                    disabled={deleting === blob.url}
+                    style={{
+                      background: 'rgba(230,51,35,0.08)',
+                      border: '1px solid rgba(230,51,35,0.25)',
+                      borderRadius: 4,
+                      color: deleting === blob.url ? 'rgba(230,51,35,0.4)' : 'rgba(230,51,35,0.75)',
+                      fontSize: 11,
+                      padding: '4px 10px',
+                      cursor: deleting === blob.url ? 'not-allowed' : 'pointer',
+                      fontFamily: 'inherit',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {deleting === blob.url ? '…' : 'Remove'}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
