@@ -1,45 +1,15 @@
+import { sql } from '@vercel/postgres'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import BorderGlow from './components/BorderGlow'
 
-const projects = [
-  {
-    id: 1,
-    title: 'Guardian',
-    hackathon: true,
-    tags: ['AI / ML', 'UX Design', 'Next.js'],
-    description: 'A real-time fall detection system built for safety. Combines computer vision with a live monitoring dashboard. Won first place at the university hackathon.',
-    slug: 'guardian',
-    rightBg: '#ffffff',
-  },
-  {
-    id: 2,
-    title: 'Huesta',
-    hackathon: false,
-    tags: ['AI Product', 'Design Tool', 'UX Design'],
-    description: 'A zero-login AI design tool that generates complete UI kits with colour palettes, typography, and layout using a keyword, a conversation, or a reference image.',
-    slug: 'huesta',
-    rightBg: '#ffffff',
-  },
-  {
-    id: 3,
-    title: 'Bouzer',
-    hackathon: false,
-    tags: ['Brand Design', 'UI/UX Design'],
-    description: 'A luxury perfume brand experience designed to evoke sensory depth through typography, whitespace, and deliberate pacing.',
-    slug: 'bouzer',
-    rightBg: '#f5f0e6',
-  },
-  {
-    id: 4,
-    title: 'Attend',
-    hackathon: false,
-    tags: ['UI/UX Design', 'Mobile'],
-    description: 'A student attendance management system redesigned for clarity giving educators a calm, data-rich view of class participation.',
-    slug: 'attend',
-    rightBg: '#ffffff',
-  },
-]
+// Static visual config — things that never change via the admin panel
+const visualConfig = {
+  1: { slug: 'guardian', rightBg: '#ffffff' },
+  2: { slug: 'huesta',   rightBg: '#ffffff' },
+  3: { slug: 'bouzer',   rightBg: '#f5f0e6' },
+  4: { slug: 'attend',   rightBg: '#ffffff' },
+}
 
 function GuardianLeft() {
   return (
@@ -87,7 +57,7 @@ const leftPanels = {
   attend:   AttendLeft,
 }
 
-function Projects() {
+function Projects({ projects }) {
   return (
     <section id="work" className="px-6 md:px-10 py-16 md:py-24">
       <p className="text-sm tracking-[0.2em] uppercase text-white/60 text-center mb-10 md:mb-16">Selected Works</p>
@@ -111,12 +81,12 @@ function Projects() {
                       {project.title}
                     </h2>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.hackathon && (
+                      {project.hackathon_winner && (
                         <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-black text-white tracking-wide uppercase">
                           🏆 Hackathon Winner
                         </span>
                       )}
-                      {project.tags.map((tag) => (
+                      {project.tags && project.tags.map((tag) => (
                         <span
                           key={tag}
                           className="text-xs font-medium px-3 py-1.5 rounded-full border border-black/25 text-black/70 tracking-wide uppercase"
@@ -126,7 +96,7 @@ function Projects() {
                       ))}
                     </div>
                     <p className="text-sm md:text-base text-black/60 leading-relaxed">
-                      {project.description}
+                      {project.short_description}
                     </p>
                   </div>
                   <a
@@ -208,13 +178,26 @@ function Footer() {
   )
 }
 
-export default function Home() {
+export default async function Home() {
+  const { rows } = await sql`
+    SELECT id, title, short_description, tags, hackathon_winner, visible, display_order
+    FROM projects
+    WHERE visible = true
+    ORDER BY display_order ASC
+  `
+
+  // Merge DB rows with static visual config (slug, rightBg)
+  const projects = rows.map(row => ({
+    ...row,
+    ...visualConfig[row.id],
+  }))
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
-        <Projects />
+        <Projects projects={projects} />
         <About />
       </main>
       <Footer />
