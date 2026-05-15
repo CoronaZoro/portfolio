@@ -150,12 +150,43 @@ function Placeholder({ label, aspect = 'aspect-video' }) {
 
 /* ── Try Huesta interactive section ─────────────────────────────── */
 function TryHuesta() {
-  const [prompt,  setPrompt]  = useState('')
-  const [kit,     setKit]     = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState(null)
-  const inputRef = useRef(null)
-  const resultRef = useRef(null)
+  const [prompt,      setPrompt]      = useState('')
+  const [kit,         setKit]         = useState(null)
+  const [loading,     setLoading]     = useState(false)
+  const [error,       setError]       = useState(null)
+  const [downloading, setDownloading] = useState(false)
+  const inputRef   = useRef(null)
+  const resultRef  = useRef(null)
+  const kitCardRef = useRef(null)
+
+  async function handleDownload() {
+    if (!kitCardRef.current || downloading) return
+    setDownloading(true)
+    try {
+      // Dynamic import so html2canvas isn't in the initial bundle
+      const html2canvas = (await import('html2canvas')).default
+      // Wait for fonts (Google Fonts loaded via <link>) to finish
+      await document.fonts.ready
+      const canvas = await html2canvas(kitCardRef.current, {
+        useCORS: true,      // allows cross-origin Unsplash images
+        scale: 2,           // 2× for retina-quality output
+        backgroundColor: null,
+        logging: false,
+      })
+      const url  = canvas.toDataURL('image/png')
+      const name = `huesta-${(kit.vibeName ?? 'kit').toLowerCase().replace(/\s+/g, '-')}.png`
+      const a    = document.createElement('a')
+      a.href     = url
+      a.download = name
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    } catch (err) {
+      console.error('[huesta download]', err)
+    } finally {
+      setDownloading(false)
+    }
+  }
 
   async function handleGenerate(e) {
     e?.preventDefault()
@@ -302,10 +333,44 @@ function TryHuesta() {
       {kit && (
         <div ref={resultRef}>
           {/* Kit meta row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
             <p style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>
               Generated kit · Layout {kit.layout}
             </p>
+
+            {/* Download PNG */}
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              style={{
+                background: downloading ? CARD : '#fff',
+                border: `0.5px solid ${downloading ? BORDER : 'transparent'}`,
+                borderRadius: 6,
+                color: downloading ? MUTED : DARK,
+                fontSize: 11,
+                fontWeight: 600,
+                padding: '3px 12px',
+                cursor: downloading ? 'not-allowed' : 'pointer',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 5,
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              {downloading ? (
+                'Saving…'
+              ) : (
+                <>
+                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                    <path d="M5.5 1v6M2.5 5l3 3 3-3M1 9.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Download PNG
+                </>
+              )}
+            </button>
+
+            {/* Clear */}
             <button
               onClick={() => { setKit(null); setPrompt(''); inputRef.current?.focus() }}
               style={{
@@ -322,7 +387,11 @@ function TryHuesta() {
               Clear
             </button>
           </div>
-          <KitCard kit={kit} />
+
+          {/* Card wrapper — ref used for screenshot */}
+          <div ref={kitCardRef}>
+            <KitCard kit={kit} />
+          </div>
         </div>
       )}
     </section>
