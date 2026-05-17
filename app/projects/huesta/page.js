@@ -155,21 +155,59 @@ function TryHuesta() {
   const [loading,     setLoading]     = useState(false)
   const [error,       setError]       = useState(null)
   const [downloading, setDownloading] = useState(false)
-  const inputRef   = useRef(null)
-  const resultRef  = useRef(null)
-  const kitCardRef = useRef(null)
+  // Mobile only: 'input' | 'output'
+  const [mobileView,  setMobileView]  = useState('input')
+
+  const inputRef          = useRef(null)
+  const resultRef         = useRef(null)
+  const kitCardMobileRef  = useRef(null)   // used by download on mobile
+  const kitCardDesktopRef = useRef(null)   // used by download on desktop
+
+  async function handleGenerate(e) {
+    e?.preventDefault()
+    const val = prompt.trim()
+    if (!val || loading) return
+    setLoading(true)
+    setError(null)
+    setKit(null)
+    try {
+      const res  = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: val, mode: 'search' }),
+      })
+      const data = await res.json()
+      if (!res.ok || data.error) throw new Error(data.error || 'Generation failed.')
+      setKit(data.kit)
+      setMobileView('output')   // mobile: switch to output view on success
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function handleClear() {
+    setKit(null)
+    setPrompt('')
+    setMobileView('input')
+    inputRef.current?.focus()
+  }
 
   async function handleDownload() {
-    if (!kitCardRef.current || downloading) return
+    // Pick the ref for whichever layout is currently visible
+    const targetRef = (typeof window !== 'undefined' && window.innerWidth < 768)
+      ? kitCardMobileRef
+      : kitCardDesktopRef
+    if (!targetRef.current || downloading) return
     setDownloading(true)
     try {
-      // Dynamic import so html2canvas isn't in the initial bundle
       const html2canvas = (await import('html2canvas')).default
-      // Wait for fonts (Google Fonts loaded via <link>) to finish
       await document.fonts.ready
-      const canvas = await html2canvas(kitCardRef.current, {
-        useCORS: true,      // allows cross-origin Unsplash images
-        scale: 2,           // 2× for retina-quality output
+      const canvas = await html2canvas(targetRef.current, {
+        useCORS: true,
+        scale: 2,
         backgroundColor: null,
         logging: false,
       })
@@ -188,36 +226,60 @@ function TryHuesta() {
     }
   }
 
-  async function handleGenerate(e) {
-    e?.preventDefault()
-    const val = prompt.trim()
-    if (!val || loading) return
+  // Reusable download button markup
+  const DownloadBtn = (
+    <button
+      onClick={handleDownload}
+      disabled={downloading}
+      style={{
+        background: downloading ? CARD : '#fff',
+        border: `0.5px solid ${downloading ? BORDER : 'transparent'}`,
+        borderRadius: 6,
+        color: downloading ? MUTED : DARK,
+        fontSize: 11,
+        fontWeight: 600,
+        padding: '3px 12px',
+        cursor: downloading ? 'not-allowed' : 'pointer',
+        fontFamily: 'inherit',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 5,
+        transition: 'background 0.15s, color 0.15s',
+      }}
+    >
+      {downloading ? 'Saving…' : (
+        <>
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path d="M5.5 1v6M2.5 5l3 3 3-3M1 9.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Download PNG
+        </>
+      )}
+    </button>
+  )
 
-    setLoading(true)
-    setError(null)
-    setKit(null)
-
-    try {
-      const res  = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: val, mode: 'search' }),
-      })
-      const data = await res.json()
-      if (!res.ok || data.error) throw new Error(data.error || 'Generation failed.')
-      setKit(data.kit)
-      // Scroll to result after a tick
-      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const ClearBtn = (
+    <button
+      onClick={handleClear}
+      style={{
+        background: 'none',
+        border: `0.5px solid ${BORDER}`,
+        borderRadius: 6,
+        color: MUTED,
+        fontSize: 11,
+        padding: '3px 10px',
+        cursor: 'pointer',
+        fontFamily: 'inherit',
+      }}
+    >
+      Clear
+    </button>
+  )
 
   return (
     <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
-      {/* Heading */}
+
+      {/* Heading — always visible */}
       <div className="mb-12">
         <p className="text-xs tracking-[0.25em] uppercase mb-4" style={{ color: MUTED }}>
           Try it live
@@ -248,152 +310,210 @@ function TryHuesta() {
         </p>
       </div>
 
-      {/* Input row */}
-      <form onSubmit={handleGenerate} style={{ display: 'flex', gap: 10, maxWidth: 600, marginBottom: 12 }}>
-        <div style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: CARD,
-          border: `0.5px solid ${BORDER}`,
-          borderRadius: 12,
-          padding: '14px 18px',
-        }}>
-          {/* Search icon */}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
-            <circle cx="6" cy="6" r="4.5" stroke={MUTED} strokeWidth="1.2"/>
-            <path d="M9.5 9.5L12 12" stroke={MUTED} strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
-          <input
-            ref={inputRef}
-            type="text"
-            value={prompt}
-            onChange={e => setPrompt(e.target.value)}
-            placeholder="sunset at the shore, dark academia, neon tokyo…"
-            disabled={loading}
-            style={{
+      {/* ── Mobile layout (below md) ─────────────────────────────── */}
+      <div className="md:hidden">
+
+        {/* Input view — visible until kit is generated */}
+        <div className={mobileView === 'output' ? 'hidden' : 'block'}>
+          <form onSubmit={handleGenerate} style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
+            <div style={{
               flex: 1,
-              background: 'none',
-              border: 'none',
-              outline: 'none',
-              color: '#fff',
-              fontSize: 14,
-              fontFamily: 'inherit',
-              opacity: loading ? 0.5 : 1,
-            }}
-          />
-          {/* Blinking cursor when empty */}
-          {!prompt && !loading && (
-            <span className="animate-pulse" style={{ width: 1.5, height: 16, background: 'rgba(255,255,255,0.3)', borderRadius: 1, flexShrink: 0 }} />
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={!prompt.trim() || loading}
-          style={{
-            background: loading ? CARD : '#fff',
-            color: loading ? MUTED : DARK,
-            border: `0.5px solid ${loading ? BORDER : 'transparent'}`,
-            borderRadius: 12,
-            fontSize: 13,
-            fontWeight: 600,
-            padding: '0 24px',
-            cursor: !prompt.trim() || loading ? 'not-allowed' : 'pointer',
-            opacity: !prompt.trim() ? 0.45 : 1,
-            fontFamily: 'inherit',
-            whiteSpace: 'nowrap',
-            transition: 'background 0.15s, color 0.15s',
-            minWidth: 110,
-          }}
-        >
-          {loading ? 'Generating…' : 'Generate Kit'}
-        </button>
-      </form>
-
-      {/* Loading shimmer */}
-      {loading && (
-        <div style={{ maxWidth: 600, marginBottom: 32 }}>
-          <div style={{ fontSize: 12, color: MUTED, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span className="animate-pulse" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: MUTED }} />
-            Claude is crafting your kit — colours, fonts, images…
-          </div>
-        </div>
-      )}
-
-      {/* Error */}
-      {error && (
-        <p style={{ fontSize: 13, color: '#e63323', marginBottom: 24, maxWidth: 600 }}>
-          ⚠ {error}
-        </p>
-      )}
-
-      {/* Kit result */}
-      {kit && (
-        <div ref={resultRef}>
-          {/* Kit meta row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
-            <p style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>
-              Generated kit · Layout {kit.layout}
-            </p>
-
-            {/* Download PNG */}
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              background: CARD,
+              border: `0.5px solid ${BORDER}`,
+              borderRadius: 12,
+              padding: '14px 18px',
+            }}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
+                <circle cx="6" cy="6" r="4.5" stroke={MUTED} strokeWidth="1.2"/>
+                <path d="M9.5 9.5L12 12" stroke={MUTED} strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+              <input
+                type="text"
+                value={prompt}
+                onChange={e => setPrompt(e.target.value)}
+                placeholder="sunset at the shore…"
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  background: 'none',
+                  border: 'none',
+                  outline: 'none',
+                  color: '#fff',
+                  fontSize: 14,
+                  fontFamily: 'inherit',
+                  opacity: loading ? 0.5 : 1,
+                }}
+              />
+              {!prompt && !loading && (
+                <span className="animate-pulse" style={{ width: 1.5, height: 16, background: 'rgba(255,255,255,0.3)', borderRadius: 1, flexShrink: 0 }} />
+              )}
+            </div>
             <button
-              onClick={handleDownload}
-              disabled={downloading}
+              type="submit"
+              disabled={!prompt.trim() || loading}
               style={{
-                background: downloading ? CARD : '#fff',
-                border: `0.5px solid ${downloading ? BORDER : 'transparent'}`,
-                borderRadius: 6,
-                color: downloading ? MUTED : DARK,
-                fontSize: 11,
+                background: loading ? CARD : '#fff',
+                color: loading ? MUTED : DARK,
+                border: `0.5px solid ${loading ? BORDER : 'transparent'}`,
+                borderRadius: 12,
+                fontSize: 13,
                 fontWeight: 600,
-                padding: '3px 12px',
-                cursor: downloading ? 'not-allowed' : 'pointer',
+                padding: '0 18px',
+                cursor: !prompt.trim() || loading ? 'not-allowed' : 'pointer',
+                opacity: !prompt.trim() ? 0.45 : 1,
                 fontFamily: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
+                whiteSpace: 'nowrap',
                 transition: 'background 0.15s, color 0.15s',
               }}
             >
-              {downloading ? (
-                'Saving…'
-              ) : (
-                <>
-                  <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                    <path d="M5.5 1v6M2.5 5l3 3 3-3M1 9.5h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Download PNG
-                </>
-              )}
+              {loading ? '…' : 'Generate'}
             </button>
+          </form>
 
-            {/* Clear */}
-            <button
-              onClick={() => { setKit(null); setPrompt(''); inputRef.current?.focus() }}
-              style={{
-                background: 'none',
-                border: `0.5px solid ${BORDER}`,
-                borderRadius: 6,
-                color: MUTED,
-                fontSize: 11,
-                padding: '3px 10px',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
-            >
-              Clear
-            </button>
-          </div>
-
-          {/* Card wrapper — ref used for screenshot */}
-          <div ref={kitCardRef}>
-            <KitCard kit={kit} />
-          </div>
+          {loading && (
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ fontSize: 12, color: MUTED, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span className="animate-pulse" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: MUTED }} />
+                Claude is crafting your kit…
+              </div>
+            </div>
+          )}
+          {error && (
+            <p style={{ fontSize: 13, color: '#e63323', marginBottom: 24 }}>⚠ {error}</p>
+          )}
         </div>
-      )}
+
+        {/* Output view — shown after kit is generated */}
+        {kit && (
+          <div className={mobileView === 'output' ? 'block' : 'hidden'}>
+            {/* Action row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setMobileView('input')}
+                style={{
+                  background: 'none',
+                  border: `0.5px solid ${BORDER}`,
+                  borderRadius: 6,
+                  color: MUTED,
+                  fontSize: 11,
+                  padding: '3px 10px',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                }}
+              >
+                ← Back
+              </button>
+              <p style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>
+                Layout {kit.layout}
+              </p>
+              {DownloadBtn}
+              {ClearBtn}
+            </div>
+            {/* Card — horizontally scrollable so full desktop layout is visible */}
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+              <div ref={kitCardMobileRef} style={{ minWidth: 580 }}>
+                <KitCard kit={kit} />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── Desktop layout (md+) — unchanged ────────────────────── */}
+      <div className="hidden md:block">
+        <form onSubmit={handleGenerate} style={{ display: 'flex', gap: 10, maxWidth: 600, marginBottom: 12 }}>
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            background: CARD,
+            border: `0.5px solid ${BORDER}`,
+            borderRadius: 12,
+            padding: '14px 18px',
+          }}>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
+              <circle cx="6" cy="6" r="4.5" stroke={MUTED} strokeWidth="1.2"/>
+              <path d="M9.5 9.5L12 12" stroke={MUTED} strokeWidth="1.2" strokeLinecap="round"/>
+            </svg>
+            <input
+              ref={inputRef}
+              type="text"
+              value={prompt}
+              onChange={e => setPrompt(e.target.value)}
+              placeholder="sunset at the shore, dark academia, neon tokyo…"
+              disabled={loading}
+              style={{
+                flex: 1,
+                background: 'none',
+                border: 'none',
+                outline: 'none',
+                color: '#fff',
+                fontSize: 14,
+                fontFamily: 'inherit',
+                opacity: loading ? 0.5 : 1,
+              }}
+            />
+            {!prompt && !loading && (
+              <span className="animate-pulse" style={{ width: 1.5, height: 16, background: 'rgba(255,255,255,0.3)', borderRadius: 1, flexShrink: 0 }} />
+            )}
+          </div>
+          <button
+            type="submit"
+            disabled={!prompt.trim() || loading}
+            style={{
+              background: loading ? CARD : '#fff',
+              color: loading ? MUTED : DARK,
+              border: `0.5px solid ${loading ? BORDER : 'transparent'}`,
+              borderRadius: 12,
+              fontSize: 13,
+              fontWeight: 600,
+              padding: '0 24px',
+              cursor: !prompt.trim() || loading ? 'not-allowed' : 'pointer',
+              opacity: !prompt.trim() ? 0.45 : 1,
+              fontFamily: 'inherit',
+              whiteSpace: 'nowrap',
+              transition: 'background 0.15s, color 0.15s',
+              minWidth: 110,
+            }}
+          >
+            {loading ? 'Generating…' : 'Generate Kit'}
+          </button>
+        </form>
+
+        {loading && (
+          <div style={{ maxWidth: 600, marginBottom: 32 }}>
+            <div style={{ fontSize: 12, color: MUTED, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span className="animate-pulse" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: MUTED }} />
+              Claude is crafting your kit — colours, fonts, images…
+            </div>
+          </div>
+        )}
+        {error && (
+          <p style={{ fontSize: 13, color: '#e63323', marginBottom: 24, maxWidth: 600 }}>
+            ⚠ {error}
+          </p>
+        )}
+
+        {kit && (
+          <div ref={resultRef}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+              <p style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.15em', margin: 0 }}>
+                Generated kit · Layout {kit.layout}
+              </p>
+              {DownloadBtn}
+              {ClearBtn}
+            </div>
+            <div ref={kitCardDesktopRef}>
+              <KitCard kit={kit} />
+            </div>
+          </div>
+        )}
+      </div>
+
     </section>
   )
 }
