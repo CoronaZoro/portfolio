@@ -175,10 +175,13 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
             </h2>
             <a
               href={`/projects/${project.slug}`}
-              className="text-xs font-semibold shrink-0"
-              style={{ color: accent }}
+              className="inline-flex items-center gap-1 text-xs font-semibold tracking-wide uppercase shrink-0"
+              style={{ color: accent, letterSpacing: '0.1em' }}
             >
-              View ↗
+              View Case Study
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ flexShrink: 0 }}>
+                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </a>
           </div>
         </div>
