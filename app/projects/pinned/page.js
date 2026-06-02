@@ -95,7 +95,7 @@ export default function PinnedPage() {
           src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Banner.png"
           alt="Pinned app screens"
           className="w-full"
-          style={{ display: 'block', maxHeight: 520, objectFit: 'cover' }}
+          style={{ display: 'block' }}
         />
 
         {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
