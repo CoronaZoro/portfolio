@@ -404,41 +404,87 @@ export default function PinnedPage() {
             </p>
           </div>
 
-          {/* Three blurbs */}
+          {/* Three blurbs — each with image at top */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
-            {[
-              {
-                label: 'Colours & Typography',
-                body:  'Dark gray bases (#161616, #242424, #2E2E2E) keep the map as the hero. Green (#2DCC70) is reserved for trust and action. Amber (#FFB800) signals time and urgency. DM Sans throughout — clean, readable, unpretentious.',
-              },
-              {
-                label: 'Pin States',
-                body:  'The four pin states aren\'t just visual — they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.',
-              },
-              {
-                label: 'Stall Card',
-                body:  'The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions — Confirm Still Here and Add Review. Everything a user needs, nothing they don\'t.',
-              },
-            ].map(({ label, body }) => (
-              <div
-                key={label}
-                className="anim-fade-up p-6"
-                style={{ background: CARD, borderRadius: 12 }}
-              >
+
+            {/* Card 1 — Colours & Typography */}
+            <div
+              className="anim-fade-up"
+              style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
+            >
+              {/* DESIGN SYSTEM - colours and typography screenshot */}
+              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned colours and typography" style={{ width: '100%', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Colours & typography image</span>
+              </div>
+              <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
                   style={{ color: GREEN }}
                 >
-                  {label}
+                  Colours &amp; Typography
                 </p>
                 <p
                   className="text-base leading-[1.7]"
                   style={{ color: 'rgba(255,255,255,0.65)' }}
                 >
-                  {body}
+                  Dark gray bases (#161616, #242424, #2E2E2E) keep the map as the hero. Green (#2DCC70) is reserved for trust and action. Amber (#FFB800) signals time and urgency. DM Sans throughout — clean, readable, unpretentious.
                 </p>
               </div>
-            ))}
+            </div>
+
+            {/* Card 2 — Pin States */}
+            <div
+              className="anim-fade-up"
+              style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
+            >
+              {/* DESIGN SYSTEM - pin states screenshot */}
+              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned pin states" style={{ width: '100%', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Pin states image</span>
+              </div>
+              <div className="p-6">
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  Pin States
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  The four pin states aren't just visual — they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 — Stall Card */}
+            <div
+              className="anim-fade-up"
+              style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
+            >
+              {/* DESIGN SYSTEM - stall card screenshot */}
+              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned stall card component" style={{ width: '100%', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Stall card image</span>
+              </div>
+              <div className="p-6">
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  Stall Card
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions — Confirm Still Here and Add Review. Everything a user needs, nothing they don't.
+                </p>
+              </div>
+            </div>
+
           </div>
 
           {/* DESIGN SYSTEM IMAGE - full components screenshot */}
