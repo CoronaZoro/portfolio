@@ -397,7 +397,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - colours and typography screenshot */}
-              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Typo.png" alt="Pinned colours and typography" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block', borderRadius: '8px 8px 0 0' }} />
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Typo.png" alt="Pinned colours and typography" style={{ width: '100%', height: 200, objectFit: 'contain', objectPosition: 'center', background: '#1a1a1a', display: 'block', borderRadius: '8px 8px 0 0' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
@@ -420,7 +420,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - pin states screenshot */}
-              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_pins.png" alt="Pinned pin states" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block', borderRadius: '8px 8px 0 0' }} />
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_pins.png" alt="Pinned pin states" style={{ width: '100%', height: 200, objectFit: 'contain', objectPosition: 'center', background: '#1a1a1a', display: 'block', borderRadius: '8px 8px 0 0' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
@@ -443,7 +443,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - stall card screenshot */}
-              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Card.png" alt="Pinned stall card component" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block', borderRadius: '8px 8px 0 0' }} />
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Card.png" alt="Pinned stall card component" style={{ width: '100%', height: 200, objectFit: 'contain', objectPosition: 'center', background: '#1a1a1a', display: 'block', borderRadius: '8px 8px 0 0' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
