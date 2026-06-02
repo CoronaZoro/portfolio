@@ -314,6 +314,408 @@ export default function PinnedPage() {
         {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
 
+        {/* ── WIREFRAMES ────────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Process
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Structure before style.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Before any colour or component, every screen was mapped as a wireframe. Six screens, one clear flow.
+            </p>
+          </div>
+
+          {/* WIREFRAMES IMAGE - full width, all 6 screens side by side */}
+          <div
+            className="anim-fade-up w-full"
+            style={{
+              animationDelay: '0.32s',
+              borderRadius: 12,
+              overflow: 'hidden',
+              background: CARD,
+              minHeight: 320,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img src="" alt="Pinned wireframes" style={{ width: '100%', display: 'block' }} />
+          </div>
+
+        </section>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── DESIGN SYSTEM ─────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Design System
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Built to be consistent.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Every colour, type size, and component was defined before the first high fidelity screen was touched. This made every decision faster and every screen more cohesive.
+            </p>
+          </div>
+
+          {/* Three blurbs */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+            {[
+              {
+                label: 'Colours & Typography',
+                body:  'Dark gray bases (#161616, #242424, #2E2E2E) keep the map as the hero. Green (#2DCC70) is reserved for trust and action. Amber (#FFB800) signals time and urgency. DM Sans throughout — clean, readable, unpretentious.',
+              },
+              {
+                label: 'Pin States',
+                body:  'The four pin states aren\'t just visual — they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.',
+              },
+              {
+                label: 'Stall Card',
+                body:  'The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions — Confirm Still Here and Add Review. Everything a user needs, nothing they don\'t.',
+              },
+            ].map(({ label, body }) => (
+              <div
+                key={label}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {label}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* DESIGN SYSTEM IMAGE - full components screenshot */}
+          <div
+            className="anim-fade-up w-full"
+            style={{
+              borderRadius: 12,
+              overflow: 'hidden',
+              background: CARD,
+              minHeight: 320,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img src="" alt="Pinned design system components" style={{ width: '100%', display: 'block' }} />
+          </div>
+
+        </section>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── SCREEN WALKTHROUGH ────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Screens
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-20 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Five screens. One flow.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Every screen was designed to get the user to the food as fast as possible.
+            </p>
+          </div>
+
+          {/* Screen rows — alternating image left/right */}
+          <div className="flex flex-col gap-24">
+
+            {/* Screen 1 — MAP VIEW — image left */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div
+                style={{
+                  background: CARD,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  minHeight: 480,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {/* SCREEN 1 - Map view */}
+                <img src="" alt="Pinned map view screen" style={{ width: '100%', display: 'block' }} />
+              </div>
+              <div>
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-5"
+                  style={{ color: GREEN }}
+                >
+                  Map View
+                </p>
+                <h3
+                  className="mb-4 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  The map is the app.
+                </h3>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.62)' }}
+                >
+                  Opening Pinned drops you straight into the map. No feed, no onboarding, no friction. Filter chips let you narrow by food type. The FAB lets you add a pin in one tap.
+                </p>
+              </div>
+            </div>
+
+            {/* Screen 2 — PIN DETAIL — image right */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="md:order-2">
+                <div
+                  style={{
+                    background: CARD,
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    minHeight: 480,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {/* SCREEN 2 - Pin detail sheet */}
+                  <img src="" alt="Pinned pin detail screen" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
+              <div className="md:order-1">
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-5"
+                  style={{ color: GREEN }}
+                >
+                  Pin Detail
+                </p>
+                <h3
+                  className="mb-4 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Everything you need before you walk there.
+                </h3>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.62)' }}
+                >
+                  Tapping a pin slides up the detail sheet. Photo, rating, food type, timestamp, and location. Confirm Still Here and Add Review live here — the two actions that keep the map alive.
+                </p>
+              </div>
+            </div>
+
+            {/* Screen 3 — DROP A PIN STEP 1 — image left */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div
+                style={{
+                  background: CARD,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  minHeight: 480,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {/* SCREEN 3 - Add pin step 1 */}
+                <img src="" alt="Pinned add pin step 1 screen" style={{ width: '100%', display: 'block' }} />
+              </div>
+              <div>
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-5"
+                  style={{ color: GREEN }}
+                >
+                  Drop a Pin — Step 1
+                </p>
+                <h3
+                  className="mb-4 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Drop it where it is.
+                </h3>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.62)' }}
+                >
+                  Step one is location. Drag the map to place the pin exactly where the stall is, or search by area name. The map stays honest because the person placing the pin was just there.
+                </p>
+              </div>
+            </div>
+
+            {/* Screen 4 — DROP A PIN STEP 2 — image right */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="md:order-2">
+                <div
+                  style={{
+                    background: CARD,
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                    minHeight: 480,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {/* SCREEN 4 - Add pin step 2 */}
+                  <img src="" alt="Pinned add pin step 2 screen" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
+              <div className="md:order-1">
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-5"
+                  style={{ color: GREEN }}
+                >
+                  Drop a Pin — Step 2
+                </p>
+                <h3
+                  className="mb-4 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Name it, tag it, rate it.
+                </h3>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.62)' }}
+                >
+                  Step two captures the details. Food type, stall name, a quick note, and a rating. A photo is optional but encouraged. The whole flow takes under a minute.
+                </p>
+              </div>
+            </div>
+
+            {/* Screen 5 — PROFILE — image left */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div
+                style={{
+                  background: CARD,
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  minHeight: 480,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {/* SCREEN 5 - User profile */}
+                <img src="" alt="Pinned user profile screen" style={{ width: '100%', display: 'block' }} />
+              </div>
+              <div>
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-5"
+                  style={{ color: GREEN }}
+                >
+                  Profile
+                </p>
+                <h3
+                  className="mb-4 font-bold"
+                  style={{
+                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Your pins, your reputation.
+                </h3>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.62)' }}
+                >
+                  The profile shows what you've contributed — pins dropped, stalls visited, followers. Tier badges reward active contributors. No follower pressure, just a record of good finds.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
         {/* ── FEATURE SPOTLIGHT ─────────────────────────────────────────────── */}
         <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
 
@@ -629,48 +1031,6 @@ export default function PinnedPage() {
             </p>
           </div>
         </div>
-
-        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
-
-        {/* ── SCREEN WALKTHROUGH PLACEHOLDER ────────────────────────────────────
-            Add screens and captions here manually when ready.
-            Suggested structure:
-              <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
-                <p style={{ color: GREEN }}>SCREENS</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <img src="/pinned-screen-1.png" ... />
-                  <img src="/pinned-screen-2.png" ... />
-                  ...
-                </div>
-              </section>
-        ─────────────────────────────────────────────────────────────────────── */}
-        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
-          <p
-            className="text-xs tracking-[0.22em] uppercase mb-10"
-            style={{ color: GREEN }}
-          >
-            Screens
-          </p>
-          <div
-            style={{
-              height: 320,
-              background: CARD,
-              borderRadius: 12,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <p
-              className="text-xs tracking-[0.25em] uppercase"
-              style={{ color: 'rgba(255,255,255,0.18)' }}
-            >
-              {/* Screen walkthrough — add images and captions here */}
-              Screen walkthrough placeholder
-            </p>
-          </div>
-        </section>
 
         {/* ── FOOTER ────────────────────────────────────────────────────────── */}
         <footer
