@@ -62,7 +62,7 @@ export default function PinnedPage() {
               {[
                 { label: 'MY ROLE', value: 'Product Designer / UX' },
                 { label: 'TYPE',    value: 'Mobile App (Concept)'   },
-                { label: 'STACK',   value: 'Figma · Mapbox · DM Sans' },
+                { label: 'STACK',   value: 'Figma · Mapbox ' },
                 { label: 'STATUS',  value: 'Case Study'              },
               ].map(({ label, value }, i) => (
                 <div
@@ -130,7 +130,7 @@ export default function PinnedPage() {
               className="anim-fade-up text-base leading-[1.7]"
               style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
             >
-              Bangkok has more street food stalls than almost any city on earth. Most of them have never appeared on Google Maps — and probably never will.
+              Bangkok has more street food stalls than almost any city on earth. Most of them have never appeared on Google Maps and probably never will.
             </p>
           </div>
 
@@ -143,7 +143,7 @@ export default function PinnedPage() {
               },
               {
                 num:   'II — BREAKDOWN',
-                body:  'Stall owners are focused on cooking and making a living. Setting up a digital profile isn\'t something they have time for — or need.',
+                body:  'Stall owners are focused on cooking and making a living. Setting up a digital profile isn\'t something they have time nor need.',
               },
               {
                 num:   'III — INSIGHT',
@@ -270,7 +270,7 @@ export default function PinnedPage() {
               },
               {
                 num:  'III — THE COMMUNITY UPDATES IT',
-                body: 'Pins don\'t just get added — they get maintained. Every user can confirm a stall is still there, keeping the map accurate without any central team managing it.',
+                body: 'Pins don\'t just get added, they get maintained. Every user can confirm a stall is still there, keeping the map accurate without any central team managing it.',
               },
             ].map(({ num, body }) => (
               <div
@@ -432,7 +432,7 @@ export default function PinnedPage() {
                   className="text-base leading-[1.7]"
                   style={{ color: 'rgba(255,255,255,0.65)' }}
                 >
-                  The four pin states aren't just visual — they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.
+                  The four pin states aren't just visual, they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.
                 </p>
               </div>
             </div>
@@ -455,7 +455,7 @@ export default function PinnedPage() {
                   className="text-base leading-[1.7]"
                   style={{ color: 'rgba(255,255,255,0.65)' }}
                 >
-                  The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions — Confirm Still Here and Add Review. Everything a user needs, nothing they don't.
+                  The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions, Confirm Still Here and Add Review. Everything a user needs, nothing they don't.
                 </p>
               </div>
             </div>
@@ -657,7 +657,7 @@ export default function PinnedPage() {
               className="anim-fade-up text-base leading-[1.7]"
               style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
             >
-              The biggest problem with crowd-sourced location data isn't adding it — it's keeping it accurate. Stalls close. They move. They take random days off. A pin that was true six months ago might be useless today.
+              The biggest problem with crowd-sourced location data isn't adding it, it's keeping it accurate. Stalls close. They move. They take random days off. A pin that was true six months ago might be useless today.
             </p>
           </div>
 
@@ -719,11 +719,11 @@ export default function PinnedPage() {
             {[
               {
                 label: 'FOR THE EATER',
-                body:  'You know what you\'re looking at is real. The amber and grey states tell you when to be skeptical — before you make the trip.',
+                body:  'You know what you\'re looking at is real. The amber and grey states tell you when to be skeptical before you make the trip.',
               },
               {
                 label: 'FOR THE STALL',
-                body:  'Great stalls get confirmed more. That confirmation history becomes their reputation — built organically, without them ever touching an app.',
+                body:  'Great stalls get confirmed more. That confirmation history becomes their reputation, built organically, without them ever touching an app.',
               },
             ].map(({ label, body }) => (
               <div
@@ -801,7 +801,7 @@ export default function PinnedPage() {
               className="anim-fade-up text-base leading-[1.7]"
               style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
             >
-              Street food data goes stale fast. Confirm Still Here is a one-tap community update system that keeps the map honest — without requiring stall owners to do anything.
+              Street food data goes stale fast. Confirm Still Here is a one-tap community update system that keeps the map honest without requiring stall owners to do anything.
             </p>
           </div>
 
@@ -894,7 +894,7 @@ export default function PinnedPage() {
               },
               {
                 label: 'FOR THE STALL',
-                body:  'No app needed. No account needed. Good stalls naturally get confirmed more — building a reputation purely through foot traffic.',
+                body:  'No app needed. No account needed. Good stalls naturally get confirmed more, building a reputation purely through foot traffic.',
               },
             ].map(({ label, body }) => (
               <div
