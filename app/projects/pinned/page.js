@@ -548,42 +548,19 @@ export default function PinnedPage() {
 
             {/* Screen 1 — MAP VIEW — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div
-                style={{
-                  background: CARD,
-                  borderRadius: 12,
-                  overflow: 'hidden',
-                  minHeight: 480,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {/* SCREEN 1 - Map view */}
-                {/* Replace this div with: <img src="/your-image.png" alt="Pinned map view screen" style={{ width: '100%', display: 'block' }} /> */}
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 1 — Map view</span>
+                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned map view screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 1 — Map view</span>
+                </div>
               </div>
               <div>
-                <p
-                  className="text-xs tracking-[0.18em] uppercase mb-5"
-                  style={{ color: GREEN }}
-                >
-                  Map View
-                </p>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Map View</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   The map is the app.
                 </h3>
-                <p
-                  className="text-base leading-[1.7]"
-                  style={{ color: 'rgba(255,255,255,0.62)' }}
-                >
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
                   Opening Pinned drops you straight into the map. No feed, no onboarding, no friction. Filter chips let you narrow by food type. The FAB lets you add a pin in one tap.
                 </p>
               </div>
@@ -591,44 +568,19 @@ export default function PinnedPage() {
 
             {/* Screen 2 — PIN DETAIL — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2">
-                <div
-                  style={{
-                    background: CARD,
-                    borderRadius: 12,
-                    overflow: 'hidden',
-                    minHeight: 480,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {/* SCREEN 2 - Pin detail sheet */}
-                  {/* Replace this div with: <img src="/your-image.png" alt="Pinned pin detail screen" style={{ width: '100%', display: 'block' }} /> */}
+              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* SCREEN 2 - Pin detail sheet */}
+                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned pin detail screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 2 — Pin detail</span>
                 </div>
               </div>
               <div className="md:order-1">
-                <p
-                  className="text-xs tracking-[0.18em] uppercase mb-5"
-                  style={{ color: GREEN }}
-                >
-                  Pin Detail
-                </p>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Pin Detail</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Everything you need before you walk there.
                 </h3>
-                <p
-                  className="text-base leading-[1.7]"
-                  style={{ color: 'rgba(255,255,255,0.62)' }}
-                >
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
                   Tapping a pin slides up the detail sheet. Photo, rating, food type, timestamp, and location. Confirm Still Here and Add Review live here — the two actions that keep the map alive.
                 </p>
               </div>
@@ -636,42 +588,19 @@ export default function PinnedPage() {
 
             {/* Screen 3 — DROP A PIN STEP 1 — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div
-                style={{
-                  background: CARD,
-                  borderRadius: 12,
-                  overflow: 'hidden',
-                  minHeight: 480,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {/* SCREEN 3 - Add pin step 1 */}
-                {/* Replace this div with: <img src="/your-image.png" alt="Pinned add pin step 1 screen" style={{ width: '100%', display: 'block' }} /> */}
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3 — Drop a pin step 1</span>
+                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 1 screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3 — Drop a pin step 1</span>
+                </div>
               </div>
               <div>
-                <p
-                  className="text-xs tracking-[0.18em] uppercase mb-5"
-                  style={{ color: GREEN }}
-                >
-                  Drop a Pin — Step 1
-                </p>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 1</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Drop it where it is.
                 </h3>
-                <p
-                  className="text-base leading-[1.7]"
-                  style={{ color: 'rgba(255,255,255,0.62)' }}
-                >
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
                   Step one is location. Drag the map to place the pin exactly where the stall is, or search by area name. The map stays honest because the person placing the pin was just there.
                 </p>
               </div>
@@ -679,44 +608,19 @@ export default function PinnedPage() {
 
             {/* Screen 4 — DROP A PIN STEP 2 — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2">
-                <div
-                  style={{
-                    background: CARD,
-                    borderRadius: 12,
-                    overflow: 'hidden',
-                    minHeight: 480,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {/* SCREEN 4 - Add pin step 2 */}
-                  {/* Replace this div with: <img src="/your-image.png" alt="Pinned add pin step 2 screen" style={{ width: '100%', display: 'block' }} /> */}
+              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* SCREEN 4 - Add pin step 2 */}
+                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 2 screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 4 — Drop a pin step 2</span>
                 </div>
               </div>
               <div className="md:order-1">
-                <p
-                  className="text-xs tracking-[0.18em] uppercase mb-5"
-                  style={{ color: GREEN }}
-                >
-                  Drop a Pin — Step 2
-                </p>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 2</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Name it, tag it, rate it.
                 </h3>
-                <p
-                  className="text-base leading-[1.7]"
-                  style={{ color: 'rgba(255,255,255,0.62)' }}
-                >
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
                   Step two captures the details. Food type, stall name, a quick note, and a rating. A photo is optional but encouraged. The whole flow takes under a minute.
                 </p>
               </div>
@@ -724,42 +628,19 @@ export default function PinnedPage() {
 
             {/* Screen 5 — PROFILE — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div
-                style={{
-                  background: CARD,
-                  borderRadius: 12,
-                  overflow: 'hidden',
-                  minHeight: 480,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {/* SCREEN 5 - User profile */}
-                {/* Replace this div with: <img src="/your-image.png" alt="Pinned user profile screen" style={{ width: '100%', display: 'block' }} /> */}
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5 — Profile</span>
+                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned user profile screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5 — Profile</span>
+                </div>
               </div>
               <div>
-                <p
-                  className="text-xs tracking-[0.18em] uppercase mb-5"
-                  style={{ color: GREEN }}
-                >
-                  Profile
-                </p>
-                <h3
-                  className="mb-4 font-bold"
-                  style={{
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Profile</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Your pins, your reputation.
                 </h3>
-                <p
-                  className="text-base leading-[1.7]"
-                  style={{ color: 'rgba(255,255,255,0.62)' }}
-                >
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
                   The profile shows what you've contributed — pins dropped, stalls visited, followers. Tier badges reward active contributors. No follower pressure, just a record of good finds.
                 </p>
               </div>
