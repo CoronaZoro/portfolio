@@ -215,14 +215,14 @@ export default function PinnedPage() {
         {/* ── ANCHOR STATEMENT 1 ────────────────────────────────────────────── */}
         <div
           className="w-full px-6 md:px-10"
-          style={{ paddingTop: 80, paddingBottom: 80 }}
+          style={{ paddingTop: 120, paddingBottom: 120 }}
         >
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
             <p
               style={{
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 6vw, 60px)',
                 fontWeight: 700,
-                lineHeight: 1.2,
+                lineHeight: 1.15,
                 letterSpacing: '-0.02em',
               }}
             >
@@ -438,14 +438,14 @@ export default function PinnedPage() {
         {/* ── ANCHOR STATEMENT 2 ────────────────────────────────────────────── */}
         <div
           className="w-full px-6 md:px-10"
-          style={{ paddingTop: 80, paddingBottom: 80 }}
+          style={{ paddingTop: 120, paddingBottom: 120 }}
         >
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
             <p
               style={{
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 6vw, 60px)',
                 fontWeight: 700,
-                lineHeight: 1.2,
+                lineHeight: 1.15,
                 letterSpacing: '-0.02em',
                 color: GREEN,
               }}
@@ -609,14 +609,14 @@ export default function PinnedPage() {
         {/* ── ANCHOR STATEMENT 3 ────────────────────────────────────────────── */}
         <div
           className="w-full px-6 md:px-10"
-          style={{ paddingTop: 80, paddingBottom: 80 }}
+          style={{ paddingTop: 120, paddingBottom: 120 }}
         >
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
             <p
               style={{
-                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 6vw, 60px)',
                 fontWeight: 700,
-                lineHeight: 1.2,
+                lineHeight: 1.15,
                 letterSpacing: '-0.02em',
               }}
             >
