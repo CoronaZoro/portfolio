@@ -307,7 +307,7 @@ export default function ContactSection({ profile = {} }) {
       >
 
         {/* Social icons */}
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div className="contact-footer-icons" style={{ display: 'flex', gap: 12 }}>
           {SOCIAL.map(({ icon: Icon, href, label }) => (
             <a
               key={label}
@@ -343,7 +343,7 @@ export default function ContactSection({ profile = {} }) {
         </div>
 
         {/* Name line */}
-        <p style={{
+        <p className="contact-footer-name" style={{
           fontSize: 14,
           color: 'rgba(255,255,255,0.55)',
           letterSpacing: '0.05em',
@@ -372,7 +372,14 @@ export default function ContactSection({ profile = {} }) {
           .contact-footer {
             padding-left: 24px !important;
             padding-right: 24px !important;
-            gap: 16px;
+          }
+          .contact-footer-name {
+            white-space: nowrap;
+            flex-shrink: 0;
+          }
+          .contact-footer-icons a {
+            width: 32px !important;
+            height: 32px !important;
           }
         }
       `}</style>
