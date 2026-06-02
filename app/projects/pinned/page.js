@@ -550,9 +550,7 @@ export default function PinnedPage() {
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {/* SCREEN 1 - Map view */}
-                <div style={{ width: 320, background: '#000', borderRadius: 44, padding: '12px 8px', border: '8px solid #2E2E2E', boxSizing: 'border-box' }}>
-                  <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" style={{ width: '100%', borderRadius: 36, display: 'block' }} />
-                </div>
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" style={{ width: 320, display: 'block' }} />
               </div>
               <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Map View</p>
@@ -568,11 +566,9 @@ export default function PinnedPage() {
             {/* Screen 2 — PIN DETAIL — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 2 - Pin detail sheet — replace src with YOUR_BLOB_URL when ready */}
-                <div style={{ width: 320, background: '#000', borderRadius: 44, padding: '12px 8px', border: '8px solid #2E2E2E', boxSizing: 'border-box' }}>
-                  <div style={{ borderRadius: 36, overflow: 'hidden', background: CARD, minHeight: 560, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 2</span>
-                  </div>
+                {/* SCREEN 2 - Pin detail sheet — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned pin detail screen" style={{ width: 320, display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 2</span>
                 </div>
               </div>
               <div className="md:order-1">
@@ -589,11 +585,9 @@ export default function PinnedPage() {
             {/* Screen 3 — DROP A PIN STEP 1 — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 3 - Add pin step 1 — replace src with YOUR_BLOB_URL when ready */}
-                <div style={{ width: 320, background: '#000', borderRadius: 44, padding: '12px 8px', border: '8px solid #2E2E2E', boxSizing: 'border-box' }}>
-                  <div style={{ borderRadius: 36, overflow: 'hidden', background: CARD, minHeight: 560, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3</span>
-                  </div>
+                {/* SCREEN 3 - Add pin step 1 — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 1 screen" style={{ width: 320, display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3</span>
                 </div>
               </div>
               <div>
@@ -610,11 +604,9 @@ export default function PinnedPage() {
             {/* Screen 4 — DROP A PIN STEP 2 — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 4 - Add pin step 2 — replace src with YOUR_BLOB_URL when ready */}
-                <div style={{ width: 320, background: '#000', borderRadius: 44, padding: '12px 8px', border: '8px solid #2E2E2E', boxSizing: 'border-box' }}>
-                  <div style={{ borderRadius: 36, overflow: 'hidden', background: CARD, minHeight: 560, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 4</span>
-                  </div>
+                {/* SCREEN 4 - Add pin step 2 — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 2 screen" style={{ width: 320, display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 4</span>
                 </div>
               </div>
               <div className="md:order-1">
@@ -631,11 +623,9 @@ export default function PinnedPage() {
             {/* Screen 5 — PROFILE — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 5 - User profile — replace src with YOUR_BLOB_URL when ready */}
-                <div style={{ width: 320, background: '#000', borderRadius: 44, padding: '12px 8px', border: '8px solid #2E2E2E', boxSizing: 'border-box' }}>
-                  <div style={{ borderRadius: 36, overflow: 'hidden', background: CARD, minHeight: 560, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5</span>
-                  </div>
+                {/* SCREEN 5 - User profile — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned user profile screen" style={{ width: 320, display: 'block' }} /> */}
+                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5</span>
                 </div>
               </div>
               <div>
