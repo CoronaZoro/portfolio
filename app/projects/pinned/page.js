@@ -533,7 +533,7 @@ export default function PinnedPage() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Five screens. One flow.
+              Six screens. One flow.
             </h2>
             <p
               className="anim-fade-up text-base leading-[1.7]"
@@ -580,15 +580,30 @@ export default function PinnedPage() {
               </div>
             </div>
 
-            {/* Screen 3 — DROP A PIN STEP 1 — image left */}
+            {/* Screen 3 — FOOD MARKET CLUSTER — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 3 - Add pin step 1 — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 1 screen" style={{ width: 320, display: 'block' }} /> */}
-                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3</span>
-                </div>
+                {/* SCREEN 3 - Food market cluster */}
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame3.png" alt="Pinned food market cluster screen" style={{ width: 320, display: 'block' }} />
               </div>
               <div>
+                <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Cluster View</p>
+                <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
+                  When one pin isn't enough.
+                </h3>
+                <p className="text-base leading-[1.7]" style={{ color: 'rgba(255,255,255,0.62)' }}>
+                  Some areas have dozens of stalls in one block. The cluster pin groups them together so the map stays readable. Tap the cluster to expand and browse everything in that area.
+                </p>
+              </div>
+            </div>
+
+            {/* Screen 4 — DROP A PIN STEP 1 — image right */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* SCREEN 4 - Add pin step 1 */}
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame4.png" alt="Pinned add pin step 1 screen" style={{ width: 320, display: 'block' }} />
+              </div>
+              <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 1</p>
                 <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Drop it where it is.
@@ -599,15 +614,13 @@ export default function PinnedPage() {
               </div>
             </div>
 
-            {/* Screen 4 — DROP A PIN STEP 2 — image right */}
+            {/* Screen 5 — DROP A PIN STEP 2 — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 4 - Add pin step 2 — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned add pin step 2 screen" style={{ width: 320, display: 'block' }} /> */}
-                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 4</span>
-                </div>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* SCREEN 5 - Add pin step 2 */}
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame5.png" alt="Pinned add pin step 2 screen" style={{ width: 320, display: 'block' }} />
               </div>
-              <div className="md:order-1">
+              <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 2</p>
                 <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Name it, tag it, rate it.
@@ -618,15 +631,13 @@ export default function PinnedPage() {
               </div>
             </div>
 
-            {/* Screen 5 — PROFILE — image left */}
+            {/* Screen 6 — PROFILE — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 5 - User profile — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned user profile screen" style={{ width: 320, display: 'block' }} /> */}
-                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5</span>
-                </div>
+              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* SCREEN 6 - User profile */}
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame6.png" alt="Pinned user profile screen" style={{ width: 320, display: 'block' }} />
               </div>
-              <div>
+              <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Profile</p>
                 <h3 className="mb-4 font-bold" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
                   Your pins, your reputation.
