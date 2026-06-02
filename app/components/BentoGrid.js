@@ -39,7 +39,23 @@ const CONFIG = {
   },
   pinned: {
     accent: '#2DCC70',
-    fallbackBg: <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned.png" alt="Pinned" className="w-full h-full object-cover" />,
+    fallbackBg: (
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #0a1a0f 0%, #0d2016 100%)' }}
+      >
+        <div className="flex flex-col items-center gap-5">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+              fill="#0d2016" stroke="#2DCC70" strokeWidth="1.5" />
+            <circle cx="12" cy="9" r="2.5" fill="#2DCC70" />
+          </svg>
+          <span className="font-bold tracking-[0.22em]" style={{ fontSize: 26, color: '#ffffff' }}>
+            PINNED
+          </span>
+        </div>
+      </div>
+    ),
   },
 }
 

@@ -522,9 +522,9 @@ export default function PinnedPage() {
 
             {/* Screen 1 — MAP VIEW — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="flex justify-center w-full">
                 {/* SCREEN 1 - Map view */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Map View</p>
@@ -539,9 +539,9 @@ export default function PinnedPage() {
 
             {/* Screen 2 — PIN DETAIL — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="md:order-2 flex justify-center w-full">
                 {/* SCREEN 2 - Pin detail sheet */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame2.png" alt="Pinned pin detail screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame2.png" alt="Pinned pin detail screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Pin Detail</p>
@@ -556,9 +556,9 @@ export default function PinnedPage() {
 
             {/* Screen 3 — FOOD MARKET CLUSTER — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="flex justify-center w-full">
                 {/* SCREEN 3 - Food market cluster */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame3.png" alt="Pinned food market cluster screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame3.png" alt="Pinned food market cluster screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Cluster View</p>
@@ -573,9 +573,9 @@ export default function PinnedPage() {
 
             {/* Screen 4 — DROP A PIN STEP 1 — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="md:order-2 flex justify-center w-full">
                 {/* SCREEN 4 - Add pin step 1 */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame4.png" alt="Pinned add pin step 1 screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame4.png" alt="Pinned add pin step 1 screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 1</p>
@@ -590,9 +590,9 @@ export default function PinnedPage() {
 
             {/* Screen 5 — DROP A PIN STEP 2 — image left */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="flex justify-center w-full">
                 {/* SCREEN 5 - Add pin step 2 */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame5.png" alt="Pinned add pin step 2 screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame5.png" alt="Pinned add pin step 2 screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Drop a Pin — Step 2</p>
@@ -607,9 +607,9 @@ export default function PinnedPage() {
 
             {/* Screen 6 — PROFILE — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="md:order-2 flex justify-center w-full">
                 {/* SCREEN 6 - User profile */}
-                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame6.png" alt="Pinned user profile screen" style={{ width: 320, display: 'block' }} />
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame6.png" alt="Pinned user profile screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Profile</p>
