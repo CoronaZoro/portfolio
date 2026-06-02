@@ -1,0 +1,519 @@
+import Navbar from '../../components/Navbar'
+import FooterIcons from '../../components/FooterIcons'
+
+// ── Design tokens ──────────────────────────────────────────────────────────────
+const BG       = '#161616'
+const CARD     = '#242424'
+const GREEN    = '#2DCC70'
+const AMBER    = '#FFB800'
+const GREY_DOT = '#555555'
+
+export default function PinnedPage() {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-16" style={{ background: BG, color: '#ffffff', fontFamily: 'var(--font-sans)' }}>
+
+        {/* ── HERO ──────────────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 pt-20 pb-16 max-w-7xl mx-auto">
+
+          {/* Category label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-10"
+            style={{ color: GREEN, animationDelay: '0.15s' }}
+          >
+            UI/UX Design / Mobile App
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+            {/* Left — title + one-liner */}
+            <div className="anim-fade-up" style={{ animationDelay: '0.25s' }}>
+              <h1
+                className="mb-5"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  letterSpacing: '-0.03em',
+                }}
+              >
+                Pinned.
+              </h1>
+              <p
+                className="text-base leading-[1.7]"
+                style={{ color: 'rgba(255,255,255,0.62)', maxWidth: 380 }}
+              >
+                A community-driven street food discovery map for Bangkok. Built for the people who eat, not the people who own.
+              </p>
+            </div>
+
+            {/* Right — metadata grid */}
+            <div
+              className="anim-fade-up grid grid-cols-2 gap-0"
+              style={{
+                animationDelay: '0.35s',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 12,
+                overflow: 'hidden',
+              }}
+            >
+              {[
+                { label: 'MY ROLE', value: 'Product Designer / UX' },
+                { label: 'TYPE',    value: 'Mobile App (Concept)'   },
+                { label: 'STACK',   value: 'Figma · Mapbox · DM Sans' },
+                { label: 'STATUS',  value: 'Case Study'              },
+              ].map(({ label, value }, i) => (
+                <div
+                  key={i}
+                  className="p-5"
+                  style={{
+                    borderRight:  i % 2 === 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    borderBottom: i < 2       ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    background: CARD,
+                  }}
+                >
+                  <p
+                    className="text-xs tracking-[0.2em] uppercase mb-2"
+                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                  >
+                    {label}
+                  </p>
+                  <p className="text-sm font-medium" style={{ color: GREEN }}>
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* ── HERO BANNER IMAGE PLACEHOLDER ─────────────────────────────────────
+            Replace this div with a full-width <img> tag when the banner is ready.
+            Suggested: <img src="/pinned-banner.png" alt="Pinned app screens" className="w-full" style={{ display: 'block', maxHeight: 520, objectFit: 'cover' }} />
+        ─────────────────────────────────────────────────────────────────────── */}
+        <div
+          className="w-full"
+          style={{
+            height: 420,
+            background: CARD,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <p
+            className="text-xs tracking-[0.25em] uppercase"
+            style={{ color: 'rgba(255,255,255,0.18)' }}
+          >
+            {/* Banner image — add here */}
+            Banner image placeholder
+          </p>
+        </div>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── OVERVIEW / PROBLEM ────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Overview
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Bangkok's best food isn't on the map.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Bangkok has more street food stalls than almost any city on earth. Most of them have never appeared on Google Maps — and probably never will.
+            </p>
+          </div>
+
+          {/* Three cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
+            {[
+              {
+                num:   'I — REALITY',
+                body:  'Google Maps works great for restaurants, bars, and cafes. Street food stalls are almost completely absent.',
+              },
+              {
+                num:   'II — BREAKDOWN',
+                body:  'Stall owners are focused on cooking and making a living. Setting up a digital profile isn\'t something they have time for — or need.',
+              },
+              {
+                num:   'III — INSIGHT',
+                body:  'Many stalls move, close early, or only open certain nights. Even when a stall is listed, there\'s no way to know if it\'s still there today.',
+              },
+            ].map(({ num, body }) => (
+              <div
+                key={num}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {num}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Blockquote */}
+          <div
+            className="anim-fade-up mb-0 p-6 md:p-8"
+            style={{
+              background: CARD,
+              borderRadius: 12,
+              borderLeft: `3px solid ${GREEN}`,
+              maxWidth: 640,
+            }}
+          >
+            <p
+              className="text-base md:text-lg leading-[1.7] mb-4"
+              style={{ color: 'rgba(255,255,255,0.8)', fontStyle: 'italic' }}
+            >
+              "I walked 20 minutes to a stall I'd been to before. It wasn't there. No way to know until you show up."
+            </p>
+            <p
+              className="text-xs tracking-[0.14em] uppercase"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
+            >
+              — Randy, Bangkok resident
+            </p>
+          </div>
+
+        </section>
+
+        {/* ── ANCHOR STATEMENT 1 ────────────────────────────────────────────── */}
+        <div
+          className="w-full px-6 md:px-10"
+          style={{ paddingTop: 80, paddingBottom: 80 }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <p
+              style={{
+                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span style={{ color: '#ffffff', display: 'block' }}>
+                The problem isn't finding food.
+              </span>
+              <span style={{ color: GREEN, display: 'block' }}>
+                It's trusting that it's still there.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── SOLUTION ──────────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Solution
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              So we pinned it there. Together.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Pinned is a community-driven street food discovery map for Bangkok. No sign-ups required from stall owners. No corporate listings. Just people who eat street food, sharing what they find.
+            </p>
+          </div>
+
+          {/* Three cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                num:  'I — MAP FIRST',
+                body: 'Every stall starts as a pin on a map. Not a feed, not a list. Because street food is about location — what\'s near you, right now.',
+              },
+              {
+                num:  'II — ANYONE CAN PIN',
+                body: 'Spot a great stall? Drop a pin in under a minute. Add a photo, a food type, a quick note. The map grows every time someone eats.',
+              },
+              {
+                num:  'III — THE COMMUNITY UPDATES IT',
+                body: 'Pins don\'t just get added — they get maintained. Every user can confirm a stall is still there, keeping the map accurate without any central team managing it.',
+              },
+            ].map(({ num, body }) => (
+              <div
+                key={num}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {num}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </section>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── FEATURE SPOTLIGHT ─────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Feature
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              A map that stays alive.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              The biggest problem with crowd-sourced location data isn't adding it — it's keeping it accurate. Stalls close. They move. They take random days off. A pin that was true six months ago might be useless today.
+            </p>
+          </div>
+
+          {/* Pin state cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+            {[
+              {
+                dot:   GREEN,
+                state: 'CONFIRMED',
+                body:  'Pinned or confirmed within 3 hours. Someone was just there.',
+              },
+              {
+                dot:   AMBER,
+                state: 'UNCONFIRMED',
+                body:  'Last seen today. Likely still there but unconfirmed.',
+              },
+              {
+                dot:   GREY_DOT,
+                state: 'STALE',
+                body:  'No confirmation in over 24 hours. May have moved or closed early.',
+              },
+            ].map(({ dot, state, body }) => (
+              <div
+                key={state}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                {/* Dot + state label */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: '50%',
+                      background: dot,
+                      flexShrink: 0,
+                      display: 'block',
+                    }}
+                  />
+                  <p
+                    className="text-xs tracking-[0.18em] uppercase"
+                    style={{ color: dot }}
+                  >
+                    {state}
+                  </p>
+                </div>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Benefit cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[
+              {
+                label: 'FOR THE EATER',
+                body:  'You know what you\'re looking at is real. The amber and grey states tell you when to be skeptical — before you make the trip.',
+              },
+              {
+                label: 'FOR THE STALL',
+                body:  'Great stalls get confirmed more. That confirmation history becomes their reputation — built organically, without them ever touching an app.',
+              },
+            ].map(({ label, body }) => (
+              <div
+                key={label}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {label}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </section>
+
+        {/* ── ANCHOR STATEMENT 2 ────────────────────────────────────────────── */}
+        <div
+          className="w-full px-6 md:px-10"
+          style={{ paddingTop: 80, paddingBottom: 80 }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <p
+              style={{
+                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+                color: GREEN,
+              }}
+            >
+              Every pin makes the map better.
+            </p>
+          </div>
+        </div>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── SCREEN WALKTHROUGH PLACEHOLDER ────────────────────────────────────
+            Add screens and captions here manually when ready.
+            Suggested structure:
+              <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+                <p style={{ color: GREEN }}>SCREENS</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <img src="/pinned-screen-1.png" ... />
+                  <img src="/pinned-screen-2.png" ... />
+                  ...
+                </div>
+              </section>
+        ─────────────────────────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+          <p
+            className="text-xs tracking-[0.22em] uppercase mb-10"
+            style={{ color: GREEN }}
+          >
+            Screens
+          </p>
+          <div
+            style={{
+              height: 320,
+              background: CARD,
+              borderRadius: 12,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <p
+              className="text-xs tracking-[0.25em] uppercase"
+              style={{ color: 'rgba(255,255,255,0.18)' }}
+            >
+              {/* Screen walkthrough — add images and captions here */}
+              Screen walkthrough placeholder
+            </p>
+          </div>
+        </section>
+
+        {/* ── FOOTER ────────────────────────────────────────────────────────── */}
+        <footer
+          className="px-6 md:px-10 py-12"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+        >
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <span
+              className="text-sm font-bold tracking-[0.15em]"
+              style={{ color: GREEN }}
+            >
+              PINNED
+            </span>
+            <FooterIcons figmaHref="#" />
+          </div>
+        </footer>
+
+      </main>
+    </>
+  )
+}
