@@ -291,17 +291,20 @@ export default function ContactSection({ profile = {} }) {
       </AnimatePresence>
 
       {/* ── Bottom bar ──────────────────────────────────────── */}
-      <div style={{
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        padding: '28px 60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        maxWidth: 1200,
-        width: '100%',
-        margin: '0 auto',
-        boxSizing: 'border-box',
-      }}>
+      <div
+        className="contact-footer"
+        style={{
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          padding: '28px 60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          maxWidth: 1200,
+          width: '100%',
+          margin: '0 auto',
+          boxSizing: 'border-box',
+        }}
+      >
 
         {/* Social icons */}
         <div style={{ display: 'flex', gap: 12 }}>
@@ -365,6 +368,11 @@ export default function ContactSection({ profile = {} }) {
           .dino-wrap {
             padding-left: 24px !important;
             padding-right: 24px !important;
+          }
+          .contact-footer {
+            padding-left: 24px !important;
+            padding-right: 24px !important;
+            gap: 16px;
           }
         }
       `}</style>
