@@ -361,7 +361,9 @@ export default function PinnedPage() {
               justifyContent: 'center',
             }}
           >
-            <img src="" alt="Pinned wireframes" style={{ width: '100%', display: 'block' }} />
+            {/* WIREFRAMES IMAGE - full width, all 6 screens side by side */}
+            {/* Replace this div with: <img src="/your-image.png" alt="Pinned wireframes" style={{ width: '100%', display: 'block' }} /> */}
+            <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Wireframes image</span>
           </div>
 
         </section>
@@ -452,7 +454,9 @@ export default function PinnedPage() {
               justifyContent: 'center',
             }}
           >
-            <img src="" alt="Pinned design system components" style={{ width: '100%', display: 'block' }} />
+            {/* DESIGN SYSTEM IMAGE - full components screenshot */}
+            {/* Replace this div with: <img src="/your-image.png" alt="Pinned design system components" style={{ width: '100%', display: 'block' }} /> */}
+            <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Design system image</span>
           </div>
 
         </section>
@@ -510,7 +514,8 @@ export default function PinnedPage() {
                 }}
               >
                 {/* SCREEN 1 - Map view */}
-                <img src="" alt="Pinned map view screen" style={{ width: '100%', display: 'block' }} />
+                {/* Replace this div with: <img src="/your-image.png" alt="Pinned map view screen" style={{ width: '100%', display: 'block' }} /> */}
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 1 — Map view</span>
               </div>
               <div>
                 <p
@@ -553,7 +558,8 @@ export default function PinnedPage() {
                   }}
                 >
                   {/* SCREEN 2 - Pin detail sheet */}
-                  <img src="" alt="Pinned pin detail screen" style={{ width: '100%', display: 'block' }} />
+                  {/* Replace this div with: <img src="/your-image.png" alt="Pinned pin detail screen" style={{ width: '100%', display: 'block' }} /> */}
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 2 — Pin detail</span>
                 </div>
               </div>
               <div className="md:order-1">
@@ -596,7 +602,8 @@ export default function PinnedPage() {
                 }}
               >
                 {/* SCREEN 3 - Add pin step 1 */}
-                <img src="" alt="Pinned add pin step 1 screen" style={{ width: '100%', display: 'block' }} />
+                {/* Replace this div with: <img src="/your-image.png" alt="Pinned add pin step 1 screen" style={{ width: '100%', display: 'block' }} /> */}
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 3 — Drop a pin step 1</span>
               </div>
               <div>
                 <p
@@ -639,7 +646,8 @@ export default function PinnedPage() {
                   }}
                 >
                   {/* SCREEN 4 - Add pin step 2 */}
-                  <img src="" alt="Pinned add pin step 2 screen" style={{ width: '100%', display: 'block' }} />
+                  {/* Replace this div with: <img src="/your-image.png" alt="Pinned add pin step 2 screen" style={{ width: '100%', display: 'block' }} /> */}
+                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 4 — Drop a pin step 2</span>
                 </div>
               </div>
               <div className="md:order-1">
@@ -682,7 +690,8 @@ export default function PinnedPage() {
                 }}
               >
                 {/* SCREEN 5 - User profile */}
-                <img src="" alt="Pinned user profile screen" style={{ width: '100%', display: 'block' }} />
+                {/* Replace this div with: <img src="/your-image.png" alt="Pinned user profile screen" style={{ width: '100%', display: 'block' }} /> */}
+                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 5 — Profile</span>
               </div>
               <div>
                 <p
