@@ -944,6 +944,89 @@ export default function PinnedPage() {
 
         </section>
 
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
+        {/* ── WHAT I LEARNED ────────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Reflection
+          </p>
+
+          {/* Headline */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              What I learned from this project.
+            </h2>
+          </div>
+
+          {/* Four numbered cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[
+              {
+                num:   '1',
+                bold:  'No reference point forces better thinking.',
+                body:  'There\'s no app like Pinned, which meant every decision had to be justified from first principles. That constraint made me a sharper product thinker.',
+              },
+              {
+                num:   '2',
+                bold:  'The hardest problem wasn\'t visual. It was systemic.',
+                body:  'Designing a map that stays accurate without anyone maintaining it pushed me beyond UI into product architecture and community behavior.',
+              },
+              {
+                num:   '3',
+                bold:  'Component libraries pay off fast.',
+                body:  'My first time using Figma variables properly. It slowed me down at the start and saved me on every screen after.',
+              },
+              {
+                num:   '4',
+                bold:  'Timebox your explorations.',
+                body:  'With no reference, small decisions took too long. Next time I\'d set a hard limit on exploration and commit sooner.',
+              },
+            ].map(({ num, bold, body }) => (
+              <div
+                key={num}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {num}
+                </p>
+                <p
+                  className="text-base font-semibold mb-3"
+                  style={{ color: '#fff', lineHeight: 1.4 }}
+                >
+                  {bold}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </section>
+
         {/* ── ANCHOR STATEMENT 3 ────────────────────────────────────────────── */}
         <div
           className="w-full px-6 md:px-10"
