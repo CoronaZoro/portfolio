@@ -35,6 +35,7 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 - **`main`** — live site. Every push here auto-deploys to Vercel.
 - **`dev`** — active development branch. All new work goes here.
 - **`huesta-wip`** — old Huesta feature branch (now merged).
+- **`pinned-case-study`** — Pinned case study in progress. Not yet merged to main.
 
 **Rule: never push unfinished work directly to main.**
 
@@ -50,6 +51,7 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 | `/projects/bouzer` | `app/projects/bouzer/page.js` | Bouzer case study |
 | `/projects/attend` | `app/projects/attend/page.js` | Attend case study |
 | `/projects/huesta` | `app/projects/huesta/page.js` | Huesta case study |
+| `/projects/pinned` | `app/projects/pinned/page.js` | Pinned case study (branch: `pinned-case-study`, not yet merged to main) |
 
 ### Admin pages (planned — not yet built)
 | Route | Description |
@@ -82,6 +84,7 @@ app/
     bouzer/page.js
     attend/page.js
     huesta/page.js
+    pinned/page.js    — Pinned case study (on pinned-case-study branch)
 ```
 
 ---
@@ -103,6 +106,8 @@ app/
 | Border mid | `rgba(255,255,255,0.12)` |
 
 **Huesta case study** uses its own dark palette (`#0A0A0A`, `#111111`, `#222222`) and accent `#c8a876` — this is intentional, only for that page.
+
+**Pinned case study** uses its own dark palette (`#161616` bg, `#242424` cards) with `#2DCC70` green accent and `#FFB800` amber for unconfirmed pin state — intentional, only for that page.
 
 **Animations (CSS, not Framer yet):**
 - `.anim-fade-up` — fadeUp 0.7s, used on sections with `animationDelay`
@@ -146,7 +151,7 @@ display_order     INTEGER
 visible           BOOLEAN DEFAULT TRUE
 updated_at        TIMESTAMP DEFAULT NOW()
 ```
-Seeded with 4 rows: Guardian, Huesta, Bouzer, Attend.
+Seeded with 4 rows: Guardian, Huesta, Bouzer, Attend. (Pinned not yet in DB — add when merging to main.)
 
 ---
 
@@ -232,13 +237,21 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 
 ---
 
+## Completed Work (recent)
+
+- **Admin panel** — `/admin`, `/admin/profile`, `/admin/projects`, `/admin/images` — built and live on main
+- **Full-page contact section** — `app/components/ContactSection.js` — live on main; profile data (email, socials, resume, availability) fetched server-side from DB via `page.js`
+- **Huesta mobile fix** — TryHuesta section shows input-only on mobile, full-width output after generation with ← Back button
+- **Huesta download PNG** — html2canvas download button added to kit output
+- **Profile fields wired** — tagline → Hero, available_from → AboutSection + ContactSection, all contact links → ContactSection; all fetched via `Promise.all` in `page.js`
+- **Admin API auth** — `lib/db.js` centralises `sql` and `requireAdmin()` helper used by all `/api/admin/*` routes
+- **Pinned case study** — `app/projects/pinned/page.js` on branch `pinned-case-study` (not yet merged). Sections: Hero, Overview/Problem, Solution, Wireframes, Design System, Screen Walkthrough (6 screens), Feature Spotlight, Confirm Still Here (Core Mechanic), Reflection. All images live on Vercel Blob.
+
 ## Upcoming Work (in order)
 
-1. **Admin panel** — `/admin`, `/admin/profile`, `/admin/projects`, `/admin/images`
+1. **Merge Pinned** — PR `pinned-case-study → main`, add Pinned row to `projects` DB table
 2. **Framer Motion** — page transitions, scroll reveal, project card hover, hero stagger, nav scroll fade
 3. **Custom X cursor** — replaces default cursor, follows mouse via `useMotionValue`
-4. **Full-page contact section** — replaces current footer, viewport-height, "Let's work together."
-5. **Huesta embed** — `/api/generate` route + "Try Huesta" live section at bottom of `/projects/huesta`
 
 ---
 
@@ -250,6 +263,6 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 4. **`'use client'`** — required on any component that uses hooks, event handlers, or browser APIs
 5. **No UI changes without instruction** — don't touch existing pages, components, or styles unless asked
 6. **Dev branch for all work** — never commit directly to `main` mid-feature
-7. **Don't add case study pages** — Randy manually codes those
+7. **Don't add case study pages without instruction** — Randy controls when and what goes in
 8. **No Clerk** — admin auth is simple password middleware, not Clerk
 9. **Keep `.env.local` out of git** — already in `.gitignore`, never commit it
