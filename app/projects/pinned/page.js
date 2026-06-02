@@ -944,6 +944,30 @@ export default function PinnedPage() {
 
         </section>
 
+        {/* ── ANCHOR STATEMENT 3 ────────────────────────────────────────────── */}
+        <div
+          className="w-full px-6 md:px-10"
+          style={{ paddingTop: 120, paddingBottom: 120 }}
+        >
+          <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
+            <p
+              style={{
+                fontSize: 'clamp(2.5rem, 6vw, 60px)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span style={{ color: '#ffffff', display: 'block' }}>
+                No admin team. No manual updates.
+              </span>
+              <span style={{ color: GREEN, display: 'block' }}>
+                The community does it naturally.
+              </span>
+            </p>
+          </div>
+        </div>
+
         {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
 
@@ -1026,30 +1050,6 @@ export default function PinnedPage() {
           </div>
 
         </section>
-
-        {/* ── ANCHOR STATEMENT 3 ────────────────────────────────────────────── */}
-        <div
-          className="w-full px-6 md:px-10"
-          style={{ paddingTop: 120, paddingBottom: 120 }}
-        >
-          <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
-            <p
-              style={{
-                fontSize: 'clamp(2.5rem, 6vw, 60px)',
-                fontWeight: 700,
-                lineHeight: 1.15,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              <span style={{ color: '#ffffff', display: 'block' }}>
-                No admin team. No manual updates.
-              </span>
-              <span style={{ color: GREEN, display: 'block' }}>
-                The community does it naturally.
-              </span>
-            </p>
-          </div>
-        </div>
 
         {/* ── FOOTER ────────────────────────────────────────────────────────── */}
         <footer
