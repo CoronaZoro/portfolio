@@ -550,10 +550,7 @@ export default function PinnedPage() {
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {/* SCREEN 1 - Map view */}
-                {/* Replace span+div with: <img src="YOUR_BLOB_URL" alt="Pinned map view screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} /> */}
-                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 1 — Map view</span>
-                </div>
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" style={{ width: 320, objectFit: 'contain', display: 'block' }} />
               </div>
               <div>
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Map View</p>
