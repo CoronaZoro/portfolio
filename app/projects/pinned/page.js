@@ -458,6 +458,181 @@ export default function PinnedPage() {
         {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
 
+        {/* ── CONFIRM STILL HERE ────────────────────────────────────────────── */}
+        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+
+          {/* Section label */}
+          <p
+            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-8"
+            style={{ color: GREEN, animationDelay: '0.1s' }}
+          >
+            Core Mechanic
+          </p>
+
+          {/* Headline + subtext */}
+          <div className="mb-14 max-w-2xl">
+            <h2
+              className="anim-fade-up mb-5"
+              style={{
+                animationDelay: '0.18s',
+                fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                fontWeight: 700,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Confirm still here.
+            </h2>
+            <p
+              className="anim-fade-up text-base leading-[1.7]"
+              style={{ animationDelay: '0.26s', color: 'rgba(255,255,255,0.62)' }}
+            >
+              Street food data goes stale fast. Confirm Still Here is a one-tap community update system that keeps the map honest — without requiring stall owners to do anything.
+            </p>
+          </div>
+
+          {/* Three step cards with arrow connectors */}
+          <div className="mb-5">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 items-center">
+
+              {/* Step 1 */}
+              <div
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  Step 1 — Pin Added
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  A user spots a stall and drops a pin. It goes live on the map immediately, marked green.
+                </p>
+              </div>
+
+              {/* Arrow 1 */}
+              <div
+                className="hidden md:flex items-center justify-center flex-shrink-0"
+                style={{ color: 'rgba(255,255,255,0.2)', fontSize: 22, width: 32 }}
+              >
+                →
+              </div>
+
+              {/* Step 2 */}
+              <div
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: AMBER }}
+                >
+                  Step 2 — Time Passes
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  No confirmation comes in. The pin shifts to amber, then grey. The map is honest about uncertainty.
+                </p>
+              </div>
+
+              {/* Arrow 2 */}
+              <div
+                className="hidden md:flex items-center justify-center flex-shrink-0"
+                style={{ color: 'rgba(255,255,255,0.2)', fontSize: 22, width: 32 }}
+              >
+                →
+              </div>
+
+              {/* Step 3 */}
+              <div
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  Step 3 — Confirmed
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  Someone walks past and taps Confirm Still Here. One tap. Pin goes green again.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Benefit cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[
+              {
+                label: 'FOR THE EATER',
+                body:  'Green means someone was just there. Amber means proceed with mild caution. Grey means call ahead or explore nearby.',
+              },
+              {
+                label: 'FOR THE STALL',
+                body:  'No app needed. No account needed. Good stalls naturally get confirmed more — building a reputation purely through foot traffic.',
+              },
+            ].map(({ label, body }) => (
+              <div
+                key={label}
+                className="anim-fade-up p-6"
+                style={{ background: CARD, borderRadius: 12 }}
+              >
+                <p
+                  className="text-xs tracking-[0.18em] uppercase mb-4"
+                  style={{ color: GREEN }}
+                >
+                  {label}
+                </p>
+                <p
+                  className="text-base leading-[1.7]"
+                  style={{ color: 'rgba(255,255,255,0.65)' }}
+                >
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </section>
+
+        {/* ── ANCHOR STATEMENT 3 ────────────────────────────────────────────── */}
+        <div
+          className="w-full px-6 md:px-10"
+          style={{ paddingTop: 80, paddingBottom: 80 }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <p
+              style={{
+                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontWeight: 700,
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              <span style={{ color: '#ffffff', display: 'block' }}>
+                No admin team. No manual updates.
+              </span>
+              <span style={{ color: GREEN, display: 'block' }}>
+                The community does it naturally.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
+
         {/* ── SCREEN WALKTHROUGH PLACEHOLDER ────────────────────────────────────
             Add screens and captions here manually when ready.
             Suggested structure:
