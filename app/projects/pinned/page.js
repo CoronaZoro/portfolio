@@ -566,10 +566,8 @@ export default function PinnedPage() {
             {/* Screen 2 — PIN DETAIL — image right */}
             <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="md:order-2" style={{ display: 'flex', justifyContent: 'center' }}>
-                {/* SCREEN 2 - Pin detail sheet — replace div+span with: <img src="YOUR_BLOB_URL" alt="Pinned pin detail screen" style={{ width: 320, display: 'block' }} /> */}
-                <div style={{ width: 320, minHeight: 560, background: CARD, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Screen 2</span>
-                </div>
+                {/* SCREEN 2 - Pin detail sheet */}
+                <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame2.png" alt="Pinned pin detail screen" style={{ width: 320, display: 'block' }} />
               </div>
               <div className="md:order-1">
                 <p className="text-xs tracking-[0.18em] uppercase mb-5" style={{ color: GREEN }}>Pin Detail</p>
