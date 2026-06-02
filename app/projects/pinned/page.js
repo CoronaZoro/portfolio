@@ -90,28 +90,13 @@ export default function PinnedPage() {
           </div>
         </section>
 
-        {/* ── HERO BANNER IMAGE PLACEHOLDER ─────────────────────────────────────
-            Replace this div with a full-width <img> tag when the banner is ready.
-            Suggested: <img src="/pinned-banner.png" alt="Pinned app screens" className="w-full" style={{ display: 'block', maxHeight: 520, objectFit: 'cover' }} />
-        ─────────────────────────────────────────────────────────────────────── */}
-        <div
+        {/* ── HERO BANNER IMAGE ─────────────────────────────────────────────── */}
+        <img
+          src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Banner.png"
+          alt="Pinned app screens"
           className="w-full"
-          style={{
-            height: 420,
-            background: CARD,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <p
-            className="text-xs tracking-[0.25em] uppercase"
-            style={{ color: 'rgba(255,255,255,0.18)' }}
-          >
-            {/* Banner image — add here */}
-            Banner image placeholder
-          </p>
-        </div>
+          style={{ display: 'block', maxHeight: 520, objectFit: 'cover' }}
+        />
 
         {/* ── DIVIDER ───────────────────────────────────────────────────────── */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', margin: '0 40px' }} />
@@ -361,9 +346,8 @@ export default function PinnedPage() {
               justifyContent: 'center',
             }}
           >
-            {/* WIREFRAMES IMAGE - full width, all 6 screens side by side */}
-            {/* Replace this div with: <img src="/your-image.png" alt="Pinned wireframes" style={{ width: '100%', display: 'block' }} /> */}
-            <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Wireframes image</span>
+            {/* WIREFRAMES IMAGE */}
+            <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_wireframe.png" alt="Pinned wireframes" style={{ width: '100%', display: 'block' }} />
           </div>
 
         </section>
@@ -413,10 +397,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - colours and typography screenshot */}
-              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned colours and typography" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Colours & typography image</span>
-              </div>
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Typo.png" alt="Pinned colours and typography" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
@@ -439,10 +420,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - pin states screenshot */}
-              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned pin states" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Pin states image</span>
-              </div>
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_pins.png" alt="Pinned pin states" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
@@ -465,10 +443,7 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - stall card screenshot */}
-              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned stall card component" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Stall card image</span>
-              </div>
+              <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Card.png" alt="Pinned stall card component" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
               <div className="p-6">
                 <p
                   className="text-xs tracking-[0.18em] uppercase mb-4"
@@ -501,8 +476,7 @@ export default function PinnedPage() {
             }}
           >
             {/* DESIGN SYSTEM IMAGE - full components screenshot */}
-            {/* Replace this div with: <img src="/your-image.png" alt="Pinned design system components" style={{ width: '100%', display: 'block' }} /> */}
-            <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Design system image</span>
+            <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Components.png" alt="Pinned design system components" style={{ width: '100%', display: 'block' }} />
           </div>
 
         </section>
