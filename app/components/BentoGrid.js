@@ -39,13 +39,7 @@ const CONFIG = {
   },
   pinned: {
     accent: '#2DCC70',
-    fallbackBg: (
-      <div className="w-full h-full flex items-end" style={{ background: '#0d1a10', padding: '32px' }}>
-        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 700, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}>
-          Pinned.
-        </span>
-      </div>
-    ),
+    fallbackBg: <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned.png" alt="Pinned" className="w-full h-full object-cover" />,
   },
 }
 
