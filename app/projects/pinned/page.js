@@ -413,8 +413,8 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - colours and typography screenshot */}
-              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned colours and typography" style={{ width: '100%', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned colours and typography" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Colours & typography image</span>
               </div>
               <div className="p-6">
@@ -439,8 +439,8 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - pin states screenshot */}
-              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned pin states" style={{ width: '100%', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned pin states" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Pin states image</span>
               </div>
               <div className="p-6">
@@ -465,8 +465,8 @@ export default function PinnedPage() {
               style={{ background: CARD, borderRadius: 12, overflow: 'hidden' }}
             >
               {/* DESIGN SYSTEM - stall card screenshot */}
-              {/* Replace span with: <img src="YOUR_BLOB_URL" alt="Pinned stall card component" style={{ width: '100%', display: 'block' }} /> */}
-              <div style={{ background: '#1a1a1a', minHeight: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Replace the inner div+span with: <img src="YOUR_BLOB_URL" alt="Pinned stall card component" style={{ width: '100%', height: 200, objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> */}
+              <div style={{ background: '#1a1a1a', height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                 <span className="text-xs tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>Stall card image</span>
               </div>
               <div className="p-6">
