@@ -37,6 +37,20 @@ const CONFIG = {
     accent: '#60a5fa',
     fallbackBg: <img src="/Attend.png" alt="Attend" className="w-full h-full object-cover" />,
   },
+  pinned: {
+    accent: '#2DCC70',
+    fallbackBg: <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned.png" alt="Pinned" className="w-full h-full object-cover" />,
+  },
+}
+
+// ── Static entry for Pinned (not yet in DB — replace with DB row once seeded) ─
+const PINNED_STATIC = {
+  slug:              'pinned',
+  title:             'Pinned.',
+  short_description: 'A community-driven street food discovery map for Bangkok.',
+  tags:              ['UI/UX', 'Mobile App'],
+  thumbnail_url:     null,
+  case_study_path:   '/projects/pinned',
 }
 
 // Bottom bar slides up from y:20 → y:0 on hover
@@ -176,14 +190,15 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
 }
 
 // ── Grid layout ────────────────────────────────────────────────────────────
-// Order: Guardian (full) → Bouzer + Attend (2-col) → Huesta (full)
+// Order: Guardian (full) → Bouzer + Huesta (2-col) → Pinned (full)
 export default function BentoGrid({ projects }) {
   if (!projects?.length) return null
 
   const guardian = projects.find(p => p.slug === 'guardian')
   const bouzer   = projects.find(p => p.slug === 'bouzer')
-  const attend   = projects.find(p => p.slug === 'attend')
   const huesta   = projects.find(p => p.slug === 'huesta')
+  // Pinned: use DB row when available, else fall back to static entry
+  const pinned   = projects.find(p => p.slug === 'pinned') ?? PINNED_STATIC
 
   return (
     <section id="work" className="px-6 md:px-10 py-16 md:py-24" style={{ background: '#0e0c0a' }}>
@@ -196,14 +211,14 @@ export default function BentoGrid({ projects }) {
         {/* Row 1 — Guardian, full width */}
         {guardian && <BentoCard project={guardian} delay={0}   heightClass="min-h-[260px] md:min-h-[500px]" />}
 
-        {/* Row 2 — Bouzer + Attend, 2-column */}
+        {/* Row 2 — Bouzer + Huesta, 2-column */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
           {bouzer && <BentoCard project={bouzer} delay={0.1} heightClass="min-h-[220px] md:min-h-[420px]" />}
-          {attend && <BentoCard project={attend} delay={0.2} heightClass="min-h-[220px] md:min-h-[420px]" />}
+          {huesta && <BentoCard project={huesta} delay={0.2} heightClass="min-h-[220px] md:min-h-[420px]" />}
         </div>
 
-        {/* Row 3 — Huesta, full width */}
-        {huesta && <BentoCard project={huesta} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />}
+        {/* Row 3 — Pinned, full width */}
+        <BentoCard project={pinned} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />
 
       </div>
     </section>
