@@ -65,7 +65,7 @@ const PINNED_STATIC = {
   title:             'Pinned.',
   short_description: 'A community-driven street food discovery map for Bangkok.',
   tags:              ['UI/UX', 'Mobile App'],
-  thumbnail_url:     null,
+  thumbnail_url:     'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned.png',
   case_study_path:   '/projects/pinned',
 }
 
