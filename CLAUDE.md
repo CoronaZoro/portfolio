@@ -52,6 +52,7 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 | `/projects/attend` | `app/projects/attend/page.js` | Attend case study |
 | `/projects/huesta` | `app/projects/huesta/page.js` | Huesta case study |
 | `/projects/pinned` | `app/projects/pinned/page.js` | Pinned case study (branch: `pinned-case-study`, not yet merged to main) |
+| `/projects/devdna` | `app/projects/devdna/page.js` | DevDNA case study (branch: `devdna-case-study`, not yet merged to main) |
 
 ### Admin pages (planned — not yet built)
 | Route | Description |
@@ -246,12 +247,14 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 - **Profile fields wired** — tagline → Hero, available_from → AboutSection + ContactSection, all contact links → ContactSection; all fetched via `Promise.all` in `page.js`
 - **Admin API auth** — `lib/db.js` centralises `sql` and `requireAdmin()` helper used by all `/api/admin/*` routes
 - **Pinned case study** — `app/projects/pinned/page.js` on branch `pinned-case-study` (not yet merged). Sections: Hero, Overview/Problem, Solution, Wireframes, Design System, Screen Walkthrough (6 screens), Feature Spotlight, Confirm Still Here (Core Mechanic), Reflection. All images live on Vercel Blob.
+- **DevDNA case study** — `app/projects/devdna/page.js` on branch `devdna-case-study` (not yet merged). Sections: Hero, Overview, Solution, Technical, Features (4 rows), Reflection. Design palette: `#0d1117` bg, `#161b22` card, `#21262d` border, `#7c6af7` purple accent, JetBrains Mono for terminals. All image/GIF slots are placeholder divs with comments ready to swap in. DevDNA card added to BentoGrid as static entry (same pattern as Pinned).
 
 ## Upcoming Work (in order)
 
 1. **Merge Pinned** — PR `pinned-case-study → main`, add Pinned row to `projects` DB table
-2. **Framer Motion** — page transitions, scroll reveal, project card hover, hero stagger, nav scroll fade
-3. **Custom X cursor** — replaces default cursor, follows mouse via `useMotionValue`
+2. **Merge DevDNA** — PR `devdna-case-study → main`, swap placeholder divs for real screenshots/GIFs, add DevDNA row to `projects` DB table
+3. **Framer Motion** — page transitions, scroll reveal, project card hover, hero stagger, nav scroll fade
+4. **Custom X cursor** — replaces default cursor, follows mouse via `useMotionValue`
 
 ---
 
