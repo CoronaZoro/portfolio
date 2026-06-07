@@ -785,8 +785,9 @@ export default function DevDNAPage() {
                 tag: 'Engineering Fingerprint',
                 title: 'An archetypal read of how you actually engineer.',
                 copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
-                // FEATURE 1 IMAGE — live from Blob
-                imgSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engineering_footprint.gif',
+                // FEATURE 1 VIDEO — autoplay loop muted (gif-style)
+                videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
+                imgSrc: null,
                 imgAlt: 'Engineering Fingerprint in action',
                 imgRight: false,
               },
@@ -795,7 +796,8 @@ export default function DevDNAPage() {
                 tag: 'Roast / Normal',
                 title: 'Same data. Completely different read.',
                 copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant on the second view.',
-                // FEATURE 2 — replace imgSrc with Blob URL when ready
+                // FEATURE 2 — set videoSrc or imgSrc when media is ready
+                videoSrc: null,
                 imgSrc: null,
                 imgAlt: 'Roast / Normal toggle GIF',
                 imgRight: true,
@@ -805,7 +807,8 @@ export default function DevDNAPage() {
                 tag: 'Repo Summaries',
                 title: 'Lazy-loaded. Only analyzed when you need it.',
                 copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it — keeping the initial page fast and API costs proportional to actual usage.',
-                // FEATURE 3 — replace imgSrc with Blob URL when ready
+                // FEATURE 3 — set videoSrc or imgSrc when media is ready
+                videoSrc: null,
                 imgSrc: null,
                 imgAlt: 'Repo summaries expand GIF',
                 imgRight: false,
@@ -815,15 +818,33 @@ export default function DevDNAPage() {
                 tag: 'Commit Score',
                 title: "'fix', 'update', and 'asdfgh' are a pattern.",
                 copy: 'Your last 50 commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work — and patterns tell you something.',
-                // FEATURE 4 — replace imgSrc with Blob URL when ready
+                // FEATURE 4 — set videoSrc or imgSrc when media is ready
+                videoSrc: null,
                 imgSrc: null,
                 imgAlt: 'Commit Score screenshot',
                 imgRight: true,
               },
-            ].map(({ n, tag, title, copy, imgSrc, imgAlt, imgRight }) => {
+            ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt, imgRight }) => {
               const imgBlock = (
                 <div className="anim-fade-up" style={{ animationDelay: '0.1s' }}>
-                  {imgSrc
+                  {videoSrc
+                    ? (
+                      /* GIF-style autoplay video — no controls, no interaction */
+                      <video
+                        src={videoSrc}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full rounded-xl"
+                        style={{
+                          display: 'block',
+                          border: `1px solid ${BORDER}`,
+                          pointerEvents: 'none', // prevent any user interaction
+                        }}
+                      />
+                    )
+                    : imgSrc
                     ? (
                       <img
                         src={imgSrc}
@@ -833,7 +854,7 @@ export default function DevDNAPage() {
                       />
                     )
                     : (
-                      /* Replace ImgPlaceholder with <img src="..." alt={imgAlt} ... /> when Blob URL is ready */
+                      /* Replace ImgPlaceholder with <img> or <video> when media is ready */
                       <ImgPlaceholder label={imgAlt} ratio="16/10" />
                     )
                   }
