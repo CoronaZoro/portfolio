@@ -782,14 +782,13 @@ export default function DevDNAPage() {
             {[
               {
                 n: '01',
-                tag: 'Engineering Fingerprint',
-                title: 'An archetypal read of how you actually engineer.',
-                copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
-                // FEATURE 1 VIDEO — autoplay loop muted (gif-style)
-                videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
+                tag: 'Dashboard',
+                title: 'Everything about your GitHub. At a glance.',
+                copy: 'From contribution heatmap to language breakdown, commit velocity to coding time patterns — DevDNA surfaces the full picture of how you work the moment you land on the page.',
+                // FEATURE 1 — Dashboard overview scroll GIF placeholder
+                videoSrc: null,
                 imgSrc: null,
-                imgAlt: 'Engineering Fingerprint in action',
-                imgRight: false,
+                imgAlt: 'Dashboard overview scroll GIF',
               },
               {
                 n: '02',
@@ -799,7 +798,6 @@ export default function DevDNAPage() {
                 videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/RVN.mp4',
                 imgSrc: null,
                 imgAlt: 'Roast / Normal toggle GIF',
-                imgRight: true,
               },
               {
                 n: '03',
@@ -809,17 +807,15 @@ export default function DevDNAPage() {
                 videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Repo.mp4',
                 imgSrc: null,
                 imgAlt: 'Repo summaries expand GIF',
-                imgRight: false,
               },
               {
                 n: '04',
-                tag: 'Commit Score',
-                title: "'fix', 'update', and 'asdfgh' are a pattern.",
-                copy: 'Your last 50 commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work — and patterns tell you something.',
-                videoSrc: null,
-                imgSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Commits.png',
-                imgAlt: 'Commit Score screenshot',
-                imgRight: true,
+                tag: 'Engineering Fingerprint',
+                title: 'An archetypal read of how you actually engineer.',
+                copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
+                videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
+                imgSrc: null,
+                imgAlt: 'Engineering Fingerprint in action',
               },
             ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt }) => (
               <div key={n} className="anim-fade-up" style={{ marginBottom: 140 }}>
