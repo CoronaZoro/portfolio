@@ -41,6 +41,41 @@ const CONFIG = {
     accent: '#2DCC70',
     fallbackBg: <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned.png" alt="Pinned" className="w-full h-full object-cover" />,
   },
+  devdna: {
+    accent: '#7c6af7',
+    fallbackBg: (
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{ background: 'linear-gradient(135deg, #0d1117 0%, #161b22 100%)' }}
+      >
+        {/* DEVDNA BANNER — replace with: <img src="..." alt="DevDNA" className="w-full h-full object-cover" /> */}
+        <div className="flex flex-col items-center gap-4">
+          <span
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 32,
+              fontWeight: 700,
+              color: '#ffffff',
+              letterSpacing: '-0.03em',
+            }}
+          >
+            DevDNA.
+          </span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: '#7c6af7',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Software / AI Tool
+          </span>
+        </div>
+      </div>
+    ),
+  },
 }
 
 // ── Static entry for Pinned (not yet in DB — replace with DB row once seeded) ─
@@ -51,6 +86,16 @@ const PINNED_STATIC = {
   tags:              ['UI/UX', 'Mobile App'],
   thumbnail_url:     null,
   case_study_path:   '/projects/pinned',
+}
+
+// ── Static entry for DevDNA (not yet in DB) ───────────────────────────────────
+const DEVDNA_STATIC = {
+  slug:              'devdna',
+  title:             'DevDNA.',
+  short_description: 'Drop in a GitHub username. Get a complete read of the engineer behind it.',
+  tags:              ['Software', 'AI Tool'],
+  thumbnail_url:     null,
+  case_study_path:   '/projects/devdna',
 }
 
 // Bottom bar slides up from y:20 → y:0 on hover
@@ -202,6 +247,8 @@ export default function BentoGrid({ projects }) {
   const huesta   = projects.find(p => p.slug === 'huesta')
   // Pinned: use DB row when available, else fall back to static entry
   const pinned   = projects.find(p => p.slug === 'pinned') ?? PINNED_STATIC
+  // DevDNA: static until added to DB
+  const devdna   = projects.find(p => p.slug === 'devdna') ?? DEVDNA_STATIC
 
   return (
     <section id="work" className="px-6 md:px-10 py-16 md:py-24" style={{ background: '#0e0c0a' }}>
@@ -222,6 +269,9 @@ export default function BentoGrid({ projects }) {
 
         {/* Row 3 — Pinned, full width */}
         <BentoCard project={pinned} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />
+
+        {/* Row 4 — DevDNA, full width */}
+        <BentoCard project={devdna} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />
 
       </div>
     </section>
