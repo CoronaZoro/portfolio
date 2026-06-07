@@ -283,7 +283,7 @@ export default function DevDNAPage() {
                   style={{
                     padding: '18px 22px',
                     borderBottom: i < 3 ? `1px solid ${BORDER}` : 'none',
-                    borderLeft: `2px solid ${i === 0 ? ACCENT : 'transparent'}`,
+                    borderLeft: 'none',
                     background: i % 2 === 0 ? CARD : CARD2,
                     transition: 'border-left-color 0.2s',
                   }}
@@ -580,8 +580,8 @@ export default function DevDNAPage() {
               </div>
             </div>
 
-            {/* Three outputs below pipeline — corner bracket style */}
-            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" style={{ animationDelay: '0.3s' }}>
+            {/* Three outputs below pipeline */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-3 gap-4 mt-5" style={{ animationDelay: '0.3s' }}>
               {[
                 {
                   n: '01',
@@ -602,21 +602,13 @@ export default function DevDNAPage() {
                 <div
                   key={label}
                   style={{
-                    position: 'relative',
-                    padding: '28px 24px',
-                    background: 'transparent',
+                    padding: '22px 22px',
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 10,
+                    background: 'rgba(255,255,255,0.03)',
                   }}
                 >
-                  {/* Corner bracket decorators — top-left */}
-                  <span style={{ position: 'absolute', top: 0, left: 0, width: 14, height: 14, borderTop: `2px solid ${ACCENT}`, borderLeft: `2px solid ${ACCENT}` }} />
-                  {/* top-right */}
-                  <span style={{ position: 'absolute', top: 0, right: 0, width: 14, height: 14, borderTop: `2px solid ${ACCENT}`, borderRight: `2px solid ${ACCENT}` }} />
-                  {/* bottom-left */}
-                  <span style={{ position: 'absolute', bottom: 0, left: 0, width: 14, height: 14, borderBottom: `2px solid ${ACCENT}`, borderLeft: `2px solid ${ACCENT}` }} />
-                  {/* bottom-right */}
-                  <span style={{ position: 'absolute', bottom: 0, right: 0, width: 14, height: 14, borderBottom: `2px solid ${ACCENT}`, borderRight: `2px solid ${ACCENT}` }} />
-
-                  <p style={{ fontFamily: MONO, fontSize: 10, color: ACCENT, letterSpacing: '0.14em', marginBottom: 14 }}>{n}</p>
+                  <p style={{ fontFamily: MONO, fontSize: 10, color: MUTED, letterSpacing: '0.14em', marginBottom: 14 }}>{n}</p>
                   <p style={{ fontWeight: 700, fontSize: 14, color: '#ffffff', marginBottom: 10, lineHeight: 1.3 }}>{label}</p>
                   <p style={{ fontSize: 13, color: MUTED2, lineHeight: 1.65 }}>{desc}</p>
                 </div>
