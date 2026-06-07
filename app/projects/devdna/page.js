@@ -605,7 +605,7 @@ export default function DevDNAPage() {
                     padding: '22px 22px',
                     border: `1px solid ${BORDER}`,
                     borderRadius: 10,
-                    background: 'rgba(255,255,255,0.03)',
+                    background: 'rgba(124,106,247,0.07)',
                   }}
                 >
                   <p style={{ fontFamily: MONO, fontSize: 10, color: MUTED, letterSpacing: '0.14em', marginBottom: 14 }}>{n}</p>
