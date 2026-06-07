@@ -821,24 +821,49 @@ export default function DevDNAPage() {
                 imgAlt: 'Commit Score screenshot',
                 imgRight: true,
               },
-            ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt, imgRight }) => {
-              const imgBlock = (
-                <div className="anim-fade-up" style={{ animationDelay: '0.1s' }}>
+            ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt }) => (
+              <div key={n} className="anim-fade-up" style={{ marginBottom: 80 }}>
+
+                {/* Text header row — label left, copy right */}
+                <div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start"
+                  style={{ marginBottom: 24 }}
+                >
+                  {/* Left: number + tag + title */}
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                      <span style={{ fontFamily: MONO, fontSize: 10, color: MUTED, letterSpacing: '0.1em' }}>{n}</span>
+                      <span style={{ width: 1, height: 10, background: BORDER }} />
+                      <span style={{ fontSize: 10, fontWeight: 600, color: ACCENT, letterSpacing: '0.18em', textTransform: 'uppercase' }}>{tag}</span>
+                    </div>
+                    <h3
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                        fontWeight: 700,
+                        color: '#ffffff',
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {title}
+                    </h3>
+                  </div>
+                  {/* Right: description */}
+                  <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15, paddingTop: 4 }}>{copy}</p>
+                </div>
+
+                {/* Full-width media */}
+                <div style={{ borderRadius: 12, overflow: 'hidden', border: `1px solid ${BORDER}` }}>
                   {videoSrc
                     ? (
-                      /* GIF-style autoplay video — no controls, no interaction */
                       <video
                         src={videoSrc}
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="w-full rounded-xl"
-                        style={{
-                          display: 'block',
-                          border: `1px solid ${BORDER}`,
-                          pointerEvents: 'none', // prevent any user interaction
-                        }}
+                        className="w-full"
+                        style={{ display: 'block', pointerEvents: 'none' }}
                       />
                     )
                     : imgSrc
@@ -846,73 +871,16 @@ export default function DevDNAPage() {
                       <img
                         src={imgSrc}
                         alt={imgAlt}
-                        className="w-full rounded-xl"
-                        style={{ display: 'block', border: `1px solid ${BORDER}` }}
+                        className="w-full"
+                        style={{ display: 'block' }}
                       />
                     )
-                    : (
-                      /* Replace ImgPlaceholder with <img> or <video> when media is ready */
-                      <ImgPlaceholder label={imgAlt} ratio="16/10" />
-                    )
+                    : <ImgPlaceholder label={imgAlt} ratio="16/9" />
                   }
                 </div>
-              )
-              const textBlock = (
-                <div
-                  className="anim-fade-up flex flex-col justify-center"
-                  style={{ animationDelay: '0.15s' }}
-                >
-                  {/* Feature number + tag */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                    <span
-                      style={{
-                        fontFamily: MONO,
-                        fontSize: 10,
-                        color: MUTED,
-                        letterSpacing: '0.1em',
-                      }}
-                    >
-                      {n}
-                    </span>
-                    <span style={{ width: 1, height: 10, background: BORDER }} />
-                    <span
-                      style={{
-                        fontSize: 10,
-                        fontWeight: 600,
-                        color: ACCENT,
-                        letterSpacing: '0.18em',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      lineHeight: 1.3,
-                      marginBottom: 16,
-                    }}
-                  >
-                    {title}
-                  </h3>
-                  <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>{copy}</p>
-                </div>
-              )
 
-              return (
-                <div
-                  key={n}
-                  className={`feat-row feat-row--${imgRight ? 'right' : 'left'}`}
-                  style={{ marginBottom: 96 }}
-                >
-                  {imgRight ? <>{textBlock}{imgBlock}</> : <>{imgBlock}{textBlock}</>}
-                </div>
-              )
-            })}
+              </div>
+            ))}
 
           </div>
         </section>
