@@ -659,8 +659,8 @@ export default function DevDNAPage() {
               <img
                 src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/devdna_architecture_diagram.svg"
                 alt="DevDNA system architecture diagram"
-                className="w-full rounded-xl"
-                style={{ display: 'block', border: `1px solid ${BORDER}` }}
+                className="rounded-xl"
+                style={{ display: 'block', border: `1px solid ${BORDER}`, width: '50%', margin: '0 auto' }}
               />
             </div>
 
@@ -785,10 +785,9 @@ export default function DevDNAPage() {
                 tag: 'Dashboard',
                 title: 'Everything about your GitHub. At a glance.',
                 copy: 'From contribution heatmap to language breakdown, commit velocity to coding time patterns — DevDNA surfaces the full picture of how you work the moment you land on the page.',
-                // FEATURE 1 — Dashboard overview scroll GIF placeholder
-                videoSrc: null,
+                videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
                 imgSrc: null,
-                imgAlt: 'Dashboard overview scroll GIF',
+                imgAlt: 'Dashboard overview',
               },
               {
                 n: '02',
@@ -813,9 +812,9 @@ export default function DevDNAPage() {
                 tag: 'Engineering Fingerprint',
                 title: 'An archetypal read of how you actually engineer.',
                 copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
-                videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
-                imgSrc: null,
-                imgAlt: 'Engineering Fingerprint in action',
+                videoSrc: null,
+                imgSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/EN_FOOT.png',
+                imgAlt: 'Engineering Fingerprint',
               },
             ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt }) => (
               <div key={n} className="anim-fade-up" style={{ marginBottom: 140 }}>
