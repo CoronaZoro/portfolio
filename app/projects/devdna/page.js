@@ -796,8 +796,8 @@ export default function DevDNAPage() {
                 tag: 'Roast / Normal',
                 title: 'Same data. Completely different read.',
                 copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant on the second view.',
-                // FEATURE 2 — set videoSrc or imgSrc when media is ready
-                videoSrc: null,
+                // FEATURE 2 — set videoSrc to your Blob .mp4 URL, or imgSrc for a static image
+                videoSrc: null, // e.g. 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/roast_normal.mp4'
                 imgSrc: null,
                 imgAlt: 'Roast / Normal toggle GIF',
                 imgRight: true,
@@ -807,8 +807,8 @@ export default function DevDNAPage() {
                 tag: 'Repo Summaries',
                 title: 'Lazy-loaded. Only analyzed when you need it.',
                 copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it — keeping the initial page fast and API costs proportional to actual usage.',
-                // FEATURE 3 — set videoSrc or imgSrc when media is ready
-                videoSrc: null,
+                // FEATURE 3 — set videoSrc to your Blob .mp4 URL, or imgSrc for a static image
+                videoSrc: null, // e.g. 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/repo_summaries.mp4'
                 imgSrc: null,
                 imgAlt: 'Repo summaries expand GIF',
                 imgRight: false,
@@ -818,8 +818,8 @@ export default function DevDNAPage() {
                 tag: 'Commit Score',
                 title: "'fix', 'update', and 'asdfgh' are a pattern.",
                 copy: 'Your last 50 commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work — and patterns tell you something.',
-                // FEATURE 4 — set videoSrc or imgSrc when media is ready
-                videoSrc: null,
+                // FEATURE 4 — set videoSrc to your Blob .mp4 URL, or imgSrc for a static image
+                videoSrc: null, // e.g. 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/commit_score.mp4'
                 imgSrc: null,
                 imgAlt: 'Commit Score screenshot',
                 imgRight: true,
