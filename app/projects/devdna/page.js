@@ -276,7 +276,7 @@ export default function DevDNAPage() {
                 { label: 'MY ROLE', value: 'Full Stack Developer' },
                 { label: 'TYPE',    value: 'Developer Tool (Shipped)' },
                 { label: 'STACK',   value: 'Next.js · TypeScript · Claude API · GitHub API · Upstash Redis' },
-                { label: 'STATUS',  value: 'Live & deployed' },
+                { label: 'STATUS',  value: 'Live' },
               ].map(({ label, value }, i) => (
                 <div
                   key={i}
@@ -472,7 +472,7 @@ export default function DevDNAPage() {
                   paddingTop: 4,
                 }}
               >
-                Drop in any GitHub username and DevDNA runs it through a four-stage pipeline — fetching your activity, transforming raw data into readable signals, running three parallel AI analyses, and serving everything cached and fast. No setup. No configuration. Just a username.
+                Drop in any GitHub username and DevDNA runs it through a four-stage pipeline. Fetching your activity, transforming raw data into readable signals, running three parallel AI analyses, and serving everything cached and fast. No setup. No configuration. Just a username.
               </p>
             </div>
 
@@ -596,7 +596,7 @@ export default function DevDNAPage() {
                 {
                   n: '03',
                   label: 'Stack Trajectory',
-                  desc: "Where your languages are trending — predictive without any ML model.",
+                  desc: "Where your languages are trending. Predictive without any ML model.",
                 },
               ].map(({ n, label, desc }) => (
                 <div
@@ -671,7 +671,7 @@ export default function DevDNAPage() {
                   metric: '< 20',
                   unit: 'API calls',
                   label: 'I — Top-15 Repo Cap',
-                  body: <>GitHub&rsquo;s unauthenticated API allows 60 req/hr. Sorting by <Code>pushed_at</Code> and capping at 15 repos keeps every full analysis under 20 calls — enough headroom for concurrent users without needing auth.</>,
+                  body: <>GitHub&rsquo;s unauthenticated API allows 60 req/hr. Sorting by <Code>pushed_at</Code> and capping at 15 repos keeps every full analysis under 20 calls enough headroom for concurrent users without needing auth.</>,
                 },
                 {
                   metric: '~60%',
@@ -683,13 +683,13 @@ export default function DevDNAPage() {
                   metric: '2×',
                   unit: 'cache keys',
                   label: 'III — Mode-Aware Cache',
-                  body: 'Every response is cached at feature level in Upstash Redis with a 24h TTL. NORMAL and ROAST modes cache separately — switching modes on the second view is instant. Caching the whole page would invalidate clean data on a mode toggle.',
+                  body: 'Every response is cached at feature level in Upstash Redis with a 24h TTL. NORMAL and ROAST modes cache separately, switching modes on the second view is instant. Caching the whole page would invalidate clean data on a mode toggle.',
                 },
                 {
                   metric: '0',
                   unit: 'ML models',
                   label: 'IV — Stack Trajectory Without ML',
-                  body: 'Repos split into three time buckets. Language share calculated per bucket. Acceleration vector extrapolated forward six months. Directionally accurate — no training data, no model, no cold start.',
+                  body: 'Repos split into three time buckets. Language share calculated per bucket. Acceleration vector extrapolated forward six months. Directionally accurate with no training data, no model, no cold start.',
                 },
               ].map(({ metric, unit, label, body }, i) => (
                 <div
@@ -784,7 +784,7 @@ export default function DevDNAPage() {
                 n: '01',
                 tag: 'Dashboard',
                 title: 'Everything about your GitHub. At a glance.',
-                copy: 'From contribution heatmap to language breakdown, commit velocity to coding time patterns — DevDNA surfaces the full picture of how you work the moment you land on the page.',
+                copy: 'From contribution heatmap to language breakdown, commit velocity to coding time patterns, DevDNA surfaces the full picture of how you work the moment you land on the page.',
                 videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engi_Foot.mov',
                 imgSrc: null,
                 imgAlt: 'Dashboard overview',
@@ -793,7 +793,7 @@ export default function DevDNAPage() {
                 n: '02',
                 tag: 'Roast / Normal',
                 title: 'Same data. Completely different read.',
-                copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant on the second view.',
+                copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately so switching is instant on the second view.',
                 videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/RVN.mp4',
                 imgSrc: null,
                 imgAlt: 'Roast / Normal toggle GIF',
@@ -802,7 +802,7 @@ export default function DevDNAPage() {
                 n: '03',
                 tag: 'Repo Summaries',
                 title: 'Lazy-loaded. Only analyzed when you need it.',
-                copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it — keeping the initial page fast and API costs proportional to actual usage.',
+                copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it, keeping the initial page fast and API costs proportional to actual usage.',
                 videoSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Repo.mp4',
                 imgSrc: null,
                 imgAlt: 'Repo summaries expand GIF',
@@ -811,7 +811,7 @@ export default function DevDNAPage() {
                 n: '04',
                 tag: 'Engineering Fingerprint',
                 title: 'An archetypal read of how you actually engineer.',
-                copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
+                copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits. Then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
                 videoSrc: null,
                 imgSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/EN_FOOT.png',
                 imgAlt: 'Engineering Fingerprint',
@@ -907,7 +907,7 @@ export default function DevDNAPage() {
                 {
                   num: '01',
                   bold: 'Caching is system design, not an afterthought.',
-                  copy: "Getting the cache architecture wrong has real consequences — burned API credits, stale data, or a mode toggle that invalidates perfectly good GitHub data. Thinking about what to cache, at what level, and for how long forced me to think about the system holistically before writing a single line.",
+                  copy: "Getting the cache architecture wrong has real consequences such as burned API credits, stale data, or a mode toggle that invalidates perfectly good GitHub data. Thinking about what to cache, at what level, and for how long forced me to think about the system holistically before writing a single line.",
                 },
                 {
                   num: '02',
@@ -922,7 +922,7 @@ export default function DevDNAPage() {
                 {
                   num: '04',
                   bold: 'Building for yourself is the best user research.',
-                  copy: "Running DevDNA on my own GitHub first wasn't just a test — it told me immediately what felt useful and what felt hollow. The roast mode came from that session. The best product decisions came from being the user.",
+                  copy: "Running DevDNA on my own GitHub first wasn't just a test. It told me immediately what felt useful and what felt hollow. The roast mode came from that session. The best product decisions came from being the user.",
                 },
               ].map(({ num, bold, copy }, i, arr) => (
                 <div key={num}>
