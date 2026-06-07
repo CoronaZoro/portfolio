@@ -322,9 +322,13 @@ export default function DevDNAPage() {
         {/* ════════════════════════════════════════════════════════════════════
             HERO BANNER
         ════════════════════════════════════════════════════════════════════ */}
-        {/* HERO BANNER — replace div below with:
-            <img src="..." alt="DevDNA hero banner" className="w-full" style={{ display: 'block' }} /> */}
-        <ImgPlaceholder label="hero banner" ratio="21/8" />
+        {/* HERO BANNER */}
+        <img
+          src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/DevDNA_Banner.png"
+          alt="DevDNA hero banner"
+          className="w-full"
+          style={{ display: 'block' }}
+        />
 
         {/* ════════════════════════════════════════════════════════════════════
             STATS STRIP
@@ -687,10 +691,14 @@ export default function DevDNAPage() {
             </div>
 
             {/* Architecture diagram placeholder */}
-            {/* ARCHITECTURE DIAGRAM — replace div below with:
-                <img src="..." alt="DevDNA system architecture" className="w-full rounded-xl mb-12" style={{ border: `1px solid ${BORDER}` }} /> */}
+            {/* ARCHITECTURE DIAGRAM */}
             <div className="anim-fade-up mb-16" style={{ animationDelay: '0.2s' }}>
-              <ImgPlaceholder label="architecture diagram" ratio="16/7" />
+              <img
+                src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/devdna_architecture_diagram.svg"
+                alt="DevDNA system architecture diagram"
+                className="w-full rounded-xl"
+                style={{ display: 'block', border: `1px solid ${BORDER}` }}
+              />
             </div>
 
             {/* 2×2 metric cards grid */}
@@ -814,7 +822,9 @@ export default function DevDNAPage() {
                 tag: 'Engineering Fingerprint',
                 title: 'An archetypal read of how you actually engineer.',
                 copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
-                imgLabel: 'Engineering Fingerprint screenshot',
+                // FEATURE 1 IMAGE — live from Blob
+                imgSrc: 'https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Engineering_footprint.gif',
+                imgAlt: 'Engineering Fingerprint in action',
                 imgRight: false,
               },
               {
@@ -822,7 +832,9 @@ export default function DevDNAPage() {
                 tag: 'Roast / Normal',
                 title: 'Same data. Completely different read.',
                 copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant on the second view.',
-                imgLabel: 'Roast / Normal toggle GIF',
+                // FEATURE 2 — replace imgSrc with Blob URL when ready
+                imgSrc: null,
+                imgAlt: 'Roast / Normal toggle GIF',
                 imgRight: true,
               },
               {
@@ -830,7 +842,9 @@ export default function DevDNAPage() {
                 tag: 'Repo Summaries',
                 title: 'Lazy-loaded. Only analyzed when you need it.',
                 copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it — keeping the initial page fast and API costs proportional to actual usage.',
-                imgLabel: 'Repo summaries expand GIF',
+                // FEATURE 3 — replace imgSrc with Blob URL when ready
+                imgSrc: null,
+                imgAlt: 'Repo summaries expand GIF',
                 imgRight: false,
               },
               {
@@ -838,15 +852,28 @@ export default function DevDNAPage() {
                 tag: 'Commit Score',
                 title: "'fix', 'update', and 'asdfgh' are a pattern.",
                 copy: 'Your last 50 commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work — and patterns tell you something.',
-                imgLabel: 'Commit Score screenshot',
+                // FEATURE 4 — replace imgSrc with Blob URL when ready
+                imgSrc: null,
+                imgAlt: 'Commit Score screenshot',
                 imgRight: true,
               },
-            ].map(({ n, tag, title, copy, imgLabel, imgRight }) => {
+            ].map(({ n, tag, title, copy, imgSrc, imgAlt, imgRight }) => {
               const imgBlock = (
                 <div className="anim-fade-up" style={{ animationDelay: '0.1s' }}>
-                  {/* Replace this ImgPlaceholder with:
-                      <img src="..." alt={imgLabel} className="w-full h-full object-cover rounded-xl" /> */}
-                  <ImgPlaceholder label={imgLabel} ratio="16/10" />
+                  {imgSrc
+                    ? (
+                      <img
+                        src={imgSrc}
+                        alt={imgAlt}
+                        className="w-full rounded-xl"
+                        style={{ display: 'block', border: `1px solid ${BORDER}` }}
+                      />
+                    )
+                    : (
+                      /* Replace ImgPlaceholder with <img src="..." alt={imgAlt} ... /> when Blob URL is ready */
+                      <ImgPlaceholder label={imgAlt} ratio="16/10" />
+                    )
+                  }
                 </div>
               )
               const textBlock = (
