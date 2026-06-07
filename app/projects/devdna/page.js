@@ -330,55 +330,6 @@ export default function DevDNAPage() {
           style={{ display: 'block' }}
         />
 
-        {/* ════════════════════════════════════════════════════════════════════
-            STATS STRIP
-        ════════════════════════════════════════════════════════════════════ */}
-        <div
-          style={{
-            borderTop: `1px solid ${BORDER}`,
-            borderBottom: `1px solid ${BORDER}`,
-            background: CARD,
-          }}
-        >
-          <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
-            {[
-              { num: '< 20',  unit: 'API calls',         sub: 'per full analysis' },
-              { num: '~60%',  unit: 'faster',            sub: 'with parallel AI calls' },
-              { num: '24h',   unit: 'cache TTL',         sub: 'per username, per mode' },
-              { num: '0',     unit: 'ML models',         sub: 'stack trajectory is math' },
-            ].map(({ num, unit, sub }, i) => (
-              <div
-                key={i}
-                style={{
-                  padding: '28px 24px',
-                  borderRight: i < 3 ? `1px solid ${BORDER}` : 'none',
-                  borderBottom: i < 2 ? `1px solid ${BORDER}` : 'none',
-                }}
-                className={i < 2 ? 'md:border-b-0' : ''}
-              >
-                <div
-                  style={{
-                    fontFamily: MONO,
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontWeight: 700,
-                    color: ACCENT,
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1,
-                    marginBottom: 6,
-                  }}
-                >
-                  {num}
-                </div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#ffffff', marginBottom: 3 }}>
-                  {unit}
-                </div>
-                <div style={{ fontSize: 11, color: MUTED, fontFamily: MONO, letterSpacing: '0.02em' }}>
-                  {sub}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* ════════════════════════════════════════════════════════════════════
             OVERVIEW
@@ -629,25 +580,45 @@ export default function DevDNAPage() {
               </div>
             </div>
 
-            {/* Three outputs below pipeline */}
-            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-3 gap-4 mt-5" style={{ animationDelay: '0.3s' }}>
+            {/* Three outputs below pipeline — corner bracket style */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" style={{ animationDelay: '0.3s' }}>
               {[
-                { label: 'Engineering Fingerprint', desc: 'Archetypal persona + 3 sharp, specific insights grounded in your actual data.' },
-                { label: 'Commit Story',            desc: 'Last 50 commits scored, graded, broken down. Message quality is a signal.' },
-                { label: 'Stack Trajectory',        desc: 'Where your languages are trending — predictive without any ML model.' },
-              ].map(({ label, desc }) => (
+                {
+                  n: '01',
+                  label: 'Engineering Fingerprint',
+                  desc: 'Archetypal persona + 3 sharp, specific insights grounded in your actual data.',
+                },
+                {
+                  n: '02',
+                  label: 'Commit Story',
+                  desc: 'Last 50 commits scored, graded, broken down. Message quality is a signal.',
+                },
+                {
+                  n: '03',
+                  label: 'Stack Trajectory',
+                  desc: "Where your languages are trending — predictive without any ML model.",
+                },
+              ].map(({ n, label, desc }) => (
                 <div
                   key={label}
                   style={{
-                    padding: '20px 22px',
-                    border: `1px solid rgba(124,106,247,0.2)`,
-                    borderTop: `2px solid ${ACCENT}`,
-                    background: `rgba(124,106,247,0.04)`,
-                    borderRadius: 8,
+                    position: 'relative',
+                    padding: '28px 24px',
+                    background: 'transparent',
                   }}
                 >
-                  <p style={{ fontWeight: 600, fontSize: 13, color: '#ffffff', marginBottom: 8 }}>{label}</p>
-                  <p style={{ fontSize: 13, color: MUTED2, lineHeight: 1.6 }}>{desc}</p>
+                  {/* Corner bracket decorators — top-left */}
+                  <span style={{ position: 'absolute', top: 0, left: 0, width: 14, height: 14, borderTop: `2px solid ${ACCENT}`, borderLeft: `2px solid ${ACCENT}` }} />
+                  {/* top-right */}
+                  <span style={{ position: 'absolute', top: 0, right: 0, width: 14, height: 14, borderTop: `2px solid ${ACCENT}`, borderRight: `2px solid ${ACCENT}` }} />
+                  {/* bottom-left */}
+                  <span style={{ position: 'absolute', bottom: 0, left: 0, width: 14, height: 14, borderBottom: `2px solid ${ACCENT}`, borderLeft: `2px solid ${ACCENT}` }} />
+                  {/* bottom-right */}
+                  <span style={{ position: 'absolute', bottom: 0, right: 0, width: 14, height: 14, borderBottom: `2px solid ${ACCENT}`, borderRight: `2px solid ${ACCENT}` }} />
+
+                  <p style={{ fontFamily: MONO, fontSize: 10, color: ACCENT, letterSpacing: '0.14em', marginBottom: 14 }}>{n}</p>
+                  <p style={{ fontWeight: 700, fontSize: 14, color: '#ffffff', marginBottom: 10, lineHeight: 1.3 }}>{label}</p>
+                  <p style={{ fontSize: 13, color: MUTED2, lineHeight: 1.65 }}>{desc}</p>
                 </div>
               ))}
             </div>
