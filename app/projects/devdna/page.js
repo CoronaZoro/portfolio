@@ -4,112 +4,146 @@ import FooterIcons from '../../components/FooterIcons'
 // ── Design tokens ──────────────────────────────────────────────────────────────
 const BG      = '#0d1117'
 const CARD    = '#161b22'
+const CARD2   = '#1c2128'
 const BORDER  = '#21262d'
 const ACCENT  = '#7c6af7'
-const MUTED   = 'rgba(255,255,255,0.45)'
+const MUTED   = 'rgba(255,255,255,0.38)'
+const MUTED2  = 'rgba(255,255,255,0.55)'
 const TEXT    = 'rgba(255,255,255,0.82)'
+const MONO    = 'var(--font-mono, "JetBrains Mono", monospace)'
 
-// ── Shared styles ──────────────────────────────────────────────────────────────
-const sectionLabel = {
-  fontSize: 10,
-  fontWeight: 600,
-  color: ACCENT,
-  letterSpacing: '0.2em',
-  textTransform: 'uppercase',
-  marginBottom: 24,
-  display: 'block',
+// ── Section label ──────────────────────────────────────────────────────────────
+function Label({ children }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        fontSize: 10,
+        fontWeight: 600,
+        color: ACCENT,
+        letterSpacing: '0.2em',
+        textTransform: 'uppercase',
+        marginBottom: 28,
+      }}
+    >
+      <span style={{ width: 16, height: 1, background: ACCENT, display: 'inline-block' }} />
+      {children}
+    </span>
+  )
 }
 
-const breakdownItem = {
-  borderLeft: `2px solid ${ACCENT}`,
-  paddingLeft: 20,
-  marginBottom: 32,
+// ── Inline code ────────────────────────────────────────────────────────────────
+function Code({ children }) {
+  return (
+    <code
+      style={{
+        fontFamily: MONO,
+        fontSize: '0.88em',
+        color: 'rgba(255,255,255,0.55)',
+        background: 'rgba(124,106,247,0.08)',
+        border: '1px solid rgba(124,106,247,0.15)',
+        borderRadius: 4,
+        padding: '1px 6px',
+      }}
+    >
+      {children}
+    </code>
+  )
 }
 
-// ── Terminal block ─────────────────────────────────────────────────────────────
-function Terminal({ children }) {
+// ── Breakdown item (left-border accent) ────────────────────────────────────────
+function BreakdownItem({ label, children, last = false }) {
   return (
     <div
       style={{
-        background: CARD,
+        borderLeft: `2px solid ${ACCENT}`,
+        paddingLeft: 20,
+        marginBottom: last ? 0 : 32,
+      }}
+    >
+      <p
+        style={{
+          fontFamily: MONO,
+          fontSize: 10,
+          color: ACCENT,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          marginBottom: 8,
+        }}
+      >
+        {label}
+      </p>
+      <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
+        {children}
+      </p>
+    </div>
+  )
+}
+
+// ── Terminal block ─────────────────────────────────────────────────────────────
+function Terminal({ title = 'bash', children }) {
+  return (
+    <div
+      style={{
+        background: '#0a0d12',
         border: `1px solid ${BORDER}`,
         borderRadius: 10,
         overflow: 'hidden',
-        fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
+        fontFamily: MONO,
         fontSize: 13,
+        boxShadow: `0 0 0 1px rgba(124,106,247,0.06), 0 8px 32px rgba(0,0,0,0.4)`,
       }}
     >
-      {/* Three dots header */}
+      {/* Chrome bar */}
       <div
         style={{
           padding: '10px 16px',
           borderBottom: `1px solid ${BORDER}`,
           display: 'flex',
           alignItems: 'center',
-          gap: 6,
+          gap: 8,
+          background: CARD,
         }}
       >
         <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }} />
         <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }} />
         <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f', display: 'inline-block' }} />
+        <span style={{ marginLeft: 8, fontSize: 11, color: MUTED, letterSpacing: '0.04em' }}>{title}</span>
       </div>
-      <div style={{ padding: '20px 24px', color: TEXT, lineHeight: 1.8 }}>
+      <div style={{ padding: '20px 24px', color: TEXT, lineHeight: 2 }}>
         {children}
       </div>
     </div>
   )
 }
 
-// ── Feature row ────────────────────────────────────────────────────────────────
-function FeatureRow({ imageComment, imageAlt, title, copy, imageRight = false }) {
-  const imgBlock = (
+// ── Image placeholder ──────────────────────────────────────────────────────────
+function ImgPlaceholder({ label, ratio = '16/10' }) {
+  return (
     <div
       style={{
         background: CARD,
         border: `1px solid ${BORDER}`,
         borderRadius: 12,
-        aspectRatio: '16/10',
+        aspectRatio: ratio,
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        gap: 8,
         color: MUTED,
-        fontSize: 12,
-        fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
+        fontFamily: MONO,
+        fontSize: 11,
+        letterSpacing: '0.06em',
       }}
     >
-      {/* {imageComment} */}
-      {/* Replace the div above with: <img src="..." alt={imageAlt} className="w-full h-full object-cover rounded-xl" /> */}
-      <span style={{ opacity: 0.4 }}>{imageAlt}</span>
-    </div>
-  )
-
-  const textBlock = (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <span style={sectionLabel}>{title.toUpperCase()}</span>
-      <h3
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 'clamp(1.15rem, 2vw, 1.4rem)',
-          fontWeight: 700,
-          color: '#ffffff',
-          marginBottom: 16,
-          lineHeight: 1.3,
-        }}
-      >
-        {title}
-      </h3>
-      <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15, fontFamily: 'var(--font-sans)' }}>
-        {copy}
-      </p>
-    </div>
-  )
-
-  return (
-    <div
-      className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center"
-      style={{ marginBottom: 72 }}
-    >
-      {imageRight ? <>{textBlock}{imgBlock}</> : <>{imgBlock}{textBlock}</>}
+      {/* Replace this entire div with <img src="..." alt="..." className="w-full h-full object-cover rounded-xl" /> */}
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}>
+        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+      </svg>
+      <span style={{ opacity: 0.35, textTransform: 'uppercase', letterSpacing: '0.12em' }}>{label}</span>
     </div>
   )
 }
@@ -124,45 +158,115 @@ export default function DevDNAPage() {
         style={{ background: BG, color: '#ffffff', fontFamily: 'var(--font-sans)' }}
       >
 
-        {/* ── HERO ────────────────────────────────────────────────────────────── */}
-        <section className="px-6 md:px-10 pt-20 pb-16 max-w-7xl mx-auto">
+        {/* ════════════════════════════════════════════════════════════════════
+            HERO
+        ════════════════════════════════════════════════════════════════════ */}
+        <section className="relative px-6 md:px-10 pt-24 pb-20 max-w-7xl mx-auto">
 
-          <p
-            className="anim-fade-up text-xs tracking-[0.22em] uppercase mb-10"
-            style={{ color: ACCENT, animationDelay: '0.15s' }}
-          >
-            Software / AI Tool
-          </p>
+          {/* Subtle purple radial glow behind title */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 60,
+              left: -80,
+              width: 500,
+              height: 400,
+              background: 'radial-gradient(ellipse at center, rgba(124,106,247,0.10) 0%, transparent 70%)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          {/* Category + status row */}
+          <div className="anim-fade-up flex items-center gap-4 mb-12" style={{ animationDelay: '0.1s' }}>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: ACCENT,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Software / AI Tool
+            </span>
+            <span style={{ width: 1, height: 12, background: BORDER, display: 'inline-block' }} />
+            {/* ● LIVE badge */}
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: 10,
+                fontWeight: 600,
+                color: '#27c93f',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                fontFamily: MONO,
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  background: '#27c93f',
+                  display: 'inline-block',
+                  boxShadow: '0 0 6px #27c93f',
+                }}
+              />
+              Live
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
             {/* Left — title + one-liner */}
-            <div className="anim-fade-up" style={{ animationDelay: '0.25s' }}>
+            <div className="anim-fade-up" style={{ animationDelay: '0.2s' }}>
               <h1
-                className="mb-5"
+                className="mb-6"
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                  fontSize: 'clamp(3.2rem, 8vw, 6rem)',
                   fontWeight: 700,
-                  lineHeight: 1,
-                  letterSpacing: '-0.03em',
+                  lineHeight: 0.95,
+                  letterSpacing: '-0.04em',
+                  color: '#ffffff',
                 }}
               >
-                DevDNA.
+                Dev
+                <span style={{ color: ACCENT }}>DNA</span>
+                <span style={{ color: 'rgba(255,255,255,0.4)' }}>.</span>
               </h1>
               <p
-                className="text-base leading-[1.7]"
-                style={{ color: 'rgba(255,255,255,0.62)', maxWidth: 400 }}
+                style={{
+                  color: TEXT,
+                  fontSize: 16,
+                  lineHeight: 1.7,
+                  maxWidth: 380,
+                  marginBottom: 28,
+                }}
               >
                 Drop in a GitHub username. Get a complete read of the engineer behind it.
+              </p>
+              {/* Mono sub-line */}
+              <p
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 12,
+                  color: MUTED,
+                  letterSpacing: '0.04em',
+                }}
+              >
+                $ devdna analyze &lt;username&gt;
               </p>
             </div>
 
             {/* Right — metadata grid */}
             <div
-              className="anim-fade-up grid grid-cols-2 gap-0"
+              className="anim-fade-up"
               style={{
-                animationDelay: '0.35s',
+                animationDelay: '0.3s',
                 border: `1px solid ${BORDER}`,
                 borderRadius: 12,
                 overflow: 'hidden',
@@ -172,24 +276,40 @@ export default function DevDNAPage() {
                 { label: 'MY ROLE', value: 'Full Stack Developer' },
                 { label: 'TYPE',    value: 'Developer Tool (Shipped)' },
                 { label: 'STACK',   value: 'Next.js · TypeScript · Claude API · GitHub API · Upstash Redis' },
-                { label: 'STATUS',  value: 'Live' },
+                { label: 'STATUS',  value: 'Live & deployed' },
               ].map(({ label, value }, i) => (
                 <div
                   key={i}
-                  className="p-5"
                   style={{
-                    borderRight:  i % 2 === 0 ? `1px solid ${BORDER}` : 'none',
-                    borderBottom: i < 2       ? `1px solid ${BORDER}` : 'none',
-                    background: CARD,
+                    padding: '18px 22px',
+                    borderBottom: i < 3 ? `1px solid ${BORDER}` : 'none',
+                    borderLeft: `2px solid ${i === 0 ? ACCENT : 'transparent'}`,
+                    background: i % 2 === 0 ? CARD : CARD2,
+                    transition: 'border-left-color 0.2s',
                   }}
                 >
                   <p
-                    className="text-xs tracking-[0.2em] uppercase mb-2"
-                    style={{ color: MUTED }}
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 600,
+                      color: MUTED,
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      marginBottom: 6,
+                      fontFamily: MONO,
+                    }}
                   >
                     {label}
                   </p>
-                  <p className="text-sm font-medium" style={{ color: ACCENT }}>
+                  <p
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: i === 3 ? '#27c93f' : TEXT,
+                      fontFamily: i === 2 || i === 3 ? MONO : 'var(--font-sans)',
+                      lineHeight: 1.5,
+                    }}
+                  >
                     {value}
                   </p>
                 </div>
@@ -199,416 +319,619 @@ export default function DevDNAPage() {
           </div>
         </section>
 
-        {/* ── HERO BANNER IMAGE PLACEHOLDER ───────────────────────────────────── */}
-        {/* HERO BANNER — replace this div with <img src="..." alt="DevDNA hero banner" className="w-full" style={{ display: 'block' }} /> */}
+        {/* ════════════════════════════════════════════════════════════════════
+            HERO BANNER
+        ════════════════════════════════════════════════════════════════════ */}
+        {/* HERO BANNER — replace div below with:
+            <img src="..." alt="DevDNA hero banner" className="w-full" style={{ display: 'block' }} /> */}
+        <ImgPlaceholder label="hero banner" ratio="21/8" />
+
+        {/* ════════════════════════════════════════════════════════════════════
+            STATS STRIP
+        ════════════════════════════════════════════════════════════════════ */}
         <div
           style={{
-            width: '100%',
-            aspectRatio: '21/9',
-            background: CARD,
             borderTop: `1px solid ${BORDER}`,
             borderBottom: `1px solid ${BORDER}`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: MUTED,
-            fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-            fontSize: 13,
+            background: CARD,
           }}
         >
-          {/* hero banner image goes here */}
-          <span style={{ opacity: 0.35 }}>hero banner image</span>
+          <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
+            {[
+              { num: '< 20',  unit: 'API calls',         sub: 'per full analysis' },
+              { num: '~60%',  unit: 'faster',            sub: 'with parallel AI calls' },
+              { num: '24h',   unit: 'cache TTL',         sub: 'per username, per mode' },
+              { num: '0',     unit: 'ML models',         sub: 'stack trajectory is math' },
+            ].map(({ num, unit, sub }, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: '28px 24px',
+                  borderRight: i < 3 ? `1px solid ${BORDER}` : 'none',
+                  borderBottom: i < 2 ? `1px solid ${BORDER}` : 'none',
+                }}
+                className={i < 2 ? 'md:border-b-0' : ''}
+              >
+                <div
+                  style={{
+                    fontFamily: MONO,
+                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                    fontWeight: 700,
+                    color: ACCENT,
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1,
+                    marginBottom: 6,
+                  }}
+                >
+                  {num}
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#ffffff', marginBottom: 3 }}>
+                  {unit}
+                </div>
+                <div style={{ fontSize: 11, color: MUTED, fontFamily: MONO, letterSpacing: '0.02em' }}>
+                  {sub}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* ── OVERVIEW ────────────────────────────────────────────────────────── */}
-        <section className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+        {/* ════════════════════════════════════════════════════════════════════
+            OVERVIEW
+        ════════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 md:px-10 py-24 max-w-7xl mx-auto">
+          <Label>Overview</Label>
 
-          <span style={sectionLabel} className="anim-fade-up">Overview</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
-          <h2
-            className="anim-fade-up mb-6"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 'clamp(1.4rem, 3vw, 2rem)',
-              fontWeight: 700,
-              lineHeight: 1.25,
-              maxWidth: 680,
-              animationDelay: '0.1s',
-            }}
-          >
-            A profile full of green squares tells you nothing about the engineer behind them.
-          </h2>
-
-          <p
-            className="anim-fade-up mb-16"
-            style={{
-              color: TEXT,
-              lineHeight: 1.8,
-              maxWidth: 640,
-              fontSize: 15,
-              animationDelay: '0.2s',
-            }}
-          >
-            GitHub profiles are aesthetic. Customized READMEs, pinned repos, contribution graphs — they look impressive. But none of it tells you how someone actually writes code, when they work, or whether their commit habits suggest a disciplined engineer or someone who pushes everything at 2am before a deadline.
-          </p>
-
-          {/* Left-border breakdown blocks */}
-          <div className="anim-fade-up mb-16" style={{ animationDelay: '0.25s', maxWidth: 640 }}>
-
-            <div style={breakdownItem}>
-              <p
+            {/* Left — headline + breakdown */}
+            <div>
+              <h2
+                className="anim-fade-up mb-6"
                 style={{
-                  fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                  fontSize: 11,
-                  color: ACCENT,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  marginBottom: 8,
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  animationDelay: '0.1s',
                 }}
               >
-                I — The Aesthetic Problem
-              </p>
-              <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                Developers spend hours making their profile look good. Badges, shields, animated banners. It looks great. It says nothing about how they actually code.
-              </p>
-            </div>
+                A profile full of green squares tells you nothing about the engineer behind them.
+              </h2>
 
-            <div style={breakdownItem}>
               <p
+                className="anim-fade-up mb-12"
                 style={{
-                  fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                  fontSize: 11,
-                  color: ACCENT,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  marginBottom: 8,
+                  color: TEXT,
+                  lineHeight: 1.8,
+                  fontSize: 15,
+                  animationDelay: '0.2s',
                 }}
               >
-                II — The Information Gap
+                GitHub profiles are aesthetic. Customized READMEs, pinned repos, contribution graphs — they look impressive. But none of it tells you how someone actually writes code, when they work, or whether their commit habits suggest a disciplined engineer or someone who ships everything at 2am before a deadline.
               </p>
-              <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                Commit cadence, language trajectory, coding time patterns, message quality — the signal is all there in the data. Nobody is reading it.
-              </p>
+
+              <div className="anim-fade-up flex flex-col gap-8" style={{ animationDelay: '0.25s' }}>
+                <BreakdownItem label="I — The Aesthetic Problem">
+                  Developers spend hours making their profile look good. Badges, shields, animated banners. It looks great. It says nothing about how they actually code.
+                </BreakdownItem>
+                <BreakdownItem label="II — The Information Gap">
+                  Commit cadence, language trajectory, coding time patterns, message quality — the signal is all there in the data. Nobody is reading it.
+                </BreakdownItem>
+                <BreakdownItem label="III — The Recruiter Problem" last>
+                  A hiring manager opening a GitHub profile sees a grid of squares and a list of repo names. There&rsquo;s no layer that translates raw activity into readable signal.
+                </BreakdownItem>
+              </div>
             </div>
 
-            <div style={{ ...breakdownItem, marginBottom: 0 }}>
+            {/* Right — terminal */}
+            <div className="anim-fade-up" style={{ animationDelay: '0.3s' }}>
               <p
                 style={{
-                  fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                  fontSize: 11,
-                  color: ACCENT,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  marginBottom: 8,
+                  color: MUTED2,
+                  fontSize: 13,
+                  fontStyle: 'italic',
+                  marginBottom: 14,
+                  fontFamily: 'var(--font-sans)',
                 }}
               >
-                III — The Recruiter Problem
+                I ran it on my own GitHub first. Here&rsquo;s what it found:
               </p>
-              <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                A hiring manager opening a GitHub profile sees a grid of squares and a list of repo names. There&rsquo;s no layer that translates raw activity into readable signal.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Terminal block */}
-          <div className="anim-fade-up" style={{ animationDelay: '0.3s', maxWidth: 640 }}>
-            <p
-              style={{
-                color: MUTED,
-                fontSize: 14,
-                fontStyle: 'italic',
-                marginBottom: 12,
-                fontFamily: 'var(--font-sans)',
-              }}
-            >
-              I ran it on my own GitHub first. Here&rsquo;s what it found:
-            </p>
-            <Terminal>
-              <p style={{ color: MUTED }}>$ devdna analyze CoronaZoro</p>
-              <p>
-                <span style={{ color: ACCENT }}>&gt;</span>{' '}
-                <span style={{ color: 'rgba(255,255,255,0.6)' }}>commits_to_portfolio:</span>{' '}
-                <span style={{ color: '#ffffff' }}>81</span>
-              </p>
-              <p>
-                <span style={{ color: ACCENT }}>&gt;</span>{' '}
-                <span style={{ color: 'rgba(255,255,255,0.6)' }}>top_activity:</span>{' '}
-                <span style={{ color: '#ffffff' }}>late night, solo, JavaScript</span>
-              </p>
-              <p>
-                <span style={{ color: ACCENT }}>&gt;</span>{' '}
-                <span style={{ color: 'rgba(255,255,255,0.6)' }}>verdict:</span>{' '}
-                <span style={{ color: '#ffffff' }}>&ldquo;You&rsquo;re a disciplined builder. You also need to go outside.&rdquo;</span>
-              </p>
-            </Terminal>
-          </div>
-
-        </section>
-
-        {/* ── SOLUTION ────────────────────────────────────────────────────────── */}
-        <section
-          style={{ borderTop: `1px solid ${BORDER}` }}
-          className="px-6 md:px-10 py-20"
-        >
-          <div className="max-w-7xl mx-auto">
-
-            <span style={sectionLabel} className="anim-fade-up">Solution</span>
-
-            <h2
-              className="anim-fade-up mb-6"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
-                fontWeight: 700,
-                lineHeight: 1.25,
-                maxWidth: 620,
-                animationDelay: '0.1s',
-              }}
-            >
-              GitHub shows you the commits. DevDNA shows you the developer.
-            </h2>
-
-            <p
-              className="anim-fade-up mb-16"
-              style={{
-                color: TEXT,
-                lineHeight: 1.8,
-                maxWidth: 640,
-                fontSize: 15,
-                animationDelay: '0.2s',
-              }}
-            >
-              Drop in any GitHub username and DevDNA runs it through a four-stage pipeline — fetching your activity, transforming raw data into readable signals, running three parallel AI analyses, and serving everything cached and fast. No setup. No configuration. Just a username.
-            </p>
-
-            <div className="anim-fade-up" style={{ animationDelay: '0.25s', maxWidth: 640 }}>
-
-              <div style={breakdownItem}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  I — Your Engineering Fingerprint
+              <Terminal title="devdna — bash">
+                <p style={{ color: MUTED }}>$ devdna analyze CoronaZoro</p>
+                <p style={{ color: MUTED }}>{'>'} Fetching repos... <span style={{ color: '#27c93f' }}>done</span></p>
+                <p style={{ color: MUTED }}>{'>'} Running 3 parallel analyses... <span style={{ color: '#27c93f' }}>done</span></p>
+                <div style={{ height: 1, background: BORDER, margin: '12px 0' }} />
+                <p>
+                  <span style={{ color: ACCENT }}>persona</span>
+                  <span style={{ color: MUTED }}>{' '}&nbsp;→&nbsp;</span>
+                  <span style={{ color: '#ffffff' }}>"The Midnight Architect"</span>
                 </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  An archetypal persona label and three specific insights about how you actually work — not generic praise, not vague encouragement. A sharp, honest read of your development patterns.
+                <p>
+                  <span style={{ color: ACCENT }}>commits</span>
+                  <span style={{ color: MUTED }}>{' '}&nbsp;→&nbsp;</span>
+                  <span style={{ color: '#ffffff' }}>81 analyzed · grade <span style={{ color: '#ffbd2e' }}>B+</span></span>
+                </p>
+                <p>
+                  <span style={{ color: ACCENT }}>pattern</span>
+                  <span style={{ color: MUTED }}>{' '}&nbsp;→&nbsp;</span>
+                  <span style={{ color: '#ffffff' }}>late night · solo · JavaScript</span>
+                </p>
+                <div style={{ height: 1, background: BORDER, margin: '12px 0' }} />
+                <p style={{ color: MUTED2, fontStyle: 'italic' }}>
+                  &ldquo;You&rsquo;re a disciplined builder. You also need to go outside.&rdquo;
+                </p>
+              </Terminal>
+
+              {/* Stat callout below terminal */}
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: '14px 20px',
+                  background: `rgba(124,106,247,0.06)`,
+                  border: `1px solid rgba(124,106,247,0.18)`,
+                  borderRadius: 8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <span style={{ fontSize: 18, fontWeight: 700, color: ACCENT, fontFamily: MONO }}>3</span>
+                <p style={{ fontSize: 12, color: MUTED2, lineHeight: 1.5 }}>
+                  independent AI analyses run in parallel — fingerprint, commit score, health audit.
                 </p>
               </div>
-
-              <div style={breakdownItem}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  II — Your Commit Story
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  Fifty of your most recent commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work.
-                </p>
-              </div>
-
-              <div style={{ ...breakdownItem, marginBottom: 0 }}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  III — Your Stack Trajectory
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  Where your languages are trending over time — not just what you use now but where you&rsquo;re heading. Predictive without needing a machine learning model.
-                </p>
-              </div>
-
             </div>
 
           </div>
         </section>
 
-        {/* ── TECHNICAL ───────────────────────────────────────────────────────── */}
-        <section
-          style={{ borderTop: `1px solid ${BORDER}` }}
-          className="px-6 md:px-10 py-20"
-        >
+        {/* ════════════════════════════════════════════════════════════════════
+            SOLUTION — Pipeline visualization
+        ════════════════════════════════════════════════════════════════════ */}
+        <section style={{ borderTop: `1px solid ${BORDER}`, background: CARD }} className="px-6 md:px-10 py-24">
           <div className="max-w-7xl mx-auto">
 
-            <span style={sectionLabel} className="anim-fade-up">Technical</span>
+            <Label>Solution</Label>
 
-            <h2
-              className="anim-fade-up mb-6"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
-                fontWeight: 700,
-                lineHeight: 1.25,
-                maxWidth: 620,
-                animationDelay: '0.1s',
-              }}
-            >
-              Built to survive real traffic without burning through API credits.
-            </h2>
-
-            <p
-              className="anim-fade-up mb-12"
-              style={{
-                color: TEXT,
-                lineHeight: 1.8,
-                maxWidth: 640,
-                fontSize: 15,
-                animationDelay: '0.2s',
-              }}
-            >
-              DevDNA runs a four-stage pipeline on every username — data ingestion, transformation, AI analysis, and cached delivery. Every architectural decision was made with two constraints in mind: GitHub&rsquo;s rate limits and Claude API costs.
-            </p>
-
-            {/* ARCHITECTURE DIAGRAM - system flow diagram */}
-            {/* Replace this placeholder div with: <img src="..." alt="DevDNA system architecture diagram" className="w-full rounded-xl mb-16" style={{ border: `1px solid ${BORDER}` }} /> */}
-            <div
-              className="anim-fade-up mb-16"
-              style={{
-                animationDelay: '0.25s',
-                background: CARD,
-                border: `1px solid ${BORDER}`,
-                borderRadius: 12,
-                aspectRatio: '16/7',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: MUTED,
-                fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                fontSize: 12,
-              }}
-            >
-              <span style={{ opacity: 0.35 }}>architecture diagram</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
+              <h2
+                className="anim-fade-up"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  animationDelay: '0.1s',
+                }}
+              >
+                GitHub shows you the commits. DevDNA shows you the developer.
+              </h2>
+              <p
+                className="anim-fade-up"
+                style={{
+                  color: TEXT,
+                  lineHeight: 1.8,
+                  fontSize: 15,
+                  animationDelay: '0.2s',
+                  paddingTop: 4,
+                }}
+              >
+                Drop in any GitHub username and DevDNA runs it through a four-stage pipeline — fetching your activity, transforming raw data into readable signals, running three parallel AI analyses, and serving everything cached and fast. No setup. No configuration. Just a username.
+              </p>
             </div>
 
-            <div className="anim-fade-up" style={{ animationDelay: '0.3s', maxWidth: 640 }}>
-
-              <div style={breakdownItem}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  I — Top-15 Repo Cap
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  GitHub&rsquo;s unauthenticated API allows 60 requests per hour. Fetching commit data for every public repository would exhaust that instantly on active developers. Sorting by{' '}
-                  <code style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>pushed_at</code>{' '}
-                  and capping at 15 keeps every full analysis under 20 API calls — enough headroom for concurrent users without needing authentication.
-                </p>
+            {/* Pipeline flow */}
+            <div className="anim-fade-up" style={{ animationDelay: '0.25s' }}>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+                {[
+                  {
+                    step: '01',
+                    label: 'Fetch',
+                    title: 'Data Ingestion',
+                    desc: 'Top-15 repos by pushed_at, commit history, language breakdown. Under 20 API calls.',
+                    icon: '↓',
+                  },
+                  {
+                    step: '02',
+                    label: 'Transform',
+                    title: 'Signal Extraction',
+                    desc: 'Raw commits become time buckets, cadence scores, message quality grades, and language vectors.',
+                    icon: '⇄',
+                  },
+                  {
+                    step: '03',
+                    label: 'Analyze',
+                    title: 'Parallel AI Calls',
+                    desc: 'Three independent Claude calls run simultaneously — Fingerprint, Commit Score, Health Audit.',
+                    icon: '⟳',
+                  },
+                  {
+                    step: '04',
+                    label: 'Serve',
+                    title: 'Cached Delivery',
+                    desc: 'Every result cached in Upstash Redis at the feature level. 24h TTL. Mode-aware.',
+                    icon: '→',
+                  },
+                ].map(({ step, label, title, desc, icon }, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      borderLeft: `1px solid ${BORDER}`,
+                      borderTop: `1px solid ${BORDER}`,
+                      borderBottom: `1px solid ${BORDER}`,
+                      borderRight: i === 3 ? `1px solid ${BORDER}` : 'none',
+                      padding: '28px 24px',
+                      position: 'relative',
+                      background: BG,
+                    }}
+                  >
+                    {/* Step number */}
+                    <div
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 10,
+                        color: ACCENT,
+                        letterSpacing: '0.16em',
+                        marginBottom: 20,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <span>{step} — {label.toUpperCase()}</span>
+                      {/* Arrow connector (hidden on last) */}
+                      {i < 3 && (
+                        <span
+                          className="hidden md:block"
+                          style={{
+                            position: 'absolute',
+                            right: -12,
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            width: 22,
+                            height: 22,
+                            background: CARD,
+                            border: `1px solid ${BORDER}`,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: 10,
+                            color: ACCENT,
+                            zIndex: 2,
+                          }}
+                        >
+                          →
+                        </span>
+                      )}
+                    </div>
+                    <p
+                      style={{
+                        fontWeight: 700,
+                        fontSize: 15,
+                        color: '#ffffff',
+                        marginBottom: 10,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {title}
+                    </p>
+                    <p style={{ fontSize: 13, color: MUTED2, lineHeight: 1.65 }}>
+                      {desc}
+                    </p>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              <div style={breakdownItem}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  II — Parallel Claude Calls
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  The three AI analyses — Engineering Fingerprint, Commit Score, and Health Audit — are independent. Running them in parallel instead of sequentially cuts total AI response time by approximately 60%. Each call uses a deterministic system prompt engineered to return structured output, not free-form prose.
-                </p>
-              </div>
-
-              <div style={breakdownItem}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  III — Cache Architecture
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  Every response is cached at the feature level in Upstash Redis with a 24-hour TTL. NORMAL and ROAST modes cache separately — switching modes after the first load is instant on the second view. Getting this wrong has real consequences: cache the whole page and a mode toggle invalidates GitHub data that hasn&rsquo;t changed.
-                </p>
-              </div>
-
-              <div style={{ ...breakdownItem, marginBottom: 0 }}>
-                <p style={{ fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)', fontSize: 11, color: ACCENT, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  IV — Stack Trajectory Without ML
-                </p>
-                <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>
-                  The language trend prediction uses no machine learning model. Repositories are split into three time buckets, language share is calculated per bucket, and an acceleration vector is extrapolated forward six months. Directionally accurate, no training data required.
-                </p>
-              </div>
-
+            {/* Three outputs below pipeline */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-3 gap-4 mt-5" style={{ animationDelay: '0.3s' }}>
+              {[
+                { label: 'Engineering Fingerprint', desc: 'Archetypal persona + 3 sharp, specific insights grounded in your actual data.' },
+                { label: 'Commit Story',            desc: 'Last 50 commits scored, graded, broken down. Message quality is a signal.' },
+                { label: 'Stack Trajectory',        desc: 'Where your languages are trending — predictive without any ML model.' },
+              ].map(({ label, desc }) => (
+                <div
+                  key={label}
+                  style={{
+                    padding: '20px 22px',
+                    border: `1px solid rgba(124,106,247,0.2)`,
+                    borderTop: `2px solid ${ACCENT}`,
+                    background: `rgba(124,106,247,0.04)`,
+                    borderRadius: 8,
+                  }}
+                >
+                  <p style={{ fontWeight: 600, fontSize: 13, color: '#ffffff', marginBottom: 8 }}>{label}</p>
+                  <p style={{ fontSize: 13, color: MUTED2, lineHeight: 1.6 }}>{desc}</p>
+                </div>
+              ))}
             </div>
 
           </div>
         </section>
 
-        {/* ── FEATURES ────────────────────────────────────────────────────────── */}
+        {/* ════════════════════════════════════════════════════════════════════
+            TECHNICAL — Metrics grid + breakdown
+        ════════════════════════════════════════════════════════════════════ */}
+        <section style={{ borderTop: `1px solid ${BORDER}` }} className="px-6 md:px-10 py-24">
+          <div className="max-w-7xl mx-auto">
+
+            <Label>Technical</Label>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start mb-16">
+              <h2
+                className="anim-fade-up"
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                  animationDelay: '0.1s',
+                }}
+              >
+                Built to survive real traffic without burning through API credits.
+              </h2>
+              <p
+                className="anim-fade-up"
+                style={{
+                  color: TEXT,
+                  lineHeight: 1.8,
+                  fontSize: 15,
+                  animationDelay: '0.2s',
+                  paddingTop: 4,
+                }}
+              >
+                Every architectural decision was made with two constraints in mind: GitHub&rsquo;s rate limits and Claude API costs. The pipeline runs four stages — data ingestion, transformation, AI analysis, and cached delivery.
+              </p>
+            </div>
+
+            {/* Architecture diagram placeholder */}
+            {/* ARCHITECTURE DIAGRAM — replace div below with:
+                <img src="..." alt="DevDNA system architecture" className="w-full rounded-xl mb-12" style={{ border: `1px solid ${BORDER}` }} /> */}
+            <div className="anim-fade-up mb-16" style={{ animationDelay: '0.2s' }}>
+              <ImgPlaceholder label="architecture diagram" ratio="16/7" />
+            </div>
+
+            {/* 2×2 metric cards grid */}
+            <div className="anim-fade-up grid grid-cols-1 md:grid-cols-2 gap-4 mb-4" style={{ animationDelay: '0.25s' }}>
+              {[
+                {
+                  metric: '< 20',
+                  unit: 'API calls',
+                  label: 'I — Top-15 Repo Cap',
+                  body: <>GitHub&rsquo;s unauthenticated API allows 60 req/hr. Sorting by <Code>pushed_at</Code> and capping at 15 repos keeps every full analysis under 20 calls — enough headroom for concurrent users without needing auth.</>,
+                },
+                {
+                  metric: '~60%',
+                  unit: 'faster',
+                  label: 'II — Parallel Claude Calls',
+                  body: 'Fingerprint, Commit Score, and Health Audit are independent. Running them in parallel instead of sequentially cuts total AI response time by approximately 60%. Each uses a deterministic system prompt engineered to return structured output.',
+                },
+                {
+                  metric: '2×',
+                  unit: 'cache keys',
+                  label: 'III — Mode-Aware Cache',
+                  body: 'Every response is cached at feature level in Upstash Redis with a 24h TTL. NORMAL and ROAST modes cache separately — switching modes on the second view is instant. Caching the whole page would invalidate clean data on a mode toggle.',
+                },
+                {
+                  metric: '0',
+                  unit: 'ML models',
+                  label: 'IV — Stack Trajectory Without ML',
+                  body: 'Repos split into three time buckets. Language share calculated per bucket. Acceleration vector extrapolated forward six months. Directionally accurate — no training data, no model, no cold start.',
+                },
+              ].map(({ metric, unit, label, body }, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: CARD,
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 12,
+                    padding: '28px 28px 24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 16,
+                  }}
+                >
+                  {/* Metric callout */}
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+                    <span
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+                        fontWeight: 700,
+                        color: ACCENT,
+                        lineHeight: 1,
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      {metric}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 12,
+                        color: MUTED2,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                      }}
+                    >
+                      {unit}
+                    </span>
+                  </div>
+                  {/* Divider */}
+                  <div style={{ height: 1, background: BORDER }} />
+                  {/* Label */}
+                  <p
+                    style={{
+                      fontFamily: MONO,
+                      fontSize: 10,
+                      color: ACCENT,
+                      letterSpacing: '0.14em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {label}
+                  </p>
+                  {/* Body */}
+                  <p style={{ fontSize: 14, color: TEXT, lineHeight: 1.7 }}>{body}</p>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════════
+            FEATURES
+        ════════════════════════════════════════════════════════════════════ */}
         <section
-          style={{ borderTop: `1px solid ${BORDER}` }}
-          className="px-6 md:px-10 py-20"
+          style={{ borderTop: `1px solid ${BORDER}`, background: CARD }}
+          className="px-6 md:px-10 py-24"
         >
           <div className="max-w-7xl mx-auto">
 
-            <span style={sectionLabel} className="anim-fade-up">Features</span>
+            <Label>Features</Label>
 
             <h2
-              className="anim-fade-up mb-16"
+              className="anim-fade-up mb-20"
               style={{
                 fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+                fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
                 fontWeight: 700,
-                lineHeight: 1.25,
-                maxWidth: 500,
+                lineHeight: 1.2,
+                maxWidth: 460,
                 animationDelay: '0.1s',
               }}
             >
               What DevDNA actually tells you.
             </h2>
 
-            {/* Feature 1 — image left, text right */}
-            {/* FEATURE 1 - Engineering fingerprint screenshot */}
-            {/* Replace placeholder div with <img src="..." alt="Engineering Fingerprint" ... /> */}
-            <FeatureRow
-              imageAlt="Engineering Fingerprint screenshot"
-              title="Engineering Fingerprint"
-              copy="Drop in a username and DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into an archetypal persona and three sharp, specific insights. No generic output. Everything is grounded in your actual data."
-              imageRight={false}
-            />
+            {/* Feature rows */}
+            {[
+              {
+                n: '01',
+                tag: 'Engineering Fingerprint',
+                title: 'An archetypal read of how you actually engineer.',
+                copy: 'DevDNA reads your commit patterns, language trajectory, and coding habits — then distills it into a persona label and three sharp, specific insights. No generic output. Everything grounded in your actual data.',
+                imgLabel: 'Engineering Fingerprint screenshot',
+                imgRight: false,
+              },
+              {
+                n: '02',
+                tag: 'Roast / Normal',
+                title: 'Same data. Completely different read.',
+                copy: 'Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant on the second view.',
+                imgLabel: 'Roast / Normal toggle GIF',
+                imgRight: true,
+              },
+              {
+                n: '03',
+                tag: 'Repo Summaries',
+                title: 'Lazy-loaded. Only analyzed when you need it.',
+                copy: 'Every repository can be expanded for an AI-generated summary. Claude only analyzes a repo when you click it — keeping the initial page fast and API costs proportional to actual usage.',
+                imgLabel: 'Repo summaries expand GIF',
+                imgRight: false,
+              },
+              {
+                n: '04',
+                tag: 'Commit Score',
+                title: "'fix', 'update', and 'asdfgh' are a pattern.",
+                copy: 'Your last 50 commit messages scored, graded, and broken down. Because how you write commits tells you something about how you think about your work — and patterns tell you something.',
+                imgLabel: 'Commit Score screenshot',
+                imgRight: true,
+              },
+            ].map(({ n, tag, title, copy, imgLabel, imgRight }) => {
+              const imgBlock = (
+                <div className="anim-fade-up" style={{ animationDelay: '0.1s' }}>
+                  {/* Replace this ImgPlaceholder with:
+                      <img src="..." alt={imgLabel} className="w-full h-full object-cover rounded-xl" /> */}
+                  <ImgPlaceholder label={imgLabel} ratio="16/10" />
+                </div>
+              )
+              const textBlock = (
+                <div
+                  className="anim-fade-up flex flex-col justify-center"
+                  style={{ animationDelay: '0.15s' }}
+                >
+                  {/* Feature number + tag */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                    <span
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 10,
+                        color: MUTED,
+                        letterSpacing: '0.1em',
+                      }}
+                    >
+                      {n}
+                    </span>
+                    <span style={{ width: 1, height: 10, background: BORDER }} />
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        color: ACCENT,
+                        letterSpacing: '0.18em',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      lineHeight: 1.3,
+                      marginBottom: 16,
+                    }}
+                  >
+                    {title}
+                  </h3>
+                  <p style={{ color: TEXT, lineHeight: 1.75, fontSize: 15 }}>{copy}</p>
+                </div>
+              )
 
-            {/* Feature 2 — image right, text left */}
-            {/* FEATURE 2 - Roast/Normal toggle GIF */}
-            {/* Replace placeholder div with <img src="..." alt="Roast/Normal toggle" ... /> */}
-            <FeatureRow
-              imageAlt="Roast / Normal toggle GIF"
-              title="Roast / Normal"
-              copy="Same data. Completely different read. Normal mode gives you a professional analysis. Roast mode gives you the version your brutally honest senior engineer would write. Both are cached separately — switching is instant."
-              imageRight={true}
-            />
-
-            {/* Feature 3 — image left, text right */}
-            {/* FEATURE 3 - Repo summary expand GIF */}
-            {/* Replace placeholder div with <img src="..." alt="Repo summaries" ... /> */}
-            <FeatureRow
-              imageAlt="Repo summaries expand GIF"
-              title="Repo Summaries"
-              copy="Every repository can be expanded for an AI-generated summary. Lazy loaded — Claude only analyzes a repo when you click it, keeping the initial page fast and API costs low."
-              imageRight={false}
-            />
-
-            {/* Feature 4 — image right, text left */}
-            {/* FEATURE 4 - Commit score screenshot */}
-            {/* Replace placeholder div with <img src="..." alt="Commit Score" ... /> */}
-            <FeatureRow
-              imageAlt="Commit Score screenshot"
-              title="Commit Score"
-              copy="Your last 50 commit messages scored, graded, and broken down. Because 'fix', 'update', and 'asdfgh' are a pattern — and patterns tell you something."
-              imageRight={true}
-            />
+              return (
+                <div
+                  key={n}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center"
+                  style={{ marginBottom: 80 }}
+                >
+                  {imgRight ? <>{textBlock}{imgBlock}</> : <>{imgBlock}{textBlock}</>}
+                </div>
+              )
+            })}
 
           </div>
         </section>
 
-        {/* ── REFLECTION ──────────────────────────────────────────────────────── */}
-        <section
-          style={{ borderTop: `1px solid ${BORDER}` }}
-          className="px-6 md:px-10 py-20"
-        >
+        {/* ════════════════════════════════════════════════════════════════════
+            REFLECTION
+        ════════════════════════════════════════════════════════════════════ */}
+        <section style={{ borderTop: `1px solid ${BORDER}` }} className="px-6 md:px-10 py-24">
           <div className="max-w-7xl mx-auto">
 
-            <span style={sectionLabel} className="anim-fade-up">Reflection</span>
+            <Label>Reflection</Label>
 
             <h2
               className="anim-fade-up mb-16"
               style={{
                 fontFamily: 'var(--font-sans)',
-                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+                fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
                 fontWeight: 700,
-                lineHeight: 1.25,
-                maxWidth: 500,
+                lineHeight: 1.2,
+                maxWidth: 440,
                 animationDelay: '0.1s',
               }}
             >
-              What I learned from this project.
+              What this project taught me.
             </h2>
 
-            <div className="flex flex-col gap-12" style={{ maxWidth: 680 }}>
-
+            <div style={{ maxWidth: 720 }}>
               {[
                 {
                   num: '01',
@@ -630,53 +953,69 @@ export default function DevDNAPage() {
                   bold: 'Building for yourself is the best user research.',
                   copy: "Running DevDNA on my own GitHub first wasn't just a test — it told me immediately what felt useful and what felt hollow. The roast mode came from that session. The best product decisions came from being the user.",
                 },
-              ].map(({ num, bold, copy }) => (
-                <div key={num} className="anim-fade-up flex gap-8 items-start">
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                      fontSize: 'clamp(2rem, 4vw, 3rem)',
-                      fontWeight: 700,
-                      color: 'rgba(124,106,247,0.18)',
-                      lineHeight: 1,
-                      flexShrink: 0,
-                      minWidth: 60,
-                    }}
-                  >
-                    {num}
-                  </span>
-                  <div>
-                    <p
+              ].map(({ num, bold, copy }, i, arr) => (
+                <div key={num}>
+                  <div className="anim-fade-up flex gap-10 items-start py-10">
+                    <span
                       style={{
-                        fontFamily: 'var(--font-sans)',
+                        fontFamily: MONO,
+                        fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
                         fontWeight: 700,
-                        fontSize: 16,
-                        color: '#ffffff',
-                        marginBottom: 10,
-                        lineHeight: 1.4,
+                        color: 'rgba(124,106,247,0.12)',
+                        lineHeight: 1,
+                        flexShrink: 0,
+                        minWidth: 72,
+                        letterSpacing: '-0.02em',
+                        userSelect: 'none',
                       }}
                     >
-                      {bold}
-                    </p>
-                    <p style={{ color: TEXT, lineHeight: 1.8, fontSize: 15 }}>{copy}</p>
+                      {num}
+                    </span>
+                    <div style={{ paddingTop: 6 }}>
+                      <p
+                        style={{
+                          fontFamily: 'var(--font-sans)',
+                          fontWeight: 700,
+                          fontSize: 17,
+                          color: '#ffffff',
+                          marginBottom: 12,
+                          lineHeight: 1.35,
+                        }}
+                      >
+                        {bold}
+                      </p>
+                      <p style={{ color: TEXT, lineHeight: 1.8, fontSize: 15 }}>{copy}</p>
+                    </div>
                   </div>
+                  {i < arr.length - 1 && (
+                    <div style={{ height: 1, background: BORDER }} />
+                  )}
                 </div>
               ))}
-
             </div>
 
           </div>
         </section>
 
-        {/* ── FOOTER ──────────────────────────────────────────────────────────── */}
-        <footer
-          style={{ borderTop: `1px solid ${BORDER}` }}
-          className="px-6 md:px-10 py-12"
-        >
+        {/* ════════════════════════════════════════════════════════════════════
+            FOOTER
+        ════════════════════════════════════════════════════════════════════ */}
+        <footer style={{ borderTop: `1px solid ${BORDER}`, background: CARD }} className="px-6 md:px-10 py-12">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <p style={{ color: MUTED, fontSize: 13 }}>
-              © 2025 Randy Dawn Tai
-            </p>
+            <div>
+              <p
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 13,
+                  color: ACCENT,
+                  fontWeight: 600,
+                  marginBottom: 2,
+                }}
+              >
+                DevDNA.
+              </p>
+              <p style={{ color: MUTED, fontSize: 12 }}>© 2025 Randy Dawn Tai</p>
+            </div>
             <FooterIcons />
           </div>
         </footer>
