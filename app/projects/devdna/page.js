@@ -888,8 +888,8 @@ export default function DevDNAPage() {
               return (
                 <div
                   key={n}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center"
-                  style={{ marginBottom: 80 }}
+                  className={`feat-row feat-row--${imgRight ? 'right' : 'left'}`}
+                  style={{ marginBottom: 96 }}
                 >
                   {imgRight ? <>{textBlock}{imgBlock}</> : <>{imgBlock}{textBlock}</>}
                 </div>

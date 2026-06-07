@@ -164,3 +164,15 @@ body {
   border-radius: inherit;
   z-index: 1;
 }
+
+/* ── DevDNA feature rows ─────────────────────────────────────────────────── */
+.feat-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .feat-row--left  { grid-template-columns: 3fr 2fr; }
+  .feat-row--right { grid-template-columns: 2fr 3fr; }
+}
