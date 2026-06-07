@@ -822,12 +822,12 @@ export default function DevDNAPage() {
                 imgRight: true,
               },
             ].map(({ n, tag, title, copy, videoSrc, imgSrc, imgAlt }) => (
-              <div key={n} className="anim-fade-up" style={{ marginBottom: 80 }}>
+              <div key={n} className="anim-fade-up" style={{ marginBottom: 140 }}>
 
                 {/* Text header row — label left, copy right */}
                 <div
                   className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start"
-                  style={{ marginBottom: 24 }}
+                  style={{ marginBottom: 48 }}
                 >
                   {/* Left: number + tag + title */}
                   <div>
