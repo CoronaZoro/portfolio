@@ -2,10 +2,9 @@ import Navbar from '../../components/Navbar'
 import FooterIcons from '../../components/FooterIcons'
 
 const FACTS = [
-  ['Role',        'AI/ML UX'],
-  ['Timeline',    'February – March 2025'],
-  ['Team',        '1 frontend engineer, 1 NLP engineer, 1 AI/ML engineer'],
-  ['Built with',  'Machine learning, object detection, NLP'],
+  ['Role',     'AI/ML UX'],
+  ['Timeline', 'February – March 2025'],
+  ['Team',     '1 frontend engineer\n1 NLP engineer\n1 AI/ML engineer'],
 ]
 
 const SHOWCASE = [
@@ -37,20 +36,20 @@ export default function GuardianPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-16 bg-ground text-ink" style={{ fontFamily: 'var(--font-sans)' }}>
+      <main className="pt-16 bg-ground text-soft" style={{ fontFamily: 'var(--font-sans)' }}>
 
         {/* ── Hero ── */}
-        <section className="px-6 md:px-10 pt-20 md:pt-28 pb-12 max-w-7xl mx-auto">
-          <h1 className="anim-fade-up text-display font-medium" style={{ animationDelay: '0.35s' }}>
-            Guardian
+        <section className="px-6 md:px-10 pt-20 pb-12 max-w-7xl mx-auto">
+          <h1 className="anim-fade-up font-heading text-display font-medium text-ink" style={{ animationDelay: '0.35s' }}>
+            Guardian Real-Time Fall Detection System
           </h1>
-          <p className="anim-fade-up text-lead mt-6 max-w-[34ch]" style={{ animationDelay: '0.55s' }}>
-            Real-time fall detection for hospitals and care facilities. Hackathon winner.
+          <p className="anim-fade-up text-body text-muted mt-4" style={{ animationDelay: '0.55s' }}>
+            Hackathon winner · Machine learning · Object detection · NLP · UX
           </p>
         </section>
 
         {/* ── Thumbnail ── */}
-        <section className="anim-fade-up px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto" style={{ animationDelay: '0.65s' }}>
+        <section className="anim-fade-up px-6 md:px-10 pb-24 max-w-7xl mx-auto" style={{ animationDelay: '0.65s' }}>
           <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden w-full">
             <div className="w-full md:w-2/5 flex flex-col items-center justify-center gap-4 py-10 md:py-0" style={{ background: '#0a0f0d', minHeight: '180px' }}>
               <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
@@ -66,55 +65,55 @@ export default function GuardianPage() {
         </section>
 
         {/* ── Overview ── */}
-        <section className="px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+        <section className="px-6 md:px-10 pb-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           <div className="md:col-span-2">
-            <p className="anim-fade-up text-lead max-w-[40ch]" style={{ animationDelay: '0.1s' }}>
-              Guardian is a real-time fall detection system built for hospitals, care facilities, and large spaces where staff coverage is limited.
+            <h2 className="anim-fade-up text-lead font-medium text-ink" style={{ animationDelay: '0.1s' }}>Overview</h2>
+            <p className="anim-fade-up text-body mt-4 max-w-[64ch]" style={{ animationDelay: '0.2s' }}>
+              Guardian is a real-time fall detection system built for hospitals, care facilities, and large spaces where staff coverage is limited. It monitors a space 24/7 using a camera feed, automatically detects when a person has fallen, and instantly alerts nearby responders via LINE, all without storing any identifiable facial data.
             </p>
-            <p className="anim-fade-up text-body mt-6 max-w-[62ch]" style={{ animationDelay: '0.2s' }}>
-              It monitors a space 24/7 using a camera feed, automatically detects when a person has fallen, and instantly alerts nearby responders via LINE, all without storing any identifiable facial data.
-            </p>
-            <p className="anim-fade-up text-body mt-4 max-w-[62ch]" style={{ animationDelay: '0.3s' }}>
+            <p className="anim-fade-up text-body mt-4 max-w-[64ch]" style={{ animationDelay: '0.3s' }}>
               The system distinguishes between falling and sleeping using skeletal pose estimation, hip velocity, and aspect ratio analysis, solving the hardest problem in fall detection. When a fall is confirmed, responders are notified within seconds and can monitor the situation live through the dashboard.
             </p>
           </div>
-          <dl className="anim-fade-up flex flex-col gap-6 bg-surface rounded-2xl p-6 md:p-8 self-start" style={{ animationDelay: '0.2s' }}>
+          <dl className="anim-fade-up flex flex-col gap-6" style={{ animationDelay: '0.2s' }}>
             {FACTS.map(([label, value]) => (
               <div key={label}>
-                <dt className="text-small text-muted">{label}</dt>
-                <dd className="text-body mt-1">{value}</dd>
+                <dt className="text-body text-muted">{label}</dt>
+                <dd className="text-body text-ink mt-1 whitespace-pre-line">{value}</dd>
               </div>
             ))}
           </dl>
         </section>
 
-        {/* ── Problem / Solution ── */}
-        <section className="px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div>
-            <h2 className="anim-fade-up text-head font-medium" style={{ animationDelay: '0.1s' }}>The long fall</h2>
-            <p className="anim-fade-up text-body mt-6 max-w-[62ch]" style={{ animationDelay: '0.2s' }}>
-              Falls are the second leading cause of unintentional injury deaths worldwide. In hospitals and care facilities, the real danger isn&apos;t the fall itself, it&apos;s the time before someone finds you. We called this &ldquo;The Long Lie.&rdquo; A person on the floor for over an hour faces serious risk of dehydration, muscle breakdown, and death. With limited night staff and large facilities, this gap is a real and unsolved problem.
-            </p>
-          </div>
-          <div>
-            <h2 className="anim-fade-up text-head font-medium" style={{ animationDelay: '0.15s' }}>A supervisor that never sleeps</h2>
-            <p className="anim-fade-up text-body mt-6 max-w-[62ch]" style={{ animationDelay: '0.25s' }}>
-              A 24/7 automated vigilance system that triggers an instant alert the moment a fall is validated. It acts as a Digital Supervisor that fills this gap during night shifts or in low-traffic areas like warehouses or hallways.
-            </p>
+        {/* ── Problem / Solution — a tone-step band breaks up the run of text ── */}
+        <section className="bg-surface">
+          <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+            <div>
+              <h2 className="anim-fade-up font-heading text-head font-medium text-ink" style={{ animationDelay: '0.1s' }}>The long fall</h2>
+              <p className="anim-fade-up text-body mt-4 max-w-[60ch]" style={{ animationDelay: '0.2s' }}>
+                Falls are the second leading cause of unintentional injury deaths worldwide. In hospitals and care facilities, the real danger isn&apos;t the fall itself, it&apos;s the time before someone finds you. We called this &ldquo;The Long Lie.&rdquo; A person on the floor for over an hour faces serious risk of dehydration, muscle breakdown, and death. With limited night staff and large facilities, this gap is a real and unsolved problem.
+              </p>
+            </div>
+            <div>
+              <h2 className="anim-fade-up font-heading text-head font-medium text-ink" style={{ animationDelay: '0.15s' }}>Guardian</h2>
+              <p className="anim-fade-up text-body mt-4 max-w-[60ch]" style={{ animationDelay: '0.25s' }}>
+                A 24/7 automated vigilance system that triggers an instant alert the moment a fall is validated. It acts as a Digital Supervisor that fills this gap during night shifts or in low-traffic areas like warehouses or hallways.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* ── System showcase ── */}
-        <section className="px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto">
-          <h2 className="anim-fade-up text-head font-medium mb-12 md:mb-16" style={{ animationDelay: '0.1s' }}>The system in action</h2>
-          <div className="flex flex-col gap-20">
+        <section className="px-6 md:px-10 py-24 max-w-7xl mx-auto">
+          <h2 className="anim-fade-up font-heading text-head font-medium text-ink mb-12" style={{ animationDelay: '0.1s' }}>System showcase</h2>
+          <div className="flex flex-col gap-16 md:gap-20">
             {SHOWCASE.map(({ src, title, body }, i) => (
               <div key={title} className="anim-fade-up flex flex-col md:flex-row gap-8 md:gap-12 items-start" style={{ animationDelay: `${0.15 + i * 0.05}s` }}>
                 <div className="w-full md:w-3/5 rounded-xl overflow-hidden flex-shrink-0">
                   <img src={src} alt={title} className="w-full object-cover" />
                 </div>
                 <div className="md:w-2/5">
-                  <h3 className="text-lead font-medium">{title}</h3>
+                  <h3 className="text-lead font-medium text-ink">{title}</h3>
                   <p className="text-body mt-3">{body}</p>
                 </div>
               </div>
@@ -123,29 +122,31 @@ export default function GuardianPage() {
         </section>
 
         {/* ── Beyond the prototype ── */}
-        <section className="px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto">
-          <h2 className="anim-fade-up text-head font-medium mb-12 md:mb-16" style={{ animationDelay: '0.1s' }}>Beyond the prototype</h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+        <section className="px-6 md:px-10 pb-24 max-w-7xl mx-auto">
+          <h2 className="anim-fade-up font-heading text-head font-medium text-ink mb-12" style={{ animationDelay: '0.1s' }}>Beyond the prototype</h2>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
             {IMPACT.map(([title, body], i) => (
               <li key={title} className="anim-fade-up" style={{ animationDelay: `${0.15 + i * 0.1}s` }}>
-                <h3 className="text-lead font-medium">{title}</h3>
-                <p className="text-body mt-3 max-w-[56ch]">{body}</p>
+                <h3 className="text-body font-medium text-ink">{title}</h3>
+                <p className="text-body mt-2 max-w-[56ch]">{body}</p>
               </li>
             ))}
           </ul>
         </section>
 
         {/* ── What I learned ── */}
-        <section className="px-6 md:px-10 pb-24 md:pb-32 max-w-7xl mx-auto">
-          <h2 className="anim-fade-up text-head font-medium" style={{ animationDelay: '0.1s' }}>What I learned</h2>
-          <p className="anim-fade-up text-body mt-6 max-w-[62ch]" style={{ animationDelay: '0.2s' }}>
-            Guardian was my first time working with machine learning end to end from sourcing datasets and training a model to integrating it into a live system. I learned how to use FastAPI and WebSockets to pipe real-time detection data into a frontend, which pushed me to think about UX differently. Designing for a live feed means the interface has to communicate system states instantly so there&apos;s no loading screen to hide behind. It made me a more practical designer, one who thinks about how data actually moves before deciding how it should look.
-          </p>
+        <section className="px-6 md:px-10 pb-24 max-w-7xl mx-auto flex flex-col md:flex-row gap-10 md:gap-12 md:items-end md:justify-between">
+          <div className="md:max-w-2xl">
+            <h2 className="anim-fade-up font-heading text-head font-medium text-ink" style={{ animationDelay: '0.1s' }}>What I learned</h2>
+            <p className="anim-fade-up text-body mt-4" style={{ animationDelay: '0.2s' }}>
+              Guardian was my first time working with machine learning end to end from sourcing datasets and training a model to integrating it into a live system. I learned how to use FastAPI and WebSockets to pipe real-time detection data into a frontend, which pushed me to think about UX differently. Designing for a live feed means the interface has to communicate system states instantly so there&apos;s no loading screen to hide behind. It made me a more practical designer, one who thinks about how data actually moves before deciding how it should look.
+            </p>
+          </div>
           <a
             href="https://github.com/CoronaZoro/falldetection"
             target="_blank"
             rel="noopener noreferrer"
-            className="anim-fade-up inline-flex items-center gap-2 mt-10 bg-ink text-ground text-body font-medium px-8 py-3 rounded-full transition-opacity hover:opacity-85"
+            className="anim-fade-up self-start md:self-auto flex-shrink-0 inline-flex items-center gap-2 bg-ink text-ground text-body font-medium px-8 py-3 rounded-full transition-opacity hover:opacity-85"
             style={{ animationDelay: '0.3s' }}
           >
             View on GitHub →
@@ -155,7 +156,7 @@ export default function GuardianPage() {
         {/* ── Footer ── */}
         <footer className="px-6 md:px-10 py-12 bg-surface">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <span className="text-lead font-medium">Guardian</span>
+            <span className="text-lead font-medium text-ink">Guardian</span>
             <FooterIcons figmaHref="https://www.figma.com/@saiywetphoneaun" />
           </div>
         </footer>
