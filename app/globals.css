@@ -9,7 +9,7 @@
    on any dark surface. Three levels:
      ink   — headings, titles, values that should be read first   (≈17:1)
      soft  — paragraphs and running text                          (≈10:1)
-     muted — labels, captions, meta                               (≈5.5:1)
+     muted — labels, captions, meta     (≈6:1; ≥5:1 on project cards)
 
    Four sizes on a 4px grid: every font size and line height is a multiple
    of 4, stepping up at the md (768px) and lg (1024px) breakpoints.
@@ -28,7 +28,7 @@
   --color-surface: #171512;
   --color-ink:     #f1f0ee;
   --color-soft:    #bdbab5;
-  --color-muted:   #8c8984;
+  --color-muted:   #95928d;
 
   --text-display: var(--fs-display);
   --text-display--line-height: var(--lh-display);
