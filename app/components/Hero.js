@@ -17,7 +17,7 @@ export default function Hero({ tagline }) {
     <section className="relative flex flex-col items-center justify-center min-h-screen text-center px-6 md:px-16">
 
       {/* Headline — two lines staggered */}
-      <h1 className="font-heading text-display font-normal text-ink max-w-4xl">
+      <h1 className="font-heading text-display font-normal text-ink max-w-5xl">
         <motion.span {...fadeUp(0.1)} style={{ display: 'block' }}>
           Aspiring to make
         </motion.span>

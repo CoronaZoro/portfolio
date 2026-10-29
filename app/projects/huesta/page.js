@@ -88,7 +88,6 @@ function RevealCard({ label, inputContent, outputContent }) {
           style={{
             width: open ? '50%' : '100%',
             transition: 'width 400ms ease-in-out',
-            borderRight: `0.5px solid ${BORDER}`,
           }}
         >
           {inputContent}
@@ -98,6 +97,7 @@ function RevealCard({ label, inputContent, outputContent }) {
         <div
           className="overflow-hidden flex-shrink-0"
           style={{
+            background: '#171717', // one tone step from CARD marks the fold
             width: open ? '50%' : '0%',
             transition: 'width 400ms ease-in-out',
           }}

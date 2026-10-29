@@ -77,12 +77,12 @@ function ImgPlaceholder({ label, ratio = '16/10' }) {
 // ── Section heading + intro, two columns ──────────────────────────────────────
 function SectionIntro({ title, children, className = 'mb-16' }) {
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start ${className}`}>
+    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start ${className}`}>
       <h2 className="anim-fade-up font-heading text-head font-medium text-ink" style={{ animationDelay: '0.1s' }}>
         {title}
       </h2>
       {children && (
-        <p className="anim-fade-up text-body md:pt-1" style={{ animationDelay: '0.2s' }}>
+        <p className="anim-fade-up text-body lg:pt-1" style={{ animationDelay: '0.2s' }}>
           {children}
         </p>
       )}
@@ -155,7 +155,7 @@ export default function DevDNAPage() {
             OVERVIEW
         ════════════════════════════════════════════════════════════════════ */}
         <section className="px-6 md:px-10 py-24 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
             {/* Left — headline + breakdown */}
             <div>
@@ -395,12 +395,12 @@ export default function DevDNAPage() {
               <div key={tag} className="anim-fade-up" style={{ marginBottom: i < arr.length - 1 ? 128 : 0 }}>
 
                 {/* Text header row — title left, copy right */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start mb-12">
                   <div>
                     <h3 className="font-heading text-head font-medium text-ink">{title}</h3>
                     <p className="text-body font-medium mt-2" style={{ color: ACCENT_TEXT }}>{tag}</p>
                   </div>
-                  <p className="text-body md:pt-1">{copy}</p>
+                  <p className="text-body lg:pt-1">{copy}</p>
                 </div>
 
                 {/* Full-width media */}

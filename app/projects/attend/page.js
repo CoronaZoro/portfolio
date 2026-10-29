@@ -138,7 +138,7 @@ export default function AttendPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="self-start md:self-auto flex-shrink-0 inline-flex items-center gap-2 text-body font-medium px-8 py-3 rounded-full text-ink transition-opacity hover:opacity-85"
-              style={{ background: BLUE }}
+              style={{ background: BLUE_ON_LIGHT }}
             >
               View Figma file →
             </a>

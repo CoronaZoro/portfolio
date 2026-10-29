@@ -163,20 +163,6 @@ export default function ContactSection({ profile = {} }) {
         {/* ── Center: mood selector ───────────────────────── */}
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
 
-          {/* Animated subtitle */}
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={mood.subtitle}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="text-body text-soft italic mb-4"
-            >
-              {mood.subtitle}
-            </motion.p>
-          </AnimatePresence>
-
           {/* Animated heading */}
           <AnimatePresence mode="wait">
             <motion.h2
@@ -185,10 +171,24 @@ export default function ContactSection({ profile = {} }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="font-heading text-display font-medium text-ink mb-10"
+              className="font-heading text-display font-medium text-ink mb-4"
             >
               {mood.heading}
             </motion.h2>
+          </AnimatePresence>
+
+          {/* Animated subtitle */}
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={mood.subtitle}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="text-body text-soft italic mb-10"
+            >
+              {mood.subtitle}
+            </motion.p>
           </AnimatePresence>
 
           {/* Mood buttons */}

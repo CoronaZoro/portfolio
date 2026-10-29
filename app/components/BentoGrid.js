@@ -117,7 +117,6 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             background: 'rgba(10,9,8,0.72)',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
             padding: '18px 24px 20px',
           }}
         >
@@ -159,7 +158,6 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
             background: 'rgba(10,9,8,0.72)',
-            borderTop: '1px solid rgba(255,255,255,0.1)',
           }}
         >
           <div className="flex items-center justify-between gap-3">
