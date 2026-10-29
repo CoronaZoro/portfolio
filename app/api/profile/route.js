@@ -11,6 +11,7 @@ export async function GET() {
     if (!rows.length) return NextResponse.json({}, { status: 404 })
     return NextResponse.json(rows[0])
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+    console.error('[api/profile]', e)
+    return NextResponse.json({ error: 'Failed to load profile.' }, { status: 500 })
   }
 }

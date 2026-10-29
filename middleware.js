@@ -1,11 +1,18 @@
 // middleware.js
 // Password-protects all /admin routes using the ADMIN_PASSWORD env var.
 // On GET: serves a minimal login form.
-// On POST: checks the password and sets a session cookie.
+// On POST: checks the password and sets a signed session cookie (see lib/auth.js).
 
 import { NextResponse } from 'next/server'
+import {
+  SESSION_COOKIE,
+  SESSION_MAX_AGE,
+  checkPassword,
+  createSessionToken,
+  verifySessionToken,
+} from './lib/auth'
+import { rateLimit, clientIp } from './lib/rateLimit'
 
-const COOKIE = 'admin_auth'
 const LOGIN_HTML = (error = '') => `<!DOCTYPE html>
 <html>
 <head>
@@ -86,17 +93,26 @@ export async function middleware(request) {
 
   // ── POST: check submitted password ──────────────────────────────────
   if (request.method === 'POST') {
+    // 10 attempts per 15 minutes per IP
+    const limit = rateLimit(`login:${clientIp(request)}`, { limit: 10, windowMs: 15 * 60 * 1000 })
+    if (!limit.ok) {
+      return new NextResponse(LOGIN_HTML('Too many attempts. Try again later.'), {
+        status: 429,
+        headers: { 'Content-Type': 'text/html', 'Retry-After': String(limit.retryAfter) },
+      })
+    }
+
     const body = await request.text()
     const params = new URLSearchParams(body)
     const submitted = params.get('password') || ''
 
-    if (submitted === adminPassword) {
-      const res = NextResponse.redirect(request.nextUrl)
-      res.cookies.set(COOKIE, adminPassword, {
+    if (await checkPassword(submitted, adminPassword)) {
+      const res = NextResponse.redirect(request.nextUrl, 303)
+      res.cookies.set(SESSION_COOKIE, await createSessionToken(adminPassword), {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 60 * 8, // 8 hours
+        maxAge: SESSION_MAX_AGE,
         path: '/',
       })
       return res
@@ -109,8 +125,8 @@ export async function middleware(request) {
   }
 
   // ── GET: check cookie ────────────────────────────────────────────────
-  const cookie = request.cookies.get(COOKIE)
-  if (cookie?.value === adminPassword) {
+  const cookie = request.cookies.get(SESSION_COOKIE)
+  if (await verifySessionToken(cookie?.value, adminPassword)) {
     return NextResponse.next()
   }
 
