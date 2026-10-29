@@ -64,7 +64,7 @@ export default function PinnedPage() {
           {/* Headline + subtext */}
           <div className="mb-12 max-w-2xl">
             <h2 className="anim-fade-up font-heading text-head font-medium text-ink mb-5" style={{ animationDelay: '0.1s' }}>
-              Bangkok's best food isn't on the map.
+              Bangkok&apos;s best food isn&apos;t on the map.
             </h2>
             <p className="anim-fade-up text-body" style={{ animationDelay: '0.2s' }}>
               Bangkok has more street food stalls than almost any city on earth. Most of them have never appeared on Google Maps and probably never will.
@@ -111,7 +111,7 @@ export default function PinnedPage() {
             }}
           >
             <p className="text-lead text-ink italic mb-4">
-              "I walked 20 minutes to a stall I'd been to before. It wasn't there. No way to know until you show up."
+              &quot;I walked 20 minutes to a stall I&apos;d been to before. It wasn&apos;t there. No way to know until you show up.&quot;
             </p>
             <p className="text-body text-muted">
               — Randy, Bangkok resident
@@ -128,10 +128,10 @@ export default function PinnedPage() {
           <div className="max-w-7xl mx-auto" style={{ textAlign: 'center' }}>
             <p className="font-heading text-statement font-medium">
               <span className="text-ink" style={{ display: 'block' }}>
-                The problem isn't finding food.
+                The problem isn&apos;t finding food.
               </span>
               <span style={{ color: GREEN, display: 'block' }}>
-                It's trusting that it's still there.
+                It&apos;s trusting that it&apos;s still there.
               </span>
             </p>
           </div>
@@ -261,7 +261,7 @@ export default function PinnedPage() {
               <div className="p-6">
                 <h3 className="text-lead font-medium mb-3" style={{ color: GREEN }}>Pin states</h3>
                 <p className="text-body">
-                  The four pin states aren't just visual, they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.
+                  The four pin states aren&apos;t just visual, they communicate real information. Green means fresh. Amber means check. Grey means stale. Selected means this is the one. Every state has a job.
                 </p>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function PinnedPage() {
               <div className="p-6">
                 <h3 className="text-lead font-medium mb-3" style={{ color: GREEN }}>Stall card</h3>
                 <p className="text-body">
-                  The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions, Confirm Still Here and Add Review. Everything a user needs, nothing they don't.
+                  The stall card is the core UI moment. Photo, name, food type, rating, timestamp, and two actions, Confirm Still Here and Add Review. Everything a user needs, nothing they don&apos;t.
                 </p>
               </div>
             </div>
@@ -362,7 +362,7 @@ export default function PinnedPage() {
               </div>
               <div>
                 <h3 className="font-heading text-head font-medium text-ink">
-                  When one pin isn't enough.
+                  When one pin isn&apos;t enough.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Cluster view</p>
                 <p className="text-body">
@@ -417,7 +417,7 @@ export default function PinnedPage() {
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Profile</p>
                 <p className="text-body">
-                  The profile shows what you've contributed — pins dropped, stalls visited, followers. Tier badges reward active contributors. No follower pressure, just a record of good finds.
+                  The profile shows what you&apos;ve contributed — pins dropped, stalls visited, followers. Tier badges reward active contributors. No follower pressure, just a record of good finds.
                 </p>
               </div>
             </div>
@@ -436,7 +436,7 @@ export default function PinnedPage() {
               A map that stays alive.
             </h2>
             <p className="anim-fade-up text-body" style={{ animationDelay: '0.2s' }}>
-              The biggest problem with crowd-sourced location data isn't adding it, it's keeping it accurate. Stalls close. They move. They take random days off. A pin that was true six months ago might be useless today.
+              The biggest problem with crowd-sourced location data isn&apos;t adding it, it&apos;s keeping it accurate. Stalls close. They move. They take random days off. A pin that was true six months ago might be useless today.
             </p>
           </div>
 
