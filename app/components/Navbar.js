@@ -1,10 +1,32 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const buttonRef    = useRef(null)
+  const firstLinkRef = useRef(null)
+  const wasOpen      = useRef(false)
+
+  // Opening moves focus into the drawer; closing (Escape, link, backdrop) hands it
+  // back to the menu button so keyboard users don't lose their place.
+  useEffect(() => {
+    if (open) {
+      firstLinkRef.current?.focus()
+    } else if (wasOpen.current) {
+      buttonRef.current?.focus()
+    }
+    wasOpen.current = open
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
 
   // Scroll-reactive background — transparent at top, fills in after 80px
   const { scrollY } = useScroll()
@@ -23,15 +45,15 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 h-16"
+        className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-16 h-16"
         style={{ backgroundColor: bgColor, backdropFilter: backdropBlur }}
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
       >
-        <a href="/" className="font-heading text-body font-medium text-ink hover:opacity-70 transition-opacity">
+        <Link href="/" className="font-heading text-body font-medium text-ink hover:opacity-70 transition-opacity">
           Randy Dawn Tai
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-10 list-none">
@@ -44,9 +66,12 @@ export default function Navbar() {
 
         {/* Hamburger button — mobile only */}
         <button
+          ref={buttonRef}
           className="md:hidden flex flex-col justify-center items-center gap-[6px] w-10 h-10"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           <span className="block w-6 h-0.5 bg-ink transition-[transform,opacity] duration-300"
             style={{ transform: open ? 'translateY(8px) rotate(45deg)' : 'none' }} />
@@ -63,10 +88,15 @@ export default function Navbar() {
         className="md:hidden fixed inset-0 z-40 bg-black/50 transition-opacity duration-300"
         style={{ opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none' }}
         onClick={() => setOpen(false)}
+        aria-hidden="true"
       />
 
-      {/* Drawer panel */}
-      <div
+      {/* Drawer panel — inert while closed so its links are out of the Tab order
+          and hidden from screen readers (it's only slid off-screen, not removed) */}
+      <nav
+        id="mobile-menu"
+        aria-label="Menu"
+        inert={!open}
         className="md:hidden fixed top-0 right-0 h-full w-72 z-50 flex flex-col pt-24 px-8 gap-8"
         style={{
           background: 'var(--color-surface)',
@@ -77,6 +107,7 @@ export default function Navbar() {
         {links.map(({ label, href }, i) => (
           <a
             key={label}
+            ref={i === 0 ? firstLinkRef : undefined}
             href={href}
             onClick={() => setOpen(false)}
             className="font-heading text-head font-medium text-soft hover:text-ink transition-colors"
@@ -109,7 +140,7 @@ export default function Navbar() {
             </a>
           ))}
         </div>
-      </div>
+      </nav>
     </>
   )
 }
