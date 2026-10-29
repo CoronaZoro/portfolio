@@ -5,13 +5,10 @@ import BentoGrid from './components/BentoGrid'
 import AboutSection from './components/AboutSection'
 import ContactSection from './components/ContactSection'
 
-// Slug map — only thing that can't come from DB (ties project ID to route)
-const SLUG = { 1: 'guardian', 2: 'huesta', 3: 'bouzer', 4: 'attend' }
-
 export default async function Home() {
   const [{ rows }, { rows: profileRows }] = await Promise.all([
     sql`
-      SELECT id, title, short_description, tags, hackathon_winner, thumbnail_url, visible, display_order
+      SELECT id, title, short_description, tags, hackathon_winner, thumbnail_url, case_study_path, display_order
       FROM projects
       WHERE visible = true
       ORDER BY display_order ASC
@@ -23,7 +20,11 @@ export default async function Home() {
     `,
   ])
 
-  const projects = rows.map(row => ({ ...row, slug: SLUG[row.id] }))
+  // slug = last segment of case_study_path, e.g. /projects/guardian → guardian.
+  // BentoGrid uses it to look up each card's accent + fallback image.
+  const projects = rows
+    .filter(row => row.case_study_path)
+    .map(row => ({ ...row, slug: row.case_study_path.split('/').pop() }))
   const profile  = profileRows[0] ?? {}
 
   return (

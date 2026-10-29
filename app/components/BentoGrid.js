@@ -78,26 +78,6 @@ const CONFIG = {
   },
 }
 
-// ── Static entry for Pinned (not yet in DB — replace with DB row once seeded) ─
-const PINNED_STATIC = {
-  slug:              'pinned',
-  title:             'Pinned.',
-  short_description: 'A community-driven street food discovery map for Bangkok.',
-  tags:              ['UI/UX', 'Mobile App'],
-  thumbnail_url:     null,
-  case_study_path:   '/projects/pinned',
-}
-
-// ── Static entry for DevDNA (not yet in DB) ───────────────────────────────────
-const DEVDNA_STATIC = {
-  slug:              'devdna',
-  title:             'DevDNA.',
-  short_description: 'Drop in a GitHub username. Get a complete read of the engineer behind it.',
-  tags:              ['Software', 'AI Tool'],
-  thumbnail_url:     null,
-  case_study_path:   '/projects/devdna',
-}
-
 // Bottom bar slides up from y:20 → y:0 on hover
 const barVariants = {
   rest:  { opacity: 0, y: 20 },
@@ -196,7 +176,7 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
 
           {/* Row 3: CTA */}
           <a
-            href={`/projects/${project.slug}`}
+            href={project.case_study_path}
             className="inline-flex items-center gap-1 text-xs font-semibold tracking-wide uppercase transition-opacity hover:opacity-75"
             style={{ color: accent, letterSpacing: '0.1em' }}
           >
@@ -219,7 +199,7 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
               {project.title}
             </h2>
             <a
-              href={`/projects/${project.slug}`}
+              href={project.case_study_path}
               className="inline-flex items-center gap-1 text-xs font-semibold tracking-wide uppercase shrink-0"
               style={{ color: accent, letterSpacing: '0.1em' }}
             >
@@ -238,17 +218,22 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
 }
 
 // ── Grid layout ────────────────────────────────────────────────────────────
-// Order: Guardian (full) → Bouzer + Huesta (2-col) → Pinned (full)
+// Projects arrive visible-only, sorted by display_order (set in /admin/projects).
+// Rows alternate full width / two-up: [1] → [2, 3] → [4] → [5, 6] → …
+// A card left alone in a two-up row goes full width instead.
+function buildRows(projects) {
+  const rows = []
+  let i = 0
+  while (i < projects.length) {
+    const fullRow = rows.length % 2 === 0 || i === projects.length - 1
+    rows.push(fullRow ? [projects[i]] : [projects[i], projects[i + 1]])
+    i += fullRow ? 1 : 2
+  }
+  return rows
+}
+
 export default function BentoGrid({ projects }) {
   if (!projects?.length) return null
-
-  const guardian = projects.find(p => p.slug === 'guardian')
-  const bouzer   = projects.find(p => p.slug === 'bouzer')
-  const huesta   = projects.find(p => p.slug === 'huesta')
-  // Pinned: use DB row when available, else fall back to static entry
-  const pinned   = projects.find(p => p.slug === 'pinned') ?? PINNED_STATIC
-  // DevDNA: static until added to DB
-  const devdna   = projects.find(p => p.slug === 'devdna') ?? DEVDNA_STATIC
 
   return (
     <section id="work" className="px-6 md:px-10 py-16 md:py-24" style={{ background: '#0e0c0a' }}>
@@ -258,20 +243,29 @@ export default function BentoGrid({ projects }) {
 
       <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-5">
 
-        {/* Row 1 — Guardian, full width */}
-        {guardian && <BentoCard project={guardian} delay={0}   heightClass="min-h-[260px] md:min-h-[500px]" />}
-
-        {/* Row 2 — Bouzer + Huesta, 2-column */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-          {bouzer && <BentoCard project={bouzer} delay={0.1} heightClass="min-h-[220px] md:min-h-[420px]" />}
-          {huesta && <BentoCard project={huesta} delay={0.2} heightClass="min-h-[220px] md:min-h-[420px]" />}
-        </div>
-
-        {/* Row 3 — Pinned, full width */}
-        <BentoCard project={pinned} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />
-
-        {/* Row 4 — DevDNA, full width */}
-        <BentoCard project={devdna} delay={0.1} heightClass="min-h-[260px] md:min-h-[480px]" />
+        {buildRows(projects).map((row, r) =>
+          row.length === 1 ? (
+            // Full width — the first row is a little taller
+            <BentoCard
+              key={row[0].id}
+              project={row[0]}
+              delay={r === 0 ? 0 : 0.1}
+              heightClass={r === 0 ? 'min-h-[260px] md:min-h-[500px]' : 'min-h-[260px] md:min-h-[480px]'}
+            />
+          ) : (
+            // Two-up
+            <div key={row[0].id} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+              {row.map((project, c) => (
+                <BentoCard
+                  key={project.id}
+                  project={project}
+                  delay={0.1 + c * 0.1}
+                  heightClass="min-h-[220px] md:min-h-[420px]"
+                />
+              ))}
+            </div>
+          )
+        )}
 
       </div>
     </section>

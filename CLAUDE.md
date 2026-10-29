@@ -81,7 +81,7 @@ app/
     Navbar.js         — Fixed top nav, scroll-fade background, hamburger + slide-in drawer on mobile
     Hero.js           — Homepage hero, Framer stagger, TypedText easter egg
     TypedText.js      — Typing effect on the word "fun." in hero
-    BentoGrid.js      — Selected Works grid; per-project CONFIG (accent, fallback image) + static Pinned/DevDNA entries
+    BentoGrid.js      — Selected Works grid, laid out by display_order; per-project CONFIG (accent, fallback image)
     AboutSection.js   — About section, shows available_from
     ContactSection.js — Full-page contact section (profile data from DB) + DinoGame
     DinoGame.js       — Easter-egg mini game in contact section
@@ -169,9 +169,9 @@ display_order     INTEGER
 visible           BOOLEAN DEFAULT TRUE
 updated_at        TIMESTAMP DEFAULT NOW()
 ```
-Seeded with 4 rows: Guardian, Huesta, Bouzer, Attend. Pinned and DevDNA are not in the DB yet — BentoGrid renders them from static entries.
+6 rows: Guardian, Bouzer, Huesta, Attend (hidden), Pinned, DevDNA. `scripts/migrate.js` inserts any project whose `case_study_path` is missing — add new case studies to its list and re-run it.
 
-**Known gap:** `app/page.js` maps DB `id` → slug with a hardcoded `SLUG` map, and BentoGrid places cards in fixed rows by slug. So admin `display_order` has no effect on the homepage, and Attend is never rendered even when visible.
+**Homepage data flow:** `app/page.js` loads visible projects ordered by `display_order`, derives `slug` from the last segment of `case_study_path`, and BentoGrid lays them out in that order — rows alternate full width / two-up, and a lone card in a two-up row goes full width. Admin reorder + visibility control the homepage directly. Per-project accent colour and fallback image live in BentoGrid's `CONFIG`, keyed by slug.
 
 ---
 
@@ -273,9 +273,8 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 
 ## Upcoming Work (in order)
 
-1. **Projects data flow** — add Pinned + DevDNA rows to `projects` table, drive homepage from `case_study_path` + `display_order` instead of the `SLUG` map and fixed BentoGrid rows
-2. **DevDNA assets** — swap the remaining placeholder and BentoGrid banner for real images
-3. **Custom X cursor** — wire up `CustomCursor.js` via `useMotionValue`
+1. **DevDNA assets** — swap the remaining placeholder and BentoGrid banner for real images
+2. **Custom X cursor** — wire up `CustomCursor.js` via `useMotionValue`
 
 ---
 

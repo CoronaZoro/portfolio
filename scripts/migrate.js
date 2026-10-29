@@ -66,9 +66,11 @@ async function migrate() {
     console.log('  profile already has data, skipping seed')
   }
 
-  // ── seed projects if empty ───────────────────────────────────────────
-  const { rows: projRows } = await sql`SELECT COUNT(*) FROM projects`
-  if (parseInt(projRows[0].count) === 0) {
+  // ── seed projects ────────────────────────────────────────────────────
+  // Inserts any project whose case_study_path isn't in the table yet, so re-running
+  // this after adding a case study page adds just the new row. Existing rows
+  // (and anything edited in the admin) are left untouched.
+  {
     const projects = [
       {
         title: 'Guardian',
@@ -86,7 +88,7 @@ async function migrate() {
         thumbnail_url: null,
         case_study_path: '/projects/huesta',
         hackathon_winner: false,
-        display_order: 2,
+        display_order: 3,
       },
       {
         title: 'Bouzer',
@@ -95,7 +97,7 @@ async function migrate() {
         thumbnail_url: null,
         case_study_path: '/projects/bouzer',
         hackathon_winner: false,
-        display_order: 3,
+        display_order: 2,
       },
       {
         title: 'Attend',
@@ -106,27 +108,48 @@ async function migrate() {
         hackathon_winner: false,
         display_order: 4,
       },
+      {
+        title: 'Pinned.',
+        short_description: 'A community-driven street food discovery map for Bangkok.',
+        tags: ['UI/UX', 'Mobile App'],
+        thumbnail_url: null,
+        case_study_path: '/projects/pinned',
+        hackathon_winner: false,
+        display_order: 5,
+      },
+      {
+        title: 'DevDNA.',
+        short_description: 'Drop in a GitHub username. Get a complete read of the engineer behind it.',
+        tags: ['Software', 'AI Tool'],
+        thumbnail_url: null,
+        case_study_path: '/projects/devdna',
+        hackathon_winner: false,
+        display_order: 6,
+      },
     ]
 
+    let added = 0
     for (const p of projects) {
-      await sql`
+      const { rowCount } = await sql`
         INSERT INTO projects
           (title, short_description, tags, thumbnail_url, case_study_path, hackathon_winner, display_order, visible)
-        VALUES (
-          ${p.title},
-          ${p.short_description},
-          ${p.tags},
-          ${p.thumbnail_url},
-          ${p.case_study_path},
-          ${p.hackathon_winner},
-          ${p.display_order},
+        SELECT
+          ${p.title}::text,
+          ${p.short_description}::text,
+          ${p.tags}::text[],
+          ${p.thumbnail_url}::text,
+          ${p.case_study_path}::text,
+          ${p.hackathon_winner}::boolean,
+          ${p.display_order}::integer,
           true
-        )
+        WHERE NOT EXISTS (SELECT 1 FROM projects WHERE case_study_path = ${p.case_study_path})
       `
+      if (rowCount) {
+        added++
+        console.log(`✓ added project: ${p.title}`)
+      }
     }
-    console.log('✓ projects seeded (4 rows)')
-  } else {
-    console.log('  projects already has data, skipping seed')
+    if (!added) console.log('  projects already up to date')
   }
 
   console.log('\nMigration complete.')
