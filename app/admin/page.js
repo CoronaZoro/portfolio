@@ -2,6 +2,9 @@ import { sql } from '@vercel/postgres'
 import { list } from '@vercel/blob'
 import DashboardCards from './DashboardCards'
 
+// Counts come straight from the DB and Blob store on every visit
+export const dynamic = 'force-dynamic'
+
 export default async function AdminDashboard() {
   const [{ rows: profileRows }, { rows: projectRows }, { blobs }] = await Promise.all([
     sql`SELECT name, tagline, updated_at FROM profile WHERE id = 1`,
@@ -30,10 +33,10 @@ export default async function AdminDashboard() {
     },
     {
       href:   '/admin/images',
-      label:  'Images',
+      label:  'Media',
       value:  `${imgCount} files`,
       sub:    'Stored in Vercel Blob',
-      action: 'Upload images →',
+      action: 'Upload media →',
     },
   ]
 

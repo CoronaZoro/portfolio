@@ -7,7 +7,7 @@ const NAV = [
   { href: '/admin',          label: 'Dashboard' },
   { href: '/admin/profile',  label: 'Profile' },
   { href: '/admin/projects', label: 'Projects' },
-  { href: '/admin/images',   label: 'Images' },
+  { href: '/admin/images',   label: 'Media' },
 ]
 
 export default function NavLinks() {

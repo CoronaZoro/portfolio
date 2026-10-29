@@ -60,7 +60,7 @@ Feature branches (`huesta-wip`, `pinned-case-study`, `devdna-case-study`) are me
 | `/admin` | Dashboard |
 | `/admin/profile` | Edit profile info |
 | `/admin/projects` | Edit project cards, reorder, show/hide |
-| `/admin/images` | Upload images to Blob |
+| `/admin/images` | Media library ("Media" in the nav): drag/drop/paste multi-file uploads straight to Blob (up to 500 MB, videos included), search/filter, copy URL or `<img>`/`<video>` tag |
 
 Admin routes are protected by `middleware.js` — password checked against `ADMIN_PASSWORD` env var. No Clerk. Signed cookie session, 8-hour expiry (see Middleware below).
 
@@ -69,7 +69,7 @@ Admin routes are protected by `middleware.js` — password checked against `ADMI
 |---|---|
 | `/api/profile` | Public GET — contact links for `FooterIcons` on case study pages |
 | `/api/generate` | Public POST — Huesta kit generator (Claude + Unsplash). Rate-limited per IP |
-| `/api/admin/*` | Admin-only writes (profile, projects save/visibility/reorder, images upload/delete). Each calls `await requireAdmin(request)` |
+| `/api/admin/*` | Admin-only writes (profile, projects save/visibility/reorder, images upload/delete). Each calls `await requireAdmin(request)`. `images/upload` only issues client tokens — files go browser → Blob directly via `upload()` from `@vercel/blob/client` |
 
 ---
 
@@ -224,7 +224,7 @@ Admin is for **content editing only** — not a full CMS.
 **Can edit via admin:**
 - Profile tagline, about text, contact links, availability status
 - Project card title, description, visibility, display order
-- Upload new thumbnail images to Blob
+- Upload images and videos to Blob (media library)
 
 **Cannot do via admin:**
 - Add new case studies (those are manually coded Next.js pages)
