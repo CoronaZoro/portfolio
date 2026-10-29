@@ -1,5 +1,75 @@
 @import "tailwindcss";
 
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Shared type + colour system. Each becomes a Tailwind utility
+   (text-display, text-ink, bg-surface, …).
+   Case studies keep their own accent / heading colours on top of these.
+
+   Text colours are solid, not translucent white, so contrast stays the same
+   on any dark surface. Two levels only:
+     ink   — headings and all running text
+     muted — captions and secondary notes, never paragraphs (≈7:1 on ground)
+
+   Five sizes, far apart, on a 4px grid: every font size and line height is a
+   multiple of 4, stepping up at the md (768px) and lg (1024px) breakpoints.
+   Nothing readable goes below 16px.
+
+                 phone      md         lg
+     display     48/48      80/80      120/120
+     head        32/40      48/56      64/72
+     lead        20/28      24/32      28/36
+     body        16/24      20/32      20/32
+     small       16/24      16/24      16/24   (muted captions — smaller only on desktop) */
+@theme {
+  --color-ground:  #0e0c0a;
+  --color-surface: #171512;
+  --color-ink:     #f1f0ee;
+  --color-muted:   #a3a09b;
+
+  --text-display: var(--fs-display);
+  --text-display--line-height: var(--lh-display);
+  --text-display--letter-spacing: -0.035em;
+
+  --text-head: var(--fs-head);
+  --text-head--line-height: var(--lh-head);
+  --text-head--letter-spacing: -0.025em;
+
+  --text-lead: var(--fs-lead);
+  --text-lead--line-height: var(--lh-lead);
+  --text-lead--letter-spacing: -0.01em;
+
+  --text-body: var(--fs-body);
+  --text-body--line-height: var(--lh-body);
+
+  --text-small: var(--fs-small);
+  --text-small--line-height: var(--lh-small);
+}
+
+:root {
+  --fs-display: 48px;  --lh-display: 48px;
+  --fs-head:    32px;  --lh-head:    40px;
+  --fs-lead:    20px;  --lh-lead:    28px;
+  --fs-body:    16px;  --lh-body:    24px;
+  --fs-small:   16px;  --lh-small:   24px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-display: 80px;  --lh-display: 80px;
+    --fs-head:    48px;  --lh-head:    56px;
+    --fs-lead:    24px;  --lh-lead:    32px;
+    --fs-body:    20px;  --lh-body:    32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-display: 120px; --lh-display: 120px;
+    --fs-head:    64px;  --lh-head:    72px;
+    --fs-lead:    28px;  --lh-lead:    36px;
+  }
+}
+
 @font-face {
   font-family: 'ClashGrotesk';
   src: url('/fonts/ClashGrotesk-Regular.woff2') format('woff2');
