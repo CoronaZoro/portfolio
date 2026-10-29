@@ -17,6 +17,7 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
   const [scale, setScale] = useState(1)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
   const isDragging = useRef(false)
+  const [dragging, setDragging] = useState(false) // mirrors isDragging for render
   const dragStart = useRef({ x: 0, y: 0 })
   const offsetAtDrag = useRef({ x: 0, y: 0 })
 
@@ -24,8 +25,6 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
     setScale(1)
     setOffset({ x: 0, y: 0 })
   }, [])
-
-  useEffect(() => { resetZoom() }, [index, resetZoom])
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -41,6 +40,7 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
     if (scale <= 1) return
     e.preventDefault()
     isDragging.current = true
+    setDragging(true)
     dragStart.current = { x: e.clientX, y: e.clientY }
     offsetAtDrag.current = { ...offset }
   }, [scale, offset])
@@ -55,6 +55,7 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
 
   const handleMouseUp = useCallback(() => {
     isDragging.current = false
+    setDragging(false)
   }, [])
 
   const handleSlider = useCallback((e) => {
@@ -64,8 +65,8 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
   }, [])
 
   const sizing = fit === 'height'
-    ? { height: `${scale * 72}vh`, width: 'auto', maxWidth: '90vw', transition: isDragging.current ? 'none' : 'height 0.15s ease' }
-    : { width: `${scale * 85}vw`, maxWidth: `${scale * 1000}px`, transition: isDragging.current ? 'none' : 'width 0.15s ease, max-width 0.15s ease' }
+    ? { height: `${scale * 72}vh`, width: 'auto', maxWidth: '90vw', transition: dragging ? 'none' : 'height 0.15s ease' }
+    : { width: `${scale * 85}vw`, maxWidth: `${scale * 1000}px`, transition: dragging ? 'none' : 'width 0.15s ease, max-width 0.15s ease' }
 
   return (
     <div
@@ -114,7 +115,7 @@ function Lightbox({ screens, fit, index, onClose, onPrev, onNext }) {
       {/* ── Image area (scrollable) ── */}
       <div
         className="flex-1 min-h-0 overflow-auto flex items-start justify-center"
-        style={{ padding: '40px 0', cursor: scale > 1 ? (isDragging.current ? 'grabbing' : 'grab') : 'default' }}
+        style={{ padding: '40px 0', cursor: scale > 1 ? (dragging ? 'grabbing' : 'grab') : 'default' }}
         data-lenis-prevent
         onClick={onClose}
         onMouseDown={handleMouseDown}
@@ -181,6 +182,7 @@ export default function ScreenGallery({ screens, tileBg = '#f5f1ea', tileHeight 
     <>
       {lightboxIndex !== null && (
         <Lightbox
+          key={lightboxIndex} // remount per screen so zoom resets
           screens={screens}
           fit={fit}
           index={lightboxIndex}
