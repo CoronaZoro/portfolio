@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres'
+import { sql } from '@/lib/db'
 import ProjectsList from './ProjectsList'
 
 export default async function ProjectsPage() {

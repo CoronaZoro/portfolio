@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres'
+import { sql } from '@/lib/db'
 import { list } from '@vercel/blob'
 import DashboardCards from './DashboardCards'
 

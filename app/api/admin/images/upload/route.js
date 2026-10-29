@@ -5,7 +5,7 @@
 
 import { handleUpload } from '@vercel/blob/client'
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '../../../../../lib/db'
+import { requireAdmin } from '@/lib/db'
 
 // Keep in sync with ACCEPT in app/admin/images/ImageUpload.js. SVG is left out on
 // purpose: it can carry scripts.

@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres'
+import { sql } from '@/lib/db'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import BentoGrid from './components/BentoGrid'
