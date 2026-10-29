@@ -44,6 +44,12 @@
 
   --text-body: var(--fs-body);
   --text-body--line-height: var(--lh-body);
+
+  /* Big pull-quotes / anchor statements (Pinned, DevDNA) — the one sanctioned
+     exception to the four sizes. 32/40 → 48/56 → 64/72 */
+  --text-statement: var(--fs-statement);
+  --text-statement--line-height: var(--lh-statement);
+  --text-statement--letter-spacing: -0.02em;
 }
 
 :root {
@@ -51,6 +57,7 @@
   --fs-head:    28px;  --lh-head:    36px;
   --fs-lead:    20px;  --lh-lead:    28px;
   --fs-body:    16px;  --lh-body:    24px;
+  --fs-statement: 32px; --lh-statement: 40px;
 }
 
 @media (min-width: 768px) {
@@ -58,6 +65,7 @@
     --fs-display: 56px;  --lh-display: 64px;
     --fs-head:    32px;  --lh-head:    40px;
     --lh-body:    28px;
+    --fs-statement: 48px; --lh-statement: 56px;
   }
 }
 
@@ -66,6 +74,7 @@
     --fs-display: 64px;  --lh-display: 72px;
     --fs-head:    40px;  --lh-head:    48px;
     --fs-lead:    24px;  --lh-lead:    32px;
+    --fs-statement: 64px; --lh-statement: 72px;
   }
 }
 
