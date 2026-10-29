@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
-import { sql, requireAdmin } from '../../../../../lib/db'
+import { sql, requireAdmin } from '@/lib/db'
 
 export async function POST(request) {
   const unauth = await requireAdmin(request)

@@ -1,7 +1,7 @@
 import { del } from '@vercel/blob'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
-import { requireAdmin } from '../../../../../lib/db'
+import { requireAdmin } from '@/lib/db'
 
 export async function POST(request) {
   const unauth = await requireAdmin(request)
