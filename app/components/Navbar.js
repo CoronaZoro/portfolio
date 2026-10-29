@@ -9,10 +9,8 @@ export default function Navbar() {
   // Scroll-reactive background — transparent at top, fills in after 80px
   const { scrollY } = useScroll()
   const bgAlpha      = useTransform(scrollY, [0, 80], [0, 0.85])
-  const borderAlpha  = useTransform(scrollY, [0, 80], [0, 0.1])
   const blurPx       = useTransform(scrollY, [0, 80], [0, 12])
   const bgColor      = useMotionTemplate`rgba(14,12,10,${bgAlpha})`
-  const borderColor  = useMotionTemplate`rgba(255,255,255,${borderAlpha})`
   const backdropBlur = useMotionTemplate`blur(${blurPx}px)`
 
   const links = [
@@ -25,13 +23,13 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 h-16 border-b"
-        style={{ backgroundColor: bgColor, backdropFilter: backdropBlur, borderBottomColor: borderColor }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 h-16"
+        style={{ backgroundColor: bgColor, backdropFilter: backdropBlur }}
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
       >
-        <a href="/" className="text-white text-sm font-medium tracking-wide hover:opacity-70 transition-opacity">
+        <a href="/" className="font-heading text-body font-medium text-ink hover:opacity-70 transition-opacity">
           Randy Dawn Tai
         </a>
 
@@ -39,23 +37,23 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-10 list-none">
           {links.map(({ label, href }) => (
             <li key={label}>
-              <a href={href} className="text-white/60 text-sm hover:text-white transition-colors">{label}</a>
+              <a href={href} className="text-body text-soft hover:text-ink transition-colors">{label}</a>
             </li>
           ))}
         </ul>
 
         {/* Hamburger button — mobile only */}
         <button
-          className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
+          className="md:hidden flex flex-col justify-center items-center gap-[6px] w-10 h-10"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          <span className="block w-5 h-px bg-white transition-all duration-300"
-            style={{ transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }} />
-          <span className="block w-5 h-px bg-white transition-all duration-300"
+          <span className="block w-6 h-0.5 bg-ink transition-[transform,opacity] duration-300"
+            style={{ transform: open ? 'translateY(8px) rotate(45deg)' : 'none' }} />
+          <span className="block w-6 h-0.5 bg-ink transition-[transform,opacity] duration-300"
             style={{ opacity: open ? 0 : 1 }} />
-          <span className="block w-5 h-px bg-white transition-all duration-300"
-            style={{ transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }} />
+          <span className="block w-6 h-0.5 bg-ink transition-[transform,opacity] duration-300"
+            style={{ transform: open ? 'translateY(-8px) rotate(-45deg)' : 'none' }} />
         </button>
       </motion.nav>
 
@@ -71,9 +69,7 @@ export default function Navbar() {
       <div
         className="md:hidden fixed top-0 right-0 h-full w-72 z-50 flex flex-col pt-24 px-8 gap-8"
         style={{
-          background: 'rgba(14,12,10,0.97)',
-          backdropFilter: 'blur(20px)',
-          borderLeft: '0.5px solid rgba(255,255,255,0.1)',
+          background: 'var(--color-surface)',
           transform: open ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
@@ -83,7 +79,7 @@ export default function Navbar() {
             key={label}
             href={href}
             onClick={() => setOpen(false)}
-            className="text-white/70 text-2xl font-medium hover:text-white transition-colors"
+            className="font-heading text-head font-medium text-soft hover:text-ink transition-colors"
             style={{
               opacity: open ? 1 : 0,
               transform: open ? 'translateX(0)' : 'translateX(20px)',
@@ -95,7 +91,7 @@ export default function Navbar() {
         ))}
 
         {/* Contact links at bottom */}
-        <div className="mt-auto mb-12 flex flex-col gap-4 border-t border-white/10 pt-8">
+        <div className="mt-auto mb-12 flex flex-col gap-4">
           {[
             { label: 'Email',    href: 'mailto:phonerandy7@gmail.com' },
             { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sai-ywet-phone-aung-053a55376/' },
@@ -107,7 +103,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="text-white/60 text-sm hover:text-white transition-colors"
+              className="text-body text-muted hover:text-ink transition-colors"
             >
               {label}
             </a>

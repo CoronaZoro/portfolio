@@ -1,5 +1,83 @@
 @import "tailwindcss";
 
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Shared type + colour system. Each becomes a Tailwind utility
+   (text-display, text-ink, bg-surface, …).
+   Case studies keep their own accent / heading colours on top of these.
+
+   Text colours are solid, not translucent white, so contrast stays the same
+   on any dark surface. Three levels:
+     ink   — headings, titles, values that should be read first   (≈17:1)
+     soft  — paragraphs and running text                          (≈10:1)
+     muted — labels, captions, meta     (≈6:1; ≥5:1 on project cards)
+
+   Four sizes on a 4px grid: every font size and line height is a multiple
+   of 4, stepping up at the md (768px) and lg (1024px) breakpoints.
+   Nothing readable goes below 16px — labels differ by colour, not size.
+
+                 phone      md         lg
+     display     40/48      56/64      64/72    page title
+     head        28/36      32/40      40/48    section headings
+     lead        20/28      20/28      24/32    intro line, item titles
+     body        16/24      16/28      16/28    paragraphs, labels */
+@theme {
+  /* Headings (display + head sizes) in ClashGrotesk; everything else in DM Sans */
+  --font-heading: 'ClashGrotesk', var(--font-sans), sans-serif;
+
+  --color-ground:  #0e0c0a;
+  --color-surface: #171512;
+  --color-ink:     #f1f0ee;
+  --color-soft:    #bdbab5;
+  --color-muted:   #95928d;
+
+  --text-display: var(--fs-display);
+  --text-display--line-height: var(--lh-display);
+  --text-display--letter-spacing: -0.02em;
+
+  --text-head: var(--fs-head);
+  --text-head--line-height: var(--lh-head);
+  --text-head--letter-spacing: -0.01em;
+
+  --text-lead: var(--fs-lead);
+  --text-lead--line-height: var(--lh-lead);
+  --text-lead--letter-spacing: -0.01em;
+
+  --text-body: var(--fs-body);
+  --text-body--line-height: var(--lh-body);
+
+  /* Big pull-quotes / anchor statements (Pinned, DevDNA) — the one sanctioned
+     exception to the four sizes. 28/36 → 48/56 → 64/72 */
+  --text-statement: var(--fs-statement);
+  --text-statement--line-height: var(--lh-statement);
+  --text-statement--letter-spacing: -0.02em;
+}
+
+:root {
+  --fs-display: 40px;  --lh-display: 48px;
+  --fs-head:    28px;  --lh-head:    36px;
+  --fs-lead:    20px;  --lh-lead:    28px;
+  --fs-body:    16px;  --lh-body:    24px;
+  --fs-statement: 28px; --lh-statement: 36px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs-display: 56px;  --lh-display: 64px;
+    --fs-head:    32px;  --lh-head:    40px;
+    --lh-body:    28px;
+    --fs-statement: 48px; --lh-statement: 56px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --fs-display: 64px;  --lh-display: 72px;
+    --fs-head:    40px;  --lh-head:    48px;
+    --fs-lead:    24px;  --lh-lead:    32px;
+    --fs-statement: 64px; --lh-statement: 72px;
+  }
+}
+
 @font-face {
   font-family: 'ClashGrotesk';
   src: url('/fonts/ClashGrotesk-Regular.woff2') format('woff2');
@@ -15,9 +93,9 @@
 }
 
 body {
-  background-color: #0e0c0a;
-  color: #ffffff;
-  font-family: 'ClashGrotesk', sans-serif;
+  background-color: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans), sans-serif; /* DM Sans — headings opt into font-heading */
 }
 
 @keyframes fadeUp {

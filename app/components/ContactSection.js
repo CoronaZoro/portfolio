@@ -124,8 +124,6 @@ export default function ContactSection({ profile = {} }) {
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        fontFamily: 'ClashGrotesk, system-ui, sans-serif',
       }}
     >
       {/* ── Main 3-column area ─────────────────────────────── */}
@@ -150,16 +148,12 @@ export default function ContactSection({ profile = {} }) {
             href={emailHref}
             whileHover={{ scale: 1.04 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="font-heading text-lead font-medium text-ink"
             style={{
               display: 'inline-block',
-              fontSize: 'clamp(18px, 2.2vw, 28px)',
-              fontWeight: 500,
-              color: '#fff',
               textDecoration: 'none',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.2,
-              paddingBottom: 10,
-              borderBottom: '2px solid rgba(255,255,255,0.5)',
+              paddingBottom: 8,
+              borderBottom: '2px solid var(--color-soft)',
             }}
           >
             {emailDisplay}
@@ -169,26 +163,6 @@ export default function ContactSection({ profile = {} }) {
         {/* ── Center: mood selector ───────────────────────── */}
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
 
-          {/* Animated subtitle */}
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={mood.subtitle}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              style={{
-                fontSize: 14,
-                color: 'rgba(255,255,255,0.6)',
-                fontStyle: 'italic',
-                marginBottom: 14,
-                letterSpacing: '0.01em',
-              }}
-            >
-              {mood.subtitle}
-            </motion.p>
-          </AnimatePresence>
-
           {/* Animated heading */}
           <AnimatePresence mode="wait">
             <motion.h2
@@ -197,22 +171,28 @@ export default function ContactSection({ profile = {} }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              style={{
-                fontSize: 'clamp(36px, 5vw, 72px)',
-                fontWeight: 700,
-                color: '#fff',
-                letterSpacing: '-0.03em',
-                lineHeight: 1,
-                margin: 0,
-                marginBottom: 36,
-              }}
+              className="font-heading text-display font-medium text-ink mb-4"
             >
               {mood.heading}
             </motion.h2>
           </AnimatePresence>
 
+          {/* Animated subtitle */}
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={mood.subtitle}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="text-body text-soft italic mb-10"
+            >
+              {mood.subtitle}
+            </motion.p>
+          </AnimatePresence>
+
           {/* Mood buttons */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
             {BUTTONS.map(btn => {
               const isActive = active === btn.id
               const color = BUTTON_COLORS[btn.id]
@@ -220,18 +200,15 @@ export default function ContactSection({ profile = {} }) {
                 <button
                   key={btn.id}
                   onClick={() => handleMoodClick(btn.id)}
+                  className={`text-body font-medium transition-colors ${isActive ? '' : 'text-soft hover:text-ink'}`}
                   style={{
-                    background: isActive ? `${color}14` : 'rgba(255,255,255,0.04)',
-                    border: `1px solid ${isActive ? color : 'rgba(255,255,255,0.12)'}`,
+                    background: isActive ? `${color}26` : 'rgba(255,255,255,0.06)',
+                    border: 'none',
                     borderRadius: 100,
-                    color: isActive ? color : 'rgba(255,255,255,0.65)',
-                    fontSize: 13,
-                    fontWeight: isActive ? 600 : 400,
-                    padding: '9px 18px',
+                    color: isActive ? color : undefined,
+                    padding: '8px 20px',
                     cursor: 'pointer',
                     fontFamily: 'inherit',
-                    letterSpacing: '0.01em',
-                    transition: 'all 0.15s ease',
                   }}
                 >
                   {btn.label}
@@ -243,22 +220,10 @@ export default function ContactSection({ profile = {} }) {
 
         {/* ── Right: phone + location ──────────────────────── */}
         <div style={{ paddingLeft: 40, textAlign: 'right' }}>
-          <p style={{
-            fontSize: 'clamp(18px, 2.2vw, 28px)',
-            fontWeight: 600,
-            color: '#fff',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.2,
-            marginBottom: 10,
-          }}>
+          <p className="font-heading text-lead font-medium text-ink mb-2">
             +66 84 169 6490
           </p>
-          <p style={{
-            fontSize: 12,
-            color: 'rgba(255,255,255,0.5)',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}>
+          <p className="text-body text-muted">
             Bangkok, Thailand · Available {availableFrom}
           </p>
         </div>
@@ -294,8 +259,7 @@ export default function ContactSection({ profile = {} }) {
       <div
         className="contact-footer"
         style={{
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-          padding: '28px 60px',
+          padding: '32px 60px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -315,27 +279,7 @@ export default function ContactSection({ profile = {} }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.12)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'rgba(255,255,255,0.5)',
-                textDecoration: 'none',
-                transition: 'border-color 0.15s, color 0.15s',
-                flexShrink: 0,
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
-                e.currentTarget.style.color = '#fff'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'
-                e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
-              }}
+              className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center bg-white/5 text-soft hover:bg-white/10 hover:text-ink transition-colors"
             >
               <Icon size={16} />
             </a>
@@ -343,11 +287,7 @@ export default function ContactSection({ profile = {} }) {
         </div>
 
         {/* Name line */}
-        <p className="contact-footer-name" style={{
-          fontSize: 14,
-          color: 'rgba(255,255,255,0.55)',
-          letterSpacing: '0.05em',
-        }}>
+        <p className="contact-footer-name text-body text-muted">
           Randy Dawn Tai
         </p>
       </div>

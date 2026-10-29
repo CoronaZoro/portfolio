@@ -61,20 +61,20 @@ export default function AboutSection({ availableFrom }) {
   return (
     <section
       id="about"
-      className="px-6 md:px-10 py-16 md:py-24 border-t border-white/10"
+      className="px-6 md:px-10 py-16 md:py-24"
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* Section label */}
-        <motion.p
+        {/* Section heading */}
+        <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          className="text-xs tracking-[0.2em] uppercase text-white/50 mb-12 md:mb-16"
+          className="font-heading text-head font-medium text-ink mb-10 md:mb-12"
         >
           About
-        </motion.p>
+        </motion.h2>
 
         {/* ── Stats row — full width ── */}
         <motion.div
@@ -82,24 +82,18 @@ export default function AboutSection({ availableFrom }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-          className="grid grid-cols-3 mb-16 md:mb-24"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+          className="grid grid-cols-3 gap-2 md:gap-4 mb-16 md:mb-24"
         >
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-6 md:py-14"
-              style={{
-                borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-              }}
+              className="flex flex-col items-center justify-center py-8 md:py-16 bg-surface rounded-2xl"
             >
-              <p
-                className="font-bold text-white leading-none mb-2 md:mb-3 text-[2.25rem] sm:text-[3.5rem] md:text-[clamp(56px,8vw,120px)]"
-                style={{ letterSpacing: '-0.04em' }}
-              >
+              {/* Big numbers are a deliberate exception to the type scale: 48 / 80 / 120 */}
+              <p className="font-heading font-medium text-ink text-[48px] leading-[48px] md:text-[80px] md:leading-[80px] lg:text-[120px] lg:leading-[120px] mb-2 md:mb-4 tracking-[-0.02em]">
                 <Counter value={stat.value} suffix={stat.suffix} delay={i * 0.15} />
               </p>
-              <p className="text-[10px] sm:text-xs tracking-[0.12em] sm:tracking-[0.18em] uppercase text-center" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <p className="text-body text-muted text-center px-2">
                 {stat.label}
               </p>
             </div>
@@ -117,18 +111,15 @@ export default function AboutSection({ availableFrom }) {
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           >
             {/* Tab bar */}
-            <div
-              className="flex gap-0 mb-8"
-              style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
-            >
+            <div className="flex gap-0 mb-8">
               {TABS.map((tab) => {
                 const isActive = activeTab === tab.id
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className="relative text-sm font-medium pb-3 pr-4 sm:pr-8 transition-colors duration-200"
-                    style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.5)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                    className={`relative text-body font-medium pb-3 mr-4 sm:mr-8 transition-colors duration-200 ${isActive ? 'text-ink' : 'text-muted hover:text-soft'}`}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
                   >
                     {tab.label}
                     {isActive && (
@@ -152,8 +143,7 @@ export default function AboutSection({ availableFrom }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="text-base leading-[1.7]"
-                style={{ color: 'rgba(255,255,255,0.62)' }}
+                className="text-body text-soft"
               >
                 {TABS.find(t => t.id === activeTab)?.content}
               </motion.p>
@@ -166,17 +156,11 @@ export default function AboutSection({ availableFrom }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.32 }}
-            className="p-5 sm:p-8"
-            style={{
-              border: '1px solid rgba(255,255,255,0.09)',
-              borderRadius: 14,
-              background: 'rgba(255,255,255,0.02)',
-              boxShadow: '0 0 40px rgba(230,51,35,0.06), 0 0 0 0 transparent',
-            }}
+            className="p-6 sm:p-8 bg-surface rounded-2xl"
           >
-            <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <h3 className="font-heading text-lead font-medium text-ink mb-6">
               Currently
-            </p>
+            </h3>
             <div className="flex flex-col gap-4">
               {[
                 { text: 'Based in Bangkok, Thailand',       pulse: false },
@@ -206,12 +190,9 @@ export default function AboutSection({ availableFrom }) {
                       }} />
                     </span>
                   ) : (
-                    <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,0.18)', flexShrink: 0, display: 'block', margin: '0 2px' }} />
+                    <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'var(--color-muted)', flexShrink: 0, display: 'block', margin: '0 2px' }} />
                   )}
-                  <span
-                    className="text-sm leading-snug"
-                    style={{ color: pulse ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.65)' }}
-                  >
+                  <span className={`text-body ${pulse ? 'text-ink' : 'text-soft'}`}>
                     {text}
                   </span>
                 </div>

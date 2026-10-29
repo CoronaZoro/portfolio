@@ -77,6 +77,7 @@ export default function TypedText({ text, delay = 0, speed = 130 }) {
         color: '#e63323',
         fontFamily: currentFont,
         fontStyle: 'italic',
+        whiteSpace: 'nowrap', // keep the typing cursor on the same line as the word
         cursor: done ? 'default' : undefined,
         transition: 'none',
       }}

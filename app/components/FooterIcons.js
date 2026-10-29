@@ -77,27 +77,7 @@ export default function FooterIcons({ figmaHref }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: '50%',
-            border: '1px solid rgba(255,255,255,0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'rgba(255,255,255,0.5)',
-            textDecoration: 'none',
-            transition: 'border-color 0.15s, color 0.15s',
-            flexShrink: 0,
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
-            e.currentTarget.style.color = '#fff'
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'
-            e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
-          }}
+          className="w-10 h-10 shrink-0 rounded-full flex items-center justify-center bg-white/5 text-soft hover:bg-white/10 hover:text-ink transition-colors"
         >
           <Icon size={16} />
         </a>
