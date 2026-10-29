@@ -6,7 +6,7 @@ Read this file at the start of every session. It covers the full project: stack,
 
 ## Project Overview
 
-Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product designer based in Bangkok. Built with Next.js App Router, deployed on Vercel. The site showcases four case studies and is being refreshed with a Postgres-backed admin panel, Vercel Blob image storage, and Framer Motion animations.
+Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product designer based in Bangkok. Built with Next.js App Router, deployed on Vercel. The site showcases six case studies, with a Postgres-backed admin panel, Vercel Blob image storage, and Framer Motion animations.
 
 - **Live URL:** https://portfolio-three-ecru-fh5mj1kdyz.vercel.app
 - **GitHub:** CoronaZoro/portfolio
@@ -23,7 +23,7 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 | Styling | Tailwind CSS v4 (`@import "tailwindcss"` — NOT the old directives) |
 | Database | Vercel Postgres (Neon) |
 | Image storage | Vercel Blob |
-| Animations | Framer Motion (installed, not yet wired up) |
+| Animations | Framer Motion (page transition, hero stagger, card reveal/hover, nav scroll fade) + Lenis smooth scroll |
 | Analytics | @vercel/analytics (`<Analytics />` in layout.js) |
 | Fonts | ClashGrotesk (local woff2, body), DM Serif Display (Google, display/headings), DM Sans (Google, UI), Courgette (Google, accent) |
 | Deployment | Vercel (auto-deploy on push to main) |
@@ -34,8 +34,8 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 
 - **`main`** — live site. Every push here auto-deploys to Vercel.
 - **`dev`** — active development branch. All new work goes here.
-- **`huesta-wip`** — old Huesta feature branch (now merged).
-- **`pinned-case-study`** — Pinned case study in progress. Not yet merged to main.
+
+Feature branches (`huesta-wip`, `pinned-case-study`, `devdna-case-study`) are merged into main and deleted locally.
 
 **Rule: never push unfinished work directly to main.**
 
@@ -46,15 +46,15 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 ### Public pages
 | Route | File | Description |
 |---|---|---|
-| `/` | `app/page.js` | Homepage — Hero, Projects, About sections |
+| `/` | `app/page.js` | Homepage — Hero, Selected Works (BentoGrid), About, Contact |
 | `/projects/guardian` | `app/projects/guardian/page.js` | Guardian case study |
 | `/projects/bouzer` | `app/projects/bouzer/page.js` | Bouzer case study |
 | `/projects/attend` | `app/projects/attend/page.js` | Attend case study |
 | `/projects/huesta` | `app/projects/huesta/page.js` | Huesta case study |
-| `/projects/pinned` | `app/projects/pinned/page.js` | Pinned case study (branch: `pinned-case-study`, not yet merged to main) |
-| `/projects/devdna` | `app/projects/devdna/page.js` | DevDNA case study (branch: `devdna-case-study`, not yet merged to main) |
+| `/projects/pinned` | `app/projects/pinned/page.js` | Pinned case study |
+| `/projects/devdna` | `app/projects/devdna/page.js` | DevDNA case study |
 
-### Admin pages (planned — not yet built)
+### Admin pages
 | Route | Description |
 |---|---|
 | `/admin` | Dashboard |
@@ -62,7 +62,14 @@ Personal portfolio for **Randy Dawn Tai** (Sai Ywet Phone Aung), a product desig
 | `/admin/projects` | Edit project cards, reorder, show/hide |
 | `/admin/images` | Upload images to Blob |
 
-Admin routes are protected by `middleware.js` — password checked against `ADMIN_PASSWORD` env var. No Clerk. Cookie-based session, 8-hour expiry.
+Admin routes are protected by `middleware.js` — password checked against `ADMIN_PASSWORD` env var. No Clerk. Signed cookie session, 8-hour expiry (see Middleware below).
+
+### API routes
+| Route | Description |
+|---|---|
+| `/api/profile` | Public GET — contact links for `FooterIcons` on case study pages |
+| `/api/generate` | Public POST — Huesta kit generator (Claude + Unsplash). Rate-limited per IP |
+| `/api/admin/*` | Admin-only writes (profile, projects save/visibility/reorder, images upload/delete). Each calls `await requireAdmin(request)` |
 
 ---
 
@@ -71,21 +78,31 @@ Admin routes are protected by `middleware.js` — password checked against `ADMI
 ```
 app/
   components/
-    Navbar.js         — Fixed top nav, hamburger on mobile, slide-in drawer
-    Hero.js           — Homepage hero section with TypedText easter egg
-    BorderGlow.js     — Cursor-proximity flowing gradient border on project cards
-    BorderGlow.css    — Orphaned CSS file (not imported anywhere, safe to ignore)
-    CustomCursor.js   — Custom cursor component (exists, not yet used globally)
-    TypedText.js      — Keyboard-triggered typing easter egg in hero
-  globals.css         — Tailwind v4 import, font-face declarations, animation keyframes, BorderGlow styles
-  layout.js           — Root layout, fonts, <Analytics />
-  page.js             — Homepage (imports Navbar, Hero, BorderGlow)
+    Navbar.js         — Fixed top nav, scroll-fade background, hamburger + slide-in drawer on mobile
+    Hero.js           — Homepage hero, Framer stagger, TypedText easter egg
+    TypedText.js      — Typing effect on the word "fun." in hero
+    BentoGrid.js      — Selected Works grid, laid out by display_order; per-project CONFIG (accent, fallback image)
+    AboutSection.js   — About section, shows available_from
+    ContactSection.js — Full-page contact section (profile data from DB) + DinoGame
+    DinoGame.js       — Easter-egg mini game in contact section
+    FooterIcons.js    — Contact icon row on case study pages (fetches /api/profile client-side)
+    PageTransition.js — Framer fade-in wrapper, used in layout.js
+    SmoothScroll.js   — Lenis smooth scroll, exposes window.__lenis
+    CustomCursor.js   — X cursor (not used yet — see Upcoming Work)
+  admin/              — Admin pages + client components (NavLinks, DashboardCards, ProfileForm, ProjectsList, ImageUpload)
+  api/                — Route handlers (see API routes above)
+  globals.css         — Tailwind v4 import, ClashGrotesk @font-face, keyframes, .anim-fade-up, typing cursor
+  layout.js           — Root layout, fonts, SmoothScroll, PageTransition, <Analytics />
+  page.js             — Homepage; fetches projects + profile from DB server-side
   projects/
-    guardian/page.js
-    bouzer/page.js
-    attend/page.js
-    huesta/page.js
-    pinned/page.js    — Pinned case study (on pinned-case-study branch)
+    guardian/ bouzer/ attend/ huesta/ pinned/ devdna/  — page.js each (huesta also has KitCard.js)
+lib/
+  db.js               — sql client + requireAdmin()
+  auth.js             — Signed session token + constant-time password check
+  rateLimit.js        — In-memory per-IP rate limiter (login + /api/generate)
+  claude.js           — Huesta prompt + Anthropic call
+  images.js           — Unsplash search
+  colors.js, fonts.js — Huesta palette + Google Fonts helpers
 ```
 
 ---
@@ -110,12 +127,12 @@ app/
 
 **Pinned case study** uses its own dark palette (`#161616` bg, `#242424` cards) with `#2DCC70` green accent and `#FFB800` amber for unconfirmed pin state — intentional, only for that page.
 
-**Animations (CSS, not Framer yet):**
-- `.anim-fade-up` — fadeUp 0.7s, used on sections with `animationDelay`
-- `.anim-fade-down` — fadeDown 0.6s, used on Navbar
-- `.anim-fade-in` — fadeIn 0.8s
+**DevDNA case study** uses `#0d1117` bg, `#161b22` card, `#21262d` border, `#7c6af7` purple accent, JetBrains Mono for terminals — intentional, only for that page.
 
-**BorderGlow effect:** tracks cursor angle via JS, animates a conic-gradient border. Controlled by `--cursor-angle` and `--glow-border-opacity` CSS variables. Only active on project cards (homepage).
+**Animations:**
+- Framer Motion — homepage, Navbar, BentoGrid cards (reveal + hover scale/accent glow), page transition
+- `.anim-fade-up` (CSS) — fadeUp 0.7s with `animationDelay`, used on guardian/pinned/devdna case studies
+- `fadeIn` keyframe — used inline by the attend/bouzer lightbox
 
 ---
 
@@ -152,7 +169,9 @@ display_order     INTEGER
 visible           BOOLEAN DEFAULT TRUE
 updated_at        TIMESTAMP DEFAULT NOW()
 ```
-Seeded with 4 rows: Guardian, Huesta, Bouzer, Attend. (Pinned not yet in DB — add when merging to main.)
+6 rows: Guardian, Bouzer, Huesta, Attend (hidden), Pinned, DevDNA. `scripts/migrate.js` inserts any project whose `case_study_path` is missing — add new case studies to its list and re-run it.
+
+**Homepage data flow:** `app/page.js` loads visible projects ordered by `display_order`, derives `slug` from the last segment of `case_study_path`, and BentoGrid lays them out in that order — rows alternate full width / two-up, and a lone card in a two-up row goes full width. Admin reorder + visibility control the homepage directly. Per-project accent colour and fallback image live in BentoGrid's `CONFIG`, keyed by slug.
 
 ---
 
@@ -161,7 +180,7 @@ Seeded with 4 rows: Guardian, Huesta, Bouzer, Attend. (Pinned not yet in DB — 
 All public images are uploaded to Blob under the `portfolio/` prefix.
 Base URL: `https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/`
 
-All 25 images migrated. Local `/public` files still exist and work — the site currently uses them. The blob URLs are ready for when the admin panel wires up dynamic `thumbnail_url` from the database.
+Pinned and DevDNA pages load images from Blob. Older case studies still use local `/public` files. `thumbnail_url` from the DB overrides the BentoGrid fallback image when set.
 
 ---
 
@@ -188,13 +207,13 @@ BLOB_READ_WRITE_TOKEN
 # Admin password middleware
 ADMIN_PASSWORD          ← must be set manually in Vercel dashboard
 
-# Huesta AI tool (future)
+# Huesta AI tool (/api/generate)
 ANTHROPIC_API_KEY
-UNSPLASH_ACCESS_KEY
+NEXT_PUBLIC_UNSPLASH_ACCESS_KEY   ← read server-side only; UNSPLASH_ACCESS_KEY takes priority if set
 NEXT_PUBLIC_GOOGLE_FONTS_API_KEY
 ```
 
-**ADMIN_PASSWORD** is not set yet — add it in Vercel Dashboard → Settings → Environment Variables before building the admin panel.
+Changing **ADMIN_PASSWORD** logs out all admin sessions (it signs the session cookie).
 
 ---
 
@@ -231,8 +250,9 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 
 `middleware.js` in the project root protects all `/admin` routes.
 
-- **GET `/admin/*`** — checks `admin_auth` cookie against `ADMIN_PASSWORD`
-- **POST `/admin/*`** — validates submitted password, sets 8-hour cookie on success
+- **GET `/admin/*`** — verifies the `admin_auth` cookie: `<expiry>.<HMAC>` signed with `ADMIN_PASSWORD` (`lib/auth.js`). The cookie never holds the password
+- **POST `/admin/*`** — constant-time password check, rate-limited to 10 attempts / 15 min per IP, sets 8-hour cookie and 303-redirects on success
+- Because every POST to `/admin/*` is treated as a login, don't use Server Actions on admin pages — use the `/api/admin/*` routes
 - **Login UI** — minimal dark form rendered inline (no external dependencies)
 - If `ADMIN_PASSWORD` env var is not set, returns `503`
 
@@ -246,15 +266,15 @@ Both scripts use `dotenv` to load `.env.local`. Run from the project root.
 - **Huesta download PNG** — html2canvas download button added to kit output
 - **Profile fields wired** — tagline → Hero, available_from → AboutSection + ContactSection, all contact links → ContactSection; all fetched via `Promise.all` in `page.js`
 - **Admin API auth** — `lib/db.js` centralises `sql` and `requireAdmin()` helper used by all `/api/admin/*` routes
-- **Pinned case study** — `app/projects/pinned/page.js` on branch `pinned-case-study` (not yet merged). Sections: Hero, Overview/Problem, Solution, Wireframes, Design System, Screen Walkthrough (6 screens), Feature Spotlight, Confirm Still Here (Core Mechanic), Reflection. All images live on Vercel Blob.
-- **DevDNA case study** — `app/projects/devdna/page.js` on branch `devdna-case-study` (not yet merged). Sections: Hero, Overview, Solution, Technical, Features (4 rows), Reflection. Design palette: `#0d1117` bg, `#161b22` card, `#21262d` border, `#7c6af7` purple accent, JetBrains Mono for terminals. All image/GIF slots are placeholder divs with comments ready to swap in. DevDNA card added to BentoGrid as static entry (same pattern as Pinned).
+- **Security hardening** — signed admin sessions, login + `/api/generate` rate limits, upload type/size validation, delete restricted to `portfolio/` Blob URLs
+- **Dead code cleanup** — removed BorderGlow, ScrollReveal, unused server actions, Next.js boilerplate SVGs, unused images and CSS
+- **Pinned case study** — `app/projects/pinned/page.js`, merged to main. Sections: Hero, Overview/Problem, Solution, Wireframes, Design System, Screen Walkthrough (6 screens), Feature Spotlight, Confirm Still Here (Core Mechanic), Reflection. All images live on Vercel Blob.
+- **DevDNA case study** — `app/projects/devdna/page.js`, merged to main. Sections: Hero, Overview, Solution, Technical, Features (4 rows), Reflection. One `ImgPlaceholder` slot left; BentoGrid card uses a text fallback banner.
 
 ## Upcoming Work (in order)
 
-1. **Merge Pinned** — PR `pinned-case-study → main`, add Pinned row to `projects` DB table
-2. **Merge DevDNA** — PR `devdna-case-study → main`, swap placeholder divs for real screenshots/GIFs, add DevDNA row to `projects` DB table
-3. **Framer Motion** — page transitions, scroll reveal, project card hover, hero stagger, nav scroll fade
-4. **Custom X cursor** — replaces default cursor, follows mouse via `useMotionValue`
+1. **DevDNA assets** — swap the remaining placeholder and BentoGrid banner for real images
+2. **Custom X cursor** — wire up `CustomCursor.js` via `useMotionValue`
 
 ---
 

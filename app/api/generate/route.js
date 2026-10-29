@@ -8,18 +8,53 @@ import {
   ensureSwatchContrast,
 } from '@/lib/colors'
 import { getFontEmbedUrl } from '@/lib/fonts'
+import { rateLimit, clientIp } from '@/lib/rateLimit'
+
+const MAX_PROMPT_LENGTH = 300
+const MODES = ['search', 'chat']
+
+// Browsers always send Origin on cross-site POSTs — reject other sites calling this API.
+// (Scripts can omit it, which is why the rate limit below is the real guard.)
+function isSameOrigin(req) {
+  const origin = req.headers.get('origin')
+  if (!origin) return true
+  try {
+    return new URL(origin).host === req.headers.get('host')
+  } catch {
+    return false
+  }
+}
 
 export async function POST(req) {
+  if (!isSameOrigin(req)) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 })
+  }
+
+  // Each call costs Anthropic + Unsplash credits — cap per IP
+  const ip = clientIp(req)
+  const perMinute = rateLimit(`generate:min:${ip}`, { limit: 5, windowMs: 60 * 1000 })
+  const perDay    = rateLimit(`generate:day:${ip}`, { limit: 30, windowMs: 24 * 60 * 60 * 1000 })
+  const limited   = !perMinute.ok ? perMinute : !perDay.ok ? perDay : null
+  if (limited) {
+    return NextResponse.json(
+      { error: 'Too many requests — try again in a bit.' },
+      { status: 429, headers: { 'Retry-After': String(limited.retryAfter) } }
+    )
+  }
+
   try {
     const body = await req.json()
     const { prompt, mode } = body
 
-    if (!prompt?.trim()) {
+    if (typeof prompt !== 'string' || !prompt.trim()) {
       return NextResponse.json({ error: 'prompt is required' }, { status: 400 })
+    }
+    if (prompt.length > MAX_PROMPT_LENGTH) {
+      return NextResponse.json({ error: `Keep it under ${MAX_PROMPT_LENGTH} characters.` }, { status: 400 })
     }
 
     // ── 1. Ask Claude for the kit spec ───────────────────────────────────────
-    const spec = await generateKitFromPrompt(prompt.trim(), mode ?? 'search')
+    const spec = await generateKitFromPrompt(prompt.trim(), MODES.includes(mode) ? mode : 'search')
 
     // ── 2. Parallel: generate palette + fetch images ──────────────────────────
     const imageCount = spec.layout === 2 ? 4 : 3
@@ -80,8 +115,8 @@ export async function POST(req) {
 
     return NextResponse.json({ kit })
   } catch (err) {
+    // Log the details server-side; don't echo internals (API errors, key names) to the browser
     console.error('[/api/generate]', err)
-    const message = err instanceof Error ? err.message : String(err)
-    return NextResponse.json({ error: `Failed to generate kit: ${message}` }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to generate kit. Please try again.' }, { status: 500 })
   }
 }

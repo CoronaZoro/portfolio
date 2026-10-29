@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import { sql, requireAdmin } from '../../../../lib/db'
 
 export async function POST(request) {
-  const unauth = requireAdmin(request)
+  const unauth = await requireAdmin(request)
   if (unauth) return unauth
 
   try {
