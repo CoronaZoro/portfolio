@@ -82,23 +82,25 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94], delay }}
     >
-      {/* Middle: scale pop + accent glow on hover */}
-      <motion.div
-        whileHover={{
-          scale: 1.022,
-          boxShadow: `0 0 0 1.5px ${accent}65, 0 8px 40px 0px ${accent}28`,
+      {/* Middle: the whole card is the link — scale pop + accent glow on hover/focus.
+          Hover/focus also propagate the "hover" variant down to the info bar. */}
+      <motion.a
+        href={project.case_study_path}
+        aria-label={`${project.title} — view case study`}
+        initial="rest"
+        animate="rest"
+        whileHover="hover"
+        whileFocus="hover"
+        variants={{
+          rest:  { scale: 1,     boxShadow: `0 0 0 0px ${accent}00` },
+          hover: { scale: 1.022, boxShadow: `0 0 0 1.5px ${accent}65, 0 8px 40px 0px ${accent}28` },
         }}
         transition={{ duration: 0.28, ease: 'easeOut' }}
-        className="rounded-2xl overflow-hidden"
-        style={{ cursor: 'pointer', boxShadow: `0 0 0 0px ${accent}00` }}
+        // Focus ring is an outline, not a ring — the hover glow animates box-shadow inline
+        className="block rounded-2xl overflow-hidden focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4"
+        style={{ outlineColor: accent }}
       >
-        {/* Inner: hover variant propagation for bar */}
-        <motion.div
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
-          className={`relative overflow-hidden ${heightClass}`}
-        >
+        <div className={`relative overflow-hidden ${heightClass}`}>
 
         {/* ── Full-bleed thumbnail / fallback ── */}
         <div className="absolute inset-0">
@@ -141,14 +143,13 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
             {project.short_description}
           </p>
 
-          {/* Row 3: CTA */}
-          <a
-            href={project.case_study_path}
-            className="inline-flex items-center gap-1 text-body font-medium transition-opacity hover:opacity-75"
+          {/* Row 3: CTA (the whole card is the link) */}
+          <span
+            className="inline-flex items-center gap-1 text-body font-medium"
             style={{ color: accent }}
           >
             View case study <span className="ml-0.5">↗</span>
-          </a>
+          </span>
         </motion.div>
 
         {/* ── Mobile bottom strip — always visible, no animation ── */}
@@ -164,8 +165,7 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
             <h3 className="font-heading text-body font-medium text-ink truncate">
               {project.title}
             </h3>
-            <a
-              href={project.case_study_path}
+            <span
               className="inline-flex items-center gap-1 text-body font-medium shrink-0"
               style={{ color: accent }}
             >
@@ -173,12 +173,12 @@ function BentoCard({ project, delay = 0, heightClass = 'min-h-[220px] md:min-h-[
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ flexShrink: 0 }}>
                 <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </a>
+            </span>
           </div>
         </div>
 
-        </motion.div>
-      </motion.div>
+        </div>
+      </motion.a>
     </motion.div>
   )
 }
