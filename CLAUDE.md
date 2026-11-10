@@ -36,9 +36,9 @@ Tailwind v4 `@theme` tokens. Use them instead of raw values.
 
 - **Colours:** `bg-ground` `#0e0c0a`, `bg-surface` `#171512`; text `text-ink` (headings), `text-soft` (paragraphs), `text-muted` (labels/captions). Solid colours, not translucent white. Red `#e63323` only on "fun." in the hero.
 - **Type (4px grid):** `text-display` (40/56/64), `text-head` (28/32/40), `text-lead` (20/24), `text-body` (16), `text-statement` (28/48/64, pull-quotes only). Steps at 768px and 1024px. Nothing readable below 16px.
-- **Fonts:** `font-heading` = ClashGrotesk for titles and section headings; DM Sans (`--font-sans`) for everything else. DM Serif Display (`--font-serif`) is Bouzer's and Huesta's heading face. Courgette (`--font-courgette`) only for "fun.". Monospace only for real code (DevDNA terminal).
+- **Fonts (same on every page):** `font-heading` = ClashGrotesk for page titles (`h1`, `text-display`) and section headings (`h2`, `text-head`); DM Sans (`--font-sans`) for everything else, including item headings (`h3`, `text-lead font-medium`). Courgette (`--font-courgette`) only for "fun.". Monospace only for real code (DevDNA terminal). Huesta's generated kit card uses whatever fonts the generator picks.
 - **No:** eyebrow labels above headings, tiny uppercase tracked labels, 01/02/03 numbering, 1px divider lines. Separate with spacing or a `surface` tone step.
-- **Per-project palettes (intentional):** Bouzer cream `#e8e2d5` + gold; Attend navy `#000211` / blue-grey `#d4dfe9` + blue; Huesta `#0A0A0A`/`#111111` + serif wordmark and rainbow dot; Pinned `#161616`/`#242424` + green `#2DCC70` / amber `#FFB800`; DevDNA `#0d1117`/`#161b22` + purple `#7c6af7`. Accent text uses a lighter (on dark) or darker (on light) shade so it passes 4.5:1 — see the constants at the top of each page.
+- **Per-project colours (intentional — type stays shared):** Bouzer cream `#e8e2d5` + gold; Attend navy `#000211` / blue-grey `#d4dfe9` + blue; Huesta `#0A0A0A`/`#111111` + rainbow dot; Pinned `#161616`/`#242424` + green `#2DCC70` / amber `#FFB800`; DevDNA `#0d1117`/`#161b22` + purple `#7c6af7`. Accent text uses a lighter (on dark) or darker (on light) shade so it passes 4.5:1 — see the constants at the top of each page.
 
 ## Database
 
@@ -57,7 +57,6 @@ Postgres `POSTGRES_URL` (+ Neon variants), `BLOB_READ_WRITE_TOKEN`, `ADMIN_PASSW
 ## Dev notes
 
 - If edits don't show up in `npm run dev`, stop it, `rm -rf .next`, and restart — the Turbopack cache goes stale.
-- Lint has pre-existing `react/no-unescaped-entities` errors in Pinned's copy; the build still passes.
 
 ## Rules
 

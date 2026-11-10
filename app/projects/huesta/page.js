@@ -265,8 +265,7 @@ function TryHuesta() {
       {/* Heading — always visible */}
       <div className="mb-12">
         <h2
-          className="flex items-baseline gap-1.5 mb-4 text-head text-ink"
-          style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+          className="flex items-baseline gap-1.5 mb-4 font-heading text-head font-medium text-ink"
         >
           Try Huesta
           <span style={{
@@ -506,8 +505,7 @@ export default function HuestaPage() {
 
             <div>
               <h1
-                className="mb-5 flex items-baseline gap-1 text-display text-ink"
-                style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+                className="mb-5 flex items-baseline gap-1 font-heading text-display font-medium text-ink"
               >
                 Huesta
                 {/* Rainbow dot — only rainbow usage */}
@@ -568,8 +566,7 @@ export default function HuestaPage() {
             </div>
             <div>
               <h2
-                className="text-head text-ink mb-6 flex items-baseline gap-1"
-                style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+                className="font-heading text-head font-medium text-ink mb-6 flex items-baseline gap-1"
               >
                 Huesta
                 <span
@@ -866,7 +863,7 @@ export default function HuestaPage() {
         {/* ── FOOTER ── */}
         <footer style={{ background: CARD }}>
           <div className="px-6 md:px-10 py-12 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <span className="text-lead text-ink" style={{ fontFamily: 'var(--font-serif)' }}>Huesta</span>
+            <span className="font-heading text-lead font-medium text-ink">Huesta</span>
             <FooterIcons figmaHref="https://www.figma.com/@saiywetphoneaun" />
           </div>
         </footer>

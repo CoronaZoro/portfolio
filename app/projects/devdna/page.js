@@ -397,7 +397,7 @@ export default function DevDNAPage() {
                 {/* Text header row — title left, copy right */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-start mb-12">
                   <div>
-                    <h3 className="font-heading text-head font-medium text-ink">{title}</h3>
+                    <h3 className="text-lead font-medium text-ink">{title}</h3>
                     <p className="text-body font-medium mt-2" style={{ color: ACCENT_TEXT }}>{tag}</p>
                   </div>
                   <p className="text-body lg:pt-1">{copy}</p>
