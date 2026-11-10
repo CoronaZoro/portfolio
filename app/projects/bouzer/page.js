@@ -10,6 +10,7 @@ const screens = [
 ]
 
 // Bouzer's own palette — cream sections with dark text, gold accent.
+// Type follows the shared system (Clash headings, DM Sans body) like every case study.
 // Text on cream uses solid dark tones (all ≥5:1 on CREAM).
 const CREAM       = '#e8e2d5'
 const GOLD        = '#b8933a' // on dark only (6.8:1)
@@ -17,7 +18,6 @@ const GOLD_DARK   = '#7a5c16' // gold for text on cream (4.8:1)
 const INK_DARK    = '#1a1814'
 const SOFT_DARK   = '#4a453e'
 const MUTED_DARK  = '#5f5a51'
-const SERIF       = { fontFamily: 'var(--font-serif)', fontWeight: 400 }
 const FIGMA       = 'https://www.figma.com/design/5RK0oaIpFc1qAGMkXAO8uh/BOUZER-MOCKUP?node-id=0-1&t=BScyvY8dfhxcw8r3-1'
 
 export default function BouzerPage() {
@@ -33,11 +33,11 @@ export default function BouzerPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
               {/* Left */}
               <div>
-                <h1 className="text-display text-ink" style={{ ...SERIF, letterSpacing: '0.02em' }}>
+                <h1 className="font-heading text-display font-medium text-ink">
                   BOUZEUR
                 </h1>
-                <p className="text-head text-muted italic mt-2" style={{ ...SERIF, letterSpacing: '0.02em' }}>
-                  Luxury Redefined
+                <p className="text-lead text-muted mt-2">
+                  Luxury redefined
                 </p>
                 <p className="text-body mt-6 max-w-[40ch]">
                   A concept luxury perfume brand designed to translate the tactile richness of high-end fragrance into a deliberate digital experience.
@@ -66,7 +66,7 @@ export default function BouzerPage() {
         <section style={{ background: CREAM }}>
           <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
             <div>
-              <h2 className="text-head" style={{ ...SERIF, color: INK_DARK }}>
+              <h2 className="font-heading text-head font-medium" style={{ color: INK_DARK }}>
                 A Brand Built,<br />Not a Problem<br />Solved.
               </h2>
               <p className="text-body mt-6" style={{ color: SOFT_DARK }}>
@@ -91,7 +91,7 @@ export default function BouzerPage() {
         {/* ── SELECTED SCREENS — dark ── */}
         <section>
           <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
-            <h2 className="text-head text-ink mb-10" style={SERIF}>Selected Screens</h2>
+            <h2 className="font-heading text-head font-medium text-ink mb-10">Selected screens</h2>
             <ScreenGallery screens={screens} tileBg="#f5f1ea" tileHeight={320} fit="width" />
           </div>
         </section>
@@ -99,7 +99,7 @@ export default function BouzerPage() {
         {/* ── DESIGN DECISIONS — cream ── */}
         <section style={{ background: CREAM }}>
           <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
-            <h2 className="text-head mb-12" style={{ ...SERIF, color: INK_DARK }}>Design Decisions</h2>
+            <h2 className="font-heading text-head font-medium mb-12" style={{ color: INK_DARK }}>Design decisions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
               {[
                 {
@@ -116,7 +116,7 @@ export default function BouzerPage() {
                 },
               ].map(({ title, body }) => (
                 <div key={title}>
-                  <h3 className="text-lead" style={{ ...SERIF, color: GOLD_DARK }}>{title}</h3>
+                  <h3 className="text-lead font-medium" style={{ color: GOLD_DARK }}>{title}</h3>
                   <p className="text-body mt-3" style={{ color: SOFT_DARK }}>{body}</p>
                 </div>
               ))}
@@ -128,7 +128,7 @@ export default function BouzerPage() {
         <section>
           <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto flex flex-col md:flex-row gap-10 md:gap-12 md:items-end md:justify-between">
             <div className="max-w-[60ch]">
-              <h2 className="text-head text-ink" style={SERIF}>What I Learned</h2>
+              <h2 className="font-heading text-head font-medium text-ink">What I learned</h2>
               <p className="text-body mt-4">
                 Bouzeur was my first UI/UX project and it taught me that luxury design is mostly about what you leave out. Getting the spacing right, the type hierarchy consistent, and the visual mood coherent across every screen pushed me to think about design as a system rather than just individual pages.
               </p>
@@ -148,7 +148,7 @@ export default function BouzerPage() {
         {/* ── FOOTER ── */}
         <footer className="bg-surface">
           <div className="px-6 md:px-10 py-12 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <span className="text-lead text-ink" style={{ ...SERIF, letterSpacing: '0.04em' }}>BOUZEUR</span>
+            <span className="font-heading text-lead font-medium text-ink">BOUZEUR</span>
             <FooterIcons figmaHref={FIGMA} />
           </div>
         </footer>

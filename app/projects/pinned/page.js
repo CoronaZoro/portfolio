@@ -327,7 +327,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame1.png" alt="Pinned map view screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   The map is the app.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Map view</p>
@@ -344,7 +344,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame2.png" alt="Pinned pin detail screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   Everything you need before you walk there.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Pin detail</p>
@@ -361,7 +361,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame3.png" alt="Pinned food market cluster screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   When one pin isn&apos;t enough.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Cluster view</p>
@@ -378,7 +378,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame4.png" alt="Pinned add pin step 1 screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   Drop it where it is.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Drop a pin — Step 1</p>
@@ -395,7 +395,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame5.png" alt="Pinned add pin step 2 screen" className="w-full md:w-[320px] block" />
               </div>
               <div>
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   Name it, tag it, rate it.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Drop a pin — Step 2</p>
@@ -412,7 +412,7 @@ export default function PinnedPage() {
                 <img src="https://glvaofqhx5qgyksk.public.blob.vercel-storage.com/portfolio/Pinned_Frame6.png" alt="Pinned user profile screen" className="w-full md:w-[320px] block" />
               </div>
               <div className="md:order-1">
-                <h3 className="font-heading text-head font-medium text-ink">
+                <h3 className="text-lead font-medium text-ink">
                   Your pins, your reputation.
                 </h3>
                 <p className="text-body font-medium mt-2 mb-4" style={{ color: GREEN }}>Profile</p>

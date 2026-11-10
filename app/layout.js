@@ -1,4 +1,4 @@
-import { DM_Sans, DM_Serif_Display, Courgette } from 'next/font/google'
+import { DM_Sans, Courgette } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import PageTransition from './components/PageTransition'
 import SmoothScroll from './components/SmoothScroll'
@@ -15,13 +15,6 @@ const dmSans = DM_Sans({
   variable: '--font-sans',
 })
 
-const dmSerif = DM_Serif_Display({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-})
-
 export const metadata = {
   title: 'Randy Dawn Tai — Product Designer',
   description: 'Product Designer based in Bangkok',
@@ -30,7 +23,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${dmSerif.variable} ${courgette.variable}`}>
+      <body className={`${dmSans.variable} ${courgette.variable}`}>
         <SmoothScroll>
           <PageTransition>{children}</PageTransition>
           <Analytics />

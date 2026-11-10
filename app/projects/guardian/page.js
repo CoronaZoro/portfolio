@@ -67,7 +67,7 @@ export default function GuardianPage() {
         {/* ── Overview ── */}
         <section className="px-6 md:px-10 pb-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           <div className="md:col-span-2">
-            <h2 className="anim-fade-up text-lead font-medium text-ink" style={{ animationDelay: '0.1s' }}>Overview</h2>
+            <h2 className="anim-fade-up font-heading text-head font-medium text-ink" style={{ animationDelay: '0.1s' }}>Overview</h2>
             <p className="anim-fade-up text-body mt-4 max-w-[64ch]" style={{ animationDelay: '0.2s' }}>
               Guardian is a real-time fall detection system built for hospitals, care facilities, and large spaces where staff coverage is limited. It monitors a space 24/7 using a camera feed, automatically detects when a person has fallen, and instantly alerts nearby responders via LINE, all without storing any identifiable facial data.
             </p>
@@ -127,7 +127,7 @@ export default function GuardianPage() {
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
             {IMPACT.map(([title, body], i) => (
               <li key={title} className="anim-fade-up" style={{ animationDelay: `${0.15 + i * 0.1}s` }}>
-                <h3 className="text-body font-medium text-ink">{title}</h3>
+                <h3 className="text-lead font-medium text-ink">{title}</h3>
                 <p className="text-body mt-2 max-w-[56ch]">{body}</p>
               </li>
             ))}
